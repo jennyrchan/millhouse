@@ -18,8 +18,9 @@ const User = db.define('users', {
     allowNull: false
   },
   type: {
-    type: Sequelize.ENUM('unauthenticated', 'authenticated', 'admin'),
-    allowNull: false
+    type: Sequelize.BOOLEAN,
+    allowNull: false,
+    defaultValue: false
   },
   email: {
     type: Sequelize.STRING,
@@ -29,12 +30,21 @@ const User = db.define('users', {
 		}
   },
   phone_number: Sequelize.STRING,
-  shipping_address: Sequelize.STRING,
-  billing_address: Sequelize.STRING,
+  shipping_address: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
+  billing_address: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
 
-  // We support oauth, so users may or may not have passwords.
+  // We support oauth, so users may or may not have passwords. Huh???
   password_digest: Sequelize.STRING,
-	password: Sequelize.VIRTUAL
+	password: {
+    type: Sequelize.VIRTUAL,
+    allowNull: false
+  },
 }, {
 	indexes: [{fields: ['email'], unique: true,}],
   hooks: {
