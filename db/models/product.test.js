@@ -1,35 +1,32 @@
 /* eslint-disable no-unused-expressions */
 'use strict';
 
-var expect = require('chai').expect;
-var Bluebird = require('bluebird');
+const expect = require('chai').expect;
+const Promise = require('bluebird');
+const loremIpsum = require('lorem-ipsum');
 
 const bcrypt = require('bcrypt');
-var db = require('APP/db');
-var Product = require('./product');
+const db = require('APP/db');
+const Product = require('./product');
+
+const testProduct = {
+  title: 'Original Cheerios',
+  summary: loremIpsum({count: 100, units: 'words'}),
+  price: 599,
+  inventory: 80,
+  calories: 100,
+  sugar: 2,
+  fiber: 4,
+  protein: 10,
+};
 
 describe('Product', function() {
 
-  before('wait for the db', () => db.didSync)
+  before('Wait for the db', () => db.didSync);
 
-  beforeEach(function(){
-    return Bluebird.all([
-      Product.create({
-      title: 'CHEERIO, SINGULAR',
-      summary: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.`,
-      price: 123,
-      inventory: 80,
-      calories: 1,
-      sugar: 5,
-      fiber: 1,
-      protein: 800,
-      }),
-      // Product.create({
-      //   summary: 'i am a bad short summary',
-      // })
-    ]);
-  });
+  beforeEach(() => Product.create(testProduct));
 
+  afterEach(() => db.sync({force: true}));
 
   it('has the expected schema definition', function() {
     return Product.findOne({
@@ -38,15 +35,14 @@ describe('Product', function() {
       }
     })
     .then(function(foundProduct) {
-      expect(foundProduct.title).to.equal('CHEERIO, SINGULAR');
-      expect(foundProduct.summary).to.be.a('string');
-      expect(foundProduct.price).to.be.a('number');
-      expect(foundProduct.inventory).to.be.a('number');
-      expect(foundProduct.calories).to.be.a('number');
-      expect(foundProduct.sugar).to.be.a('number');
-      expect(foundProduct.fiber).to.be.a('number');
-      expect(foundProduct.protein).to.be.a('number');
+      expect(foundProduct.title).to.equal(testProduct.title);
+      expect(foundProduct.summary).to.equal(testProduct.summary);
+      expect(foundProduct.price).to.equal(testProduct.price);
+      expect(foundProduct.inventory).to.equal(testProduct.inventory);
+      expect(foundProduct.calories).to.equal(testProduct.calories);
+      expect(foundProduct.sugar).to.equal(testProduct.sugar);
+      expect(foundProduct.fiber).to.equal(testProduct.fiber);
+      expect(foundProduct.protein).to.equal(testProduct.protein);
     });
   });
-
 });

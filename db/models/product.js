@@ -17,7 +17,7 @@ module.exports = db.define('products', {
   },
   inventory: {
     type: Sequelize.INTEGER,
-    allowNull: false,
+    default: 0,
   },
   calories: {
     type: Sequelize.INTEGER,
