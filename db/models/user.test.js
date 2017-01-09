@@ -17,5 +17,11 @@ describe('User', () => {
       User.create({ password: 'ok' })
         .then(user => user.authenticate('not ok'))
         .then(result => expect(result).to.be.false))
+  });
+
+  describe('user model', () => {
+    it('has the expected schema definition', () => {
+      expect(User.attributes.email).to.be.an('object');
+    });
   })
 })
