@@ -22,5 +22,13 @@ module.exports = db.define('products', {
   calories: {
     type: Sequelize.INTEGER,
   },
-
+  sugar: {
+    type: Sequelize.INTEGER,
+  },
+  fiber: {
+    type: Sequelize.INTEGER,
+  },
+  protein: {
+    type: Sequelize.INTEGER,
+  },
 });
