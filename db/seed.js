@@ -2,10 +2,12 @@
 
 const chance = require('chance')(123);
 const Promise = require('bluebird');
+const colors = require('colors');
 
 const db = require('APP/db');
 const User = require('APP/db/user');
 const Review = require('APP/db/review');
+const Product = require('APP/db/product');
 const Order = require('APP/db/order');
 
 const numUsers = 100;
@@ -37,16 +39,15 @@ function randUser () {
     photo: randPhoto(),
     phone: chance.phone(),
     email: emails.pop(),
+    billingAddress: chance.address(),
+    shippingAddress: chance.address(),
     password: chance.word(),
     isAdmin: chance.weighted([true, false], [5, 95])
   });
 }
 
 function randTitle () {
-  const numWords = chance.natural({
-    min: 1,
-    max: 8
-  });
+  const numWords = chance.natural({ min: 3, max: 8 });
   return chance.sentence({words: numWords})
   .replace(/\b\w/g, function (m) {
     return m.toUpperCase();
@@ -56,52 +57,83 @@ function randTitle () {
 
 function randReview (createdUsers) {
   const user = chance.pick(createdUsers);
+  const productId = chance.natural({ min: 1, max: products.length });
   return Review.build({
     author_id: user.id,
+    product_id: productId,
     title: randTitle(),
     body: chance.paragraph()
   });
 }
 
 function generateUsers () {
-  let users = doTimes(numUsers, randUser);
+  const users = doTimes(numUsers, randUser);
   users.push(User.build({
-    name: 'Brian Nichols',
+    firstName: 'Brian',
+    lastName: 'Nichols',
     photo: 'http://learndotresources.s3.amazonaws.com/workshop/55e5c92fe859dc0300619bc8/zeke-astronaut.png',
-    phone: '(914) 886-2284',
+    phone: '(212) 867-5309',
     email: 'brian@brian.brian',
     password: '123',
     isAdmin: true
   }));
   users.push(User.build({
-    name: 'Colin Jaffe',
+    firstName: 'Colin',
+    lastName: 'Jaffe',
     photo: 'http://learndotresources.s3.amazonaws.com/workshop/55e5c92fe859dc0300619bc8/sloth.jpg',
-    phone: '(781) 854-8854',
+    phone: chance.phone(),
     email: 'colin@colin.colin',
-    password: '123'
+    password: '123',
+    isAdmin: true
   }));
   users.push(User.build({
-    name: 'Jenny Chan',
+    firstName: 'Jenny',
+    lastName: 'Chan',
     photo: 'http://learndotresources.s3.amazonaws.com/workshop/55e5c92fe859dc0300619bc8/sloth.jpg',
-    phone: '(212) 867-5309',
+    phone: chance.phone(),
     email: 'jenny@jenny.jenny',
     password: '123'
   }));
   users.push(User.build({
-    name: 'Richard Shyong',
+    firstName: 'Richard',
+    lastName: 'Shyong',
     photo: 'http://learndotresources.s3.amazonaws.com/workshop/55e5c92fe859dc0300619bc8/sloth.jpg',
-    phone: '(781) 854-8832',
+    phone: chance.phone(),
     email: 'rich@rich.rich',
     password: '123'
   }));
   return users;
 }
 
-const seedUsers = () => db.Promise.map(generateUsers(), user => db.model('users').create(user))
+function generateReviews (createdUsers) {
+  return doTimes(numReviews, function () {
+    return randReview(createdUsers);
+  });
+}
+
+function createUsers () {
+  return Promise.map(generateUsers(), user => {
+    return user.save();
+  });
+}
+
+function createReviews (createdUsers) {
+  return Promise.map(generateReviews(createdUsers), function (review) {
+    return review.save();
+  });
+}
+
+function seed () {
+  return Product.bulkCreate(products)
+    .then(createUsers())
+    .then(createdUsers => {
+      return createReviews(createdUsers);
+  });
+}
 
 db.didSync
   .then(() => db.sync({force: true}))
-  .then(seedUsers)
-  .then(users => console.log(`Seeded ${users.length} users OK`))
+  .then(seed)
+  .then(users => console.log(`Seeded ${users.length} users OK`.yellow))
   .catch(error => console.error(error))
   .finally(() => db.close())
