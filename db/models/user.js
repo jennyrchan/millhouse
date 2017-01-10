@@ -51,6 +51,11 @@ const User = db.define('users', {
     beforeCreate: setEmailAndPassword,
     beforeUpdate: setEmailAndPassword,
   },
+  getterMethods: {
+    fullName: function() {
+      return this.first_name + " " + this.last_name;
+    }
+  },
   instanceMethods: {
     authenticate(plaintext) {
       return new Promise((resolve, reject) =>
