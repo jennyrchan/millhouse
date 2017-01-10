@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-expressions */
+/* eslint-disable no-unused-expressions, no-unused-vars */
 'use strict';
 
 const expect = require('chai').expect;
@@ -15,12 +15,13 @@ const testProduct = {
   price: 599,
   inventory: 80,
   calories: 100,
-  sugar: 2,
-  fiber: 4,
-  protein: 10,
+  sugar: 1,
+  fiber: 17,
+  protein: 2,
+  img: 'image.jpeg',
 };
 
-describe('Product', function() {
+describe('MODELS: Product', function() {
 
   before('Wait for the db', () => db.didSync);
 
@@ -28,7 +29,7 @@ describe('Product', function() {
 
   afterEach(() => db.sync({force: true}));
 
-  it('has the expected schema definition', function() {
+  it('has the expected schema definitions', function() {
     return Product.findOne({
       where: {
         id: 1
@@ -45,4 +46,27 @@ describe('Product', function() {
       expect(foundProduct.protein).to.equal(testProduct.protein);
     });
   });
+
+  it('converts an image filename to a full URL', function() {
+    return Product.findOne({
+      where: {
+        id: 1
+      }
+    })
+    .then(function(foundProduct) {
+      expect(foundProduct.image).to.equal(`http://millhouse/img/${foundProduct.img}`);
+    });
+  });
+
+  it('infers a category for the product', function() {
+    return Product.findOne({
+      where: {
+        id: 1
+      }
+    })
+    .then(function(foundProduct) {
+      expect(foundProduct.category).to.equal('Healthy');
+    });
+  });
+
 });
