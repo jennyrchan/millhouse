@@ -6,5 +6,8 @@
 
 const User = require('./user');
 const Product = require('./product');
+const Review = require('./review');
 
-module.exports = {User, Product};
+Review.belongsTo(User);
+
+module.exports = {User, Product, Review};

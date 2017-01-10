@@ -18,8 +18,9 @@ const testProduct = {
   sugar: 1,
   fiber: 17,
   protein: 2,
-  img: 'image.jpeg',
 };
+
+const reviewRatings = [4, 3, 5, 5, 2, 5, 5];
 
 describe('MODELS: Product', function() {
 
@@ -48,13 +49,16 @@ describe('MODELS: Product', function() {
   });
 
   it('converts an image filename to a full URL', function() {
+
+    const imgName = testProduct.title.split(' ').join('-');
+
     return Product.findOne({
       where: {
         id: 1
       }
     })
     .then(function(foundProduct) {
-      expect(foundProduct.image).to.equal(`http://millhouse/img/${foundProduct.img}`);
+      expect(foundProduct.image).to.equal(`http://millhouse/img/${imgName}.jpeg`);
     });
   });
 
@@ -66,6 +70,19 @@ describe('MODELS: Product', function() {
     })
     .then(function(foundProduct) {
       expect(foundProduct.category).to.equal('Healthy');
+    });
+  });
+
+  xit('averages user review ratings', function() {
+
+    return Product.findOne({
+      where: {
+        id: 1
+      }
+    })
+    .then(function(foundProduct) {
+      foundProduct.setRating(reviewRatings);
+      expect(foundProduct.averageRating).to.equal(4.14);
     });
   });
 
