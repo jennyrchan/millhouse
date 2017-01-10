@@ -8,6 +8,7 @@ const loremIpsum = require('lorem-ipsum');
 const bcrypt = require('bcrypt');
 const db = require('APP/db');
 const Product = require('./product');
+const Review = require('./review');
 
 const testProduct = {
   title: 'Original Cheerios',
@@ -20,31 +21,31 @@ const testProduct = {
   protein: 2,
 };
 
+let product;
+
 const reviewRatings = [4, 3, 5, 5, 2, 5, 5];
 
 describe('MODELS: Product', function() {
 
   before('Wait for the db', () => db.didSync);
 
-  beforeEach(() => Product.create(testProduct));
+  beforeEach(() => {
+    product = Product.build(testProduct);
+  });
 
   afterEach(() => db.sync({force: true}));
 
   it('has the expected schema definitions', function() {
-    return Product.findOne({
-      where: {
-        id: 1
-      }
-    })
-    .then(function(foundProduct) {
-      expect(foundProduct.title).to.equal(testProduct.title);
-      expect(foundProduct.summary).to.equal(testProduct.summary);
-      expect(foundProduct.price).to.equal(testProduct.price);
-      expect(foundProduct.inventory).to.equal(testProduct.inventory);
-      expect(foundProduct.calories).to.equal(testProduct.calories);
-      expect(foundProduct.sugar).to.equal(testProduct.sugar);
-      expect(foundProduct.fiber).to.equal(testProduct.fiber);
-      expect(foundProduct.protein).to.equal(testProduct.protein);
+    return product.save()
+    .then(function(savedProduct) {
+      expect(savedProduct.title).to.equal(testProduct.title);
+      expect(savedProduct.summary).to.equal(testProduct.summary);
+      expect(savedProduct.price).to.equal(testProduct.price);
+      expect(savedProduct.inventory).to.equal(testProduct.inventory);
+      expect(savedProduct.calories).to.equal(testProduct.calories);
+      expect(savedProduct.sugar).to.equal(testProduct.sugar);
+      expect(savedProduct.fiber).to.equal(testProduct.fiber);
+      expect(savedProduct.protein).to.equal(testProduct.protein);
     });
   });
 
@@ -52,38 +53,43 @@ describe('MODELS: Product', function() {
 
     const imgName = testProduct.title.split(' ').join('-');
 
-    return Product.findOne({
-      where: {
-        id: 1
-      }
-    })
-    .then(function(foundProduct) {
-      expect(foundProduct.image).to.equal(`http://millhouse/img/${imgName}.jpeg`);
+    return product.save()
+    .then(function(savedProduct) {
+      expect(savedProduct.image).to.equal(`http://millhouse/img/${imgName}.jpeg`);
     });
   });
 
   it('infers a category for the product', function() {
-    return Product.findOne({
-      where: {
-        id: 1
-      }
-    })
-    .then(function(foundProduct) {
-      expect(foundProduct.category).to.equal('Healthy');
+    return product.save()
+    .then(function(savedProduct) {
+      expect(savedProduct.category).to.equal('Healthy');
     });
   });
 
-  xit('averages user review ratings', function() {
+  it('averages user review ratings', function() {
 
-    return Product.findOne({
-      where: {
-        id: 1
-      }
+    const testReviews = [{
+      title: 'Cheerios are amazing!',
+      body: loremIpsum({count: 200, units: 'words'}),
+      rating: '5',
+      product_id: 1
+    }, {
+      title: 'Cheerios are fine.',
+      body: loremIpsum({count: 200, units: 'words'}),
+      rating: '2',
+      product_id: 1
+    }];
+
+    return product.save()
+    .then(savedProduct => {
+      return Review.bulkCreate(testReviews);
     })
-    .then(function(foundProduct) {
-      foundProduct.setRating(reviewRatings);
-      expect(foundProduct.averageRating).to.equal(4.14);
+    .then(() => {
+      return Product.findById(1);
+    })
+    .then(foundReview => foundReview.getAverageRating())
+    .then(averageRating => {
+      expect(averageRating).to.equal(3.50);
     });
   });
-
 });

@@ -1,4 +1,6 @@
+/*eslint-disable*/
 const bcrypt = require('bcrypt');
+/*eslint-enable*/
 
 const Sequelize = require('sequelize');
 const db = require('APP/db');
@@ -31,10 +33,10 @@ module.exports = db.define('products', {
   protein: {
     type: Sequelize.INTEGER,
   },
-  // averageRating: {
-  //   type: Sequelize.FLOAT,
-  //   defaultValue: 0.00
-  // }
+  averageRating: {
+    type: Sequelize.FLOAT,
+    defaultValue: 5.00
+  }
 },
 {
   getterMethods: {
@@ -47,13 +49,19 @@ module.exports = db.define('products', {
       ? 'Healthy'
       : 'Hearty';
     },
-    // averageRating: function(reviews) {
-    //   console.log(typeof reviews);
-    //   const sum = reviews.reduce((a, b) => {
-    //     return a + b;
-    //   }, 0);
-    //
-    //   return Math.floor(sum / reviews.length * 100) / 100;
-    // }
   },
+    instanceMethods: {
+    getAverageRating: function() {
+      return this.getReviews()
+        .then(reviews => {
+          let sum = 0;
+          reviews.forEach(review => {
+            sum += review.rating;
+          });
+          const averageRating = Math.floor(sum / reviews.length * 100) / 100;
+          console.log('AVERAGERATING  ', averageRating);
+          return averageRating;
+        });
+    }
+  }
 });
