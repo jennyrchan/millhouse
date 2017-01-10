@@ -12,7 +12,7 @@ const Review = require('./review');
 const testReview = {
   title: 'Cheerios are amazing!',
   body: loremIpsum({count: 200, units: 'words'}),
-  rating: '5'
+  rating: 5
 };
 
 let review;
@@ -87,14 +87,23 @@ describe('MODELS: Review', function() {
       });
     });
 
-    // it('must have a rating of 1-5', function() {
-    //   review.rating = '6';
-    //
-    //   return review.validate()
-    //   .then((savedReview) => {
-    //     console.log('ERROR????', savedReview);
-    //     expect(savedReview).to.equal(null);
-    //   });
-    // });
+    it('must have a rating of 1-5', function() {
+      review.rating = 6;
+
+      return review.validate()
+      .then((savedReview) => {
+        expect(savedReview).to.be.an.instanceOf(Error);
+        expect(savedReview.message).to.contain('Validation max failed');
+      });
+
+      review.rating = 0;
+
+      return review.validate()
+      .then((savedReview) => {
+        expect(savedReview).to.be.an.instanceOf(Error);
+        expect(savedReview.message).to.contain('Validation min failed');
+      });
+
+    });
   });
 });

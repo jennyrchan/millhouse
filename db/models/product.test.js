@@ -85,15 +85,11 @@ describe('MODELS: Product', function() {
       return Review.bulkCreate(testReviews);
     })
     .then(() => {
-      return Product.findOne({
-        where: {
-          id: 1
-        }
-      });
+      return Product.findById(1);
     })
-    .then(foundReview => {
-      expect(foundReview.averageRating).to.equal(3.50);
+    .then(foundReview => foundReview.getAverageRating())
+    .then(averageRating => {
+      expect(averageRating).to.equal(3.50);
     });
   });
-
 });

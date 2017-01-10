@@ -19,7 +19,11 @@ module.exports = db.define('review', {
     }
   },
   rating: {
-    type: Sequelize.ENUM('1', '2', '3', '4', '5'),
-    allowNull: false
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    validate: {
+      min: 1,
+      max: 5
+    },
   }
 });

@@ -1,8 +1,9 @@
+/*eslint-disable*/
 const bcrypt = require('bcrypt');
+/*eslint-enable*/
 
 const Sequelize = require('sequelize');
 const db = require('APP/db');
-const Review = require('./review');
 
 module.exports = db.define('products', {
   title: {
@@ -33,8 +34,8 @@ module.exports = db.define('products', {
     type: Sequelize.INTEGER,
   },
   averageRating: {
-    type: Sequelize.STRING,
-    defaultValue: '0.00'
+    type: Sequelize.FLOAT,
+    defaultValue: 5.00
   }
 },
 {
@@ -48,23 +49,19 @@ module.exports = db.define('products', {
       ? 'Healthy'
       : 'Hearty';
     },
-    averageRating: function() {
-      let rating;
-
-      Review.findAll({
-        where: {
-          product_id: this.id
-        }
-      })
-      .then(reviews => {
-        const sum = reviews.reduce((a, b) => {
-          return Number(a.rating) + Number(b.rating);
-        }, 0);
-
-        rating = Math.floor(sum / reviews.length * 100) / 100;
-      });
-
-      return String(rating);
-    }
   },
+    instanceMethods: {
+    getAverageRating: function() {
+      return this.getReviews()
+        .then(reviews => {
+          let sum = 0;
+          reviews.forEach(review => {
+            sum += review.rating;
+          });
+          const averageRating = Math.floor(sum / reviews.length * 100) / 100;
+          console.log('AVERAGERATING  ', averageRating);
+          return averageRating;
+        });
+    }
+  }
 });
