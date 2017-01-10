@@ -5,15 +5,15 @@ const Sequelize = require('sequelize');
 const db = require('APP/db');
 
 const User = db.define('users', {
-    first_name: {
+    firstName: {
       type: Sequelize.STRING,
       allowNull: false
     },
-    last_name: {
+    lastName: {
       type: Sequelize.STRING,
       allowNull: false
     },
-    type: {
+    isAdmin: {
         type: Sequelize.BOOLEAN,
         allowNull: false,
         defaultValue: false
@@ -25,12 +25,12 @@ const User = db.define('users', {
             notEmpty: true,
         }
     },
-    phone_number: Sequelize.STRING,
-    shipping_address: {
+    phoneNumber: Sequelize.STRING,
+    shippingAddress: {
       type: Sequelize.STRING,
       allowNull: false
     },
-    billing_address: {
+    billingAddress: {
       type: Sequelize.STRING,
       allowNull: false
     },
@@ -46,7 +46,7 @@ const User = db.define('users', {
     },
     getterMethods: {
         fullName: function() {
-            return this.first_name + ' ' + this.last_name;
+            return this.firstName + ' ' + this.lastName;
         }
     },
     instanceMethods: {

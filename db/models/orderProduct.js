@@ -6,10 +6,9 @@ const OrderProduct = db.define('orderProducts', {
       type: Sequelize.INTEGER,
       allowNull: false,
     },
-    price: {
+    priceAtPurchase: {
       type: Sequelize.INTEGER,
-      allowNull: false,
-      defaultValue: 0
+      allowNull: false
     }
 });
 

@@ -1,41 +1,29 @@
 'use strict'
 
-const Sequelize = require('sequelize')
 const db = require('APP/db');
-const Product = require('./product');
 
-const Order = db.define('orders', {
-    orderItems: {
-      type: Sequelize.ARRAY(Sequelize.INTEGER),
-      allowNull: false,
-      set: function(val) {
-        findTotalSum();
-        this.setDataValue('totalPrice', val);
-      }
-    },
-    totalPrice: {
-      type: Sequelize.INTEGER,
-      allowNull: false,
-      defaultValue: 0
-    }
-}, {
+const Order = db.define('orders', {}, {
     instanceMethods: {
-      getTotalPrice: findTotalSum
+      getTotalPrice
     }
 });
 
-function findTotalSum(order) {
-  let allItems = order.orderItems;
+function getTotalPrice(order) {
   let sum = 0;
-  for (let e of allItems) {
-    Product.findById(e)
-    .then(product => {
-      sum += product.price;
-    })
-    .then(() => {
+  return this.getProducts()
+    .then(productsArray => {
+      productsArray.forEach(product => {
+        sum += product.orderProducts.priceAtPurchase * product.orderProducts.quantity;
+      })
       return sum;
     });
-  }
 }
 
 module.exports = Order;
+
+// Notes for when we make a route to add items to shopping cart
+// Order.create()
+// .then(createdOrder => {
+//   createdOrder.addProduct(someObjectWithProductIdQuantityAndPrice)
+// })
+
