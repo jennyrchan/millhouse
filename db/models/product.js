@@ -31,4 +31,13 @@ module.exports = db.define('products', {
   protein: {
     type: Sequelize.INTEGER,
   },
+},
+{
+  getterMethods: {
+    category: function() {
+      return this.calories < 200
+      ? 'Healthy'
+      : 'Hearty';
+    }
+  }
 });
