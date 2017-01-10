@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt');
 
 const Sequelize = require('sequelize');
 const db = require('APP/db');
+const Review = require('./review');
 
 module.exports = db.define('products', {
   title: {
@@ -31,10 +32,10 @@ module.exports = db.define('products', {
   protein: {
     type: Sequelize.INTEGER,
   },
-  // averageRating: {
-  //   type: Sequelize.FLOAT,
-  //   defaultValue: 0.00
-  // }
+  averageRating: {
+    type: Sequelize.STRING,
+    defaultValue: '0.00'
+  }
 },
 {
   getterMethods: {
@@ -47,13 +48,23 @@ module.exports = db.define('products', {
       ? 'Healthy'
       : 'Hearty';
     },
-    // averageRating: function(reviews) {
-    //   console.log(typeof reviews);
-    //   const sum = reviews.reduce((a, b) => {
-    //     return a + b;
-    //   }, 0);
-    //
-    //   return Math.floor(sum / reviews.length * 100) / 100;
-    // }
+    averageRating: function() {
+      let rating;
+
+      Review.findAll({
+        where: {
+          product_id: this.id
+        }
+      })
+      .then(reviews => {
+        const sum = reviews.reduce((a, b) => {
+          return Number(a.rating) + Number(b.rating);
+        }, 0);
+
+        rating = Math.floor(sum / reviews.length * 100) / 100;
+      });
+
+      return String(rating);
+    }
   },
 });
