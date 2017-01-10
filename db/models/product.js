@@ -59,7 +59,6 @@ module.exports = db.define('products', {
             sum += review.rating;
           });
           const averageRating = Math.floor(sum / reviews.length * 100) / 100;
-          console.log('AVERAGERATING  ', averageRating);
           return averageRating;
         });
     }

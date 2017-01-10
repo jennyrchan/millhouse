@@ -2,16 +2,16 @@
 
 const db = require('APP/db')
 const Order = require('./order')
+const Product = require('./product');
+const OrderProduct = require('./orderProduct');
 const { expect } = require('chai')
 import chai from 'chai';
 import chaiProperties from 'chai-properties';
 import chaiThings from 'chai-things';
 chai.use(chaiProperties);
 chai.use(chaiThings);
-const Product = require('./product');
-const OrderProduct = require('./orderProduct');
 
-describe('Order', () => {
+describe('MODELS: Order', () => {
     before('wait for the db', () => db.didSync);
 
     const testOrder = {}
@@ -42,27 +42,23 @@ describe('Order', () => {
       product_id: 2
     }
 
-    beforeEach('create productOne', () => Product.create(productOne));
-    beforeEach('create productTwo', () => Product.create(productTwo));
-    beforeEach('create testOrder', () => Order.create(testOrder));
-    beforeEach('create orderProductOne', () => OrderProduct.create(orderProductOne));
-    beforeEach('create orderProductTwo', () => OrderProduct.create(orderProductTwo));
-    afterEach('remove testOrder', () => db.sync({ force: true }));
+    before('create productOne', () => Product.create(productOne));
+    before('create productTwo', () => Product.create(productTwo));
+    before('create testOrder', () => Order.create(testOrder));
+    before('create orderProductOne', () => OrderProduct.create(orderProductOne));
+    before('create orderProductTwo', () => OrderProduct.create(orderProductTwo));
+    after('remove testOrder', () => db.sync({ force: true }));
 
-    describe('model', () => {
-
-        it('checks to make sure totalPrice is sum of products', () => {
-            return Order.findById(1)
-                .then(order => {
-                    return order.getTotalPrice();
-                })
-                .then(sum => {
-                    expect(sum).to.equal(5);
-                }, err => {
-                    console.log('ERROR', err);
-                })
-        });
-
+    it('verifies that getTotalPrice returns sum of product prices', () => {
+        return Order.findById(1)
+            .then(order => {
+                return order.getTotalPrice();
+            })
+            .then(sum => {
+                expect(sum).to.equal(5);
+            }, err => {
+                console.log('ERROR', err);
+            })
     });
 });
 
