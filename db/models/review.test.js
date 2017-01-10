@@ -18,26 +18,85 @@ const testReview = {
 // const badReview = {
 //
 // }
+let review;
 
 describe('MODELS: Review', function() {
 
   before('Wait for the db', () => db.didSync);
 
-  beforeEach(() => Review.create(testReview));
+  beforeEach(() => {
+    review = Review.build(testReview);
+  });
 
   afterEach(() => db.sync({force: true}));
 
   it('has the expected schema definitions', function() {
-    return Review.findOne({
-      where: {
-        id: 1
-      }
-    })
-    .then(function(foundReview) {
-      expect(foundReview.title).to.equal(testReview.title);
-      expect(foundReview.body).to.equal(testReview.body);
-      expect(foundReview.rating).to.equal(testReview.rating);
+    return review.save()
+    .then((savedReview) => {
+      expect(savedReview.title).to.equal(testReview.title);
+      expect(savedReview.body).to.equal(testReview.body);
+      expect(savedReview.rating).to.equal(testReview.rating);
     });
   });
 
+  describe('validations', function() {
+    it('doesn’t allow null titles', function() {
+      review.title = null;
+
+      return review.validate()
+      .then((savedReview) => {
+        expect(savedReview).to.be.an.instanceOf(Error);
+        expect(savedReview.message).to.contain('title cannot be null');
+      });
+    });
+
+    it('doesn’t allow blank titles', function() {
+      review.title = '';
+
+      return review.validate()
+      .then((savedReview) => {
+        expect(savedReview).to.be.an.instanceOf(Error);
+        expect(savedReview.message).to.contain('notEmpty failed');
+      });
+    });
+
+    it('doesn’t allow null bodies', function() {
+      review.body = null;
+
+      return review.validate()
+      .then((savedReview) => {
+        expect(savedReview).to.be.an.instanceOf(Error);
+        expect(savedReview.message).to.contain('body cannot be null');
+      });
+    });
+
+    it('doesn’t allow blank bodies', function() {
+      review.body = '';
+
+      return review.validate()
+      .then((savedReview) => {
+        expect(savedReview).to.be.an.instanceOf(Error);
+        expect(savedReview.message).to.contain('notEmpty failed');
+      });
+    });
+
+    it('doesn’t allow null ratings', function() {
+      review.rating = null;
+
+      return review.validate()
+      .then((savedReview) => {
+        expect(savedReview).to.be.an.instanceOf(Error);
+        expect(savedReview.message).to.contain('rating cannot be null');
+      });
+    });
+
+    it('must have a rating of 1-5', function() {
+      review.rating = '6';
+
+      return review.validate()
+      .then((savedReview) => {
+        expect(savedReview).to.equal(null);
+      });
+    });
+  });
 });
