@@ -1,14 +1,16 @@
 'use strict';
 
+const bcrypt = require('bcrypt');
+const colors = require('colors');
+
 const chance = require('chance')(123);
 const Promise = require('bluebird');
-const colors = require('colors');
 
 const db = require('APP/db');
 const User = require('APP/db/user');
 const Review = require('APP/db/review');
 const Product = require('APP/db/product');
-const Order = require('APP/db/order');
+// const Order = require('APP/db/order');
 
 const numUsers = 100;
 const numReviews = 500;
