@@ -36,7 +36,8 @@ function randPhoto () {
 
 function randUser () {
   return User.build({
-    name: [chance.first(), chance.last()].join(' '),
+    firstName: chance.first(),
+    lastName: chance.last(),
     photo: randPhoto(),
     phone: chance.phone(),
     email: emails.pop(),

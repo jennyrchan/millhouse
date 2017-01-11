@@ -1,4 +1,4 @@
-module.exports = [
+[
   {
     "title": "Original",
     "summary": "A family favorite for years. Its wholesome goodness is good for heart health, too.",
@@ -7,7 +7,7 @@ module.exports = [
     "calories": 100,
     "sugar": 1,
     "fiber": 3,
-    "protein": 3,
+    "protein": 3
   },
   {
     "title": "Honey Nut",
@@ -27,7 +27,7 @@ module.exports = [
     "calories": 110,
     "sugar": 6,
     "fiber": 3,
-    "protein": 2,
+    "protein": 2
   },
   {
     "title": "Apple Cinnamon",
@@ -37,7 +37,7 @@ module.exports = [
     "calories": 120,
     "sugar": 10,
     "fiber": 2,
-    "protein": 2,
+    "protein": 2
   },
   {
     "title": "Fruity",
@@ -47,7 +47,7 @@ module.exports = [
     "calories": 100,
     "sugar": 8,
     "fiber": 2,
-    "protein": 2,
+    "protein": 2
   },
   {
     "title": "Frosted",
@@ -57,7 +57,7 @@ module.exports = [
     "calories": 100,
     "sugar": 9,
     "fiber": 2,
-    "protein": 2,
+    "protein": 2
   },
   {
     "title": "Protein",
@@ -67,7 +67,7 @@ module.exports = [
     "calories": 210,
     "sugar": 17,
     "fiber": 4,
-    "protein": 7,
+    "protein": 7
   },
   {
     "title": "Ancient Grains",
@@ -77,7 +77,7 @@ module.exports = [
     "calories": 110,
     "sugar": 5,
     "fiber": 2,
-    "protein": 3,
+    "protein": 3
   },
   {
     "title": "Pumpkin Spice",
@@ -87,6 +87,6 @@ module.exports = [
     "calories": 110,
     "sugar": 8,
     "fiber": 3,
-    "protein": 2,
+    "protein": 2
   }
 ]
