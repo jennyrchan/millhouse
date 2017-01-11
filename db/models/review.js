@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const Sequelize = require('sequelize');
 const db = require('APP/db');
 
-module.exports = db.define('reviews', {
+const Review = db.define('reviews', {
   title: {
     type: Sequelize.STRING,
     allowNull: false,
@@ -27,3 +27,5 @@ module.exports = db.define('reviews', {
     },
   }
 });
+
+module.exports = Review;
