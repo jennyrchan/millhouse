@@ -15,7 +15,7 @@ describe('MODELS: User', () => {
     const testUser = {
         firstName: 'Test',
         lastName: 'Ing',
-        isAdmin: true,
+        userType: 'admin',
         email: 'testing@me.com',
         shippingAddress: 'shipping',
         billingAddress: 'billing',
@@ -46,7 +46,7 @@ describe('MODELS: User', () => {
             .then(user => {
                 expect(user.firstName).to.equal(testUser.firstName);
                 expect(user.lastName).to.equal(testUser.lastName);
-                expect(user.isAdmin).to.equal(testUser.isAdmin);
+                expect(user.userType).to.equal(testUser.userType);
                 expect(user.email).to.equal(testUser.email);
                 expect(user.shippingAddress).to.equal(testUser.shippingAddress);
                 expect(user.billingAddress).to.equal(testUser.billingAddress);
@@ -55,7 +55,7 @@ describe('MODELS: User', () => {
     });
 
     describe('validations', () => {
-        it('require first name, last name, email, shipping address, billing address, and password to not be null', () => {
+        it('require first name, last name, user type, email, shipping address, billing address, and password to not be null', () => {
             const user = User.build();
             return user.validate()
                 .then(err => {
