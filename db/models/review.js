@@ -20,7 +20,7 @@ module.exports = db.define('review', {
   },
   rating: {
     type: Sequelize.INTEGER,
-    allowNull: false,
+    defaultValue: 5,
     validate: {
       min: 1,
       max: 5

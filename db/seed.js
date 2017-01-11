@@ -7,16 +7,15 @@ const chance = require('chance')(123);
 const Promise = require('bluebird');
 
 const db = require('APP/db');
-const User = require('APP/db/user');
-const Review = require('APP/db/review');
-const Product = require('APP/db/product');
-// const Order = require('APP/db/order');
+const User = require('APP/db/models/user');
+const Review = require('APP/db/models/review');
+const Product = require('APP/db/models/product');
 
 const numUsers = 100;
 const numReviews = 500;
 
 const emails = chance.unique(chance.email, numUsers);
-const products = require('./productsSeed.json');
+const products = require('./productsSeed');
 
 function doTimes (n, fn) {
   const results = [];

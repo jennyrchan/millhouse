@@ -68,6 +68,7 @@
     "chai": "^3.5.0",
     "chai-properties": "^1.2.1",
     "chai-things": "^0.2.0",
+    "chance": "^1.0.4",
     "mocha": "^3.1.2",
     "supertest": "^2.0.1",
     "supertest-as-promised": "^4.0.1",

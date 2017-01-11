@@ -1,4 +1,4 @@
-[
+module.exports = [
   {
     "title": "Original",
     "summary": "A family favorite for years. Its wholesome goodness is good for heart health, too.",
@@ -89,4 +89,4 @@
     "fiber": 3,
     "protein": 2,
   }
-];
+]
