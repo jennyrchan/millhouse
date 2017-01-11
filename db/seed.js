@@ -39,12 +39,12 @@ function randUser () {
     firstName: chance.first(),
     lastName: chance.last(),
     photo: randPhoto(),
-    phone: chance.phone(),
+    phoneNumber: chance.phone(),
     email: emails.pop(),
     billingAddress: chance.address(),
     shippingAddress: chance.address(),
     password: chance.word(),
-    isAdmin: chance.weighted([true, false], [5, 95])
+    userType: chance.weighted(['guest', 'user', 'admin'], [20, 75, 5])
   });
 }
 
@@ -59,12 +59,13 @@ function randTitle () {
 
 function randReview (createdUsers) {
   const user = chance.pick(createdUsers);
-  const productId = chance.natural({ min: 1, max: products.length });
+  console.log(user);
   return Review.build({
-    author_id: user.id,
-    product_id: productId,
+    user_id: user.id,
+    product_id: chance.natural({ min: 1, max: products.length }),
     title: randTitle(),
-    body: chance.paragraph()
+    body: chance.paragraph(),
+    rating: chance.integer({min: 1, max: 5})
   });
 }
 
@@ -74,35 +75,45 @@ function generateUsers () {
     firstName: 'Brian',
     lastName: 'Nichols',
     photo: 'http://learndotresources.s3.amazonaws.com/workshop/55e5c92fe859dc0300619bc8/zeke-astronaut.png',
-    phone: '(212) 867-5309',
+    phoneNumber: '(212) 867-5309',
+    billingAddress: chance.address(),
+    shippingAddress: chance.address(),
     email: 'brian@brian.brian',
     password: '123',
-    isAdmin: true
+    userType: 'guest'
   }));
   users.push(User.build({
     firstName: 'Colin',
     lastName: 'Jaffe',
     photo: 'http://learndotresources.s3.amazonaws.com/workshop/55e5c92fe859dc0300619bc8/sloth.jpg',
-    phone: chance.phone(),
+    phoneNumber: chance.phone(),
+    billingAddress: chance.address(),
+    shippingAddress: chance.address(),
     email: 'colin@colin.colin',
     password: '123',
-    isAdmin: true
+    userType: 'admin'
   }));
   users.push(User.build({
     firstName: 'Jenny',
     lastName: 'Chan',
     photo: 'http://learndotresources.s3.amazonaws.com/workshop/55e5c92fe859dc0300619bc8/sloth.jpg',
-    phone: chance.phone(),
+    phoneNumber: chance.phone(),
+    billingAddress: chance.address(),
+    shippingAddress: chance.address(),
     email: 'jenny@jenny.jenny',
-    password: '123'
+    password: '123',
+    userType: 'admin'
   }));
   users.push(User.build({
     firstName: 'Richard',
     lastName: 'Shyong',
     photo: 'http://learndotresources.s3.amazonaws.com/workshop/55e5c92fe859dc0300619bc8/sloth.jpg',
-    phone: chance.phone(),
+    phoneNumber: chance.phone(),
+    billingAddress: chance.address(),
+    shippingAddress: chance.address(),
     email: 'rich@rich.rich',
-    password: '123'
+    password: '123',
+    userType: 'user'
   }));
   return users;
 }
@@ -127,10 +138,8 @@ function createReviews (createdUsers) {
 
 function seed () {
   return Product.bulkCreate(products)
-    .then(createUsers())
-    .then(createdUsers => {
-      return createReviews(createdUsers);
-  });
+    .then(createdProducts => createUsers())
+    .then(createdUsers => createReviews(createdUsers));
 }
 
 db.didSync
