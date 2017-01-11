@@ -49,8 +49,4 @@ const assertGuest = function (req, res, next) {
   }
 };
 
-
-
-
-
 module.exports = {mustBeLoggedIn, selfOnly, forbidden, assertAdmin, assertUser, assertGuest}

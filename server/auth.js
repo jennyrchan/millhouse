@@ -6,6 +6,7 @@ const User = require('APP/db/models/user')
 const OAuth = require('APP/db/models/oauth')
 const auth = require('express').Router()
 
+const colors = require('colors');
 
 /*************************
  * Auth strategies
@@ -120,11 +121,14 @@ passport.use(new (require('passport-local').Strategy) (
 
 auth.get('/whoami', (req, res) => res.send(req.user))
 
-auth.post('/:strategy/login', (req, res, next) =>
+auth.post('/:strategy/login', (req, res, next) => {
+  console.log('HITTING THIS ROUTE!!'.blue);
+  console.log(req.body.email.rainbow);
+  console.log(req.body.password.rainbow);
   passport.authenticate(req.params.strategy, {
     successRedirect: '/'
   })(req, res, next)
-)
+})
 
 auth.post('/logout', (req, res, next) => {
   req.logout()
@@ -132,4 +136,3 @@ auth.post('/logout', (req, res, next) => {
 })
 
 module.exports = auth
-
