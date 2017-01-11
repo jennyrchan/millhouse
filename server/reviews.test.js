@@ -10,12 +10,13 @@ const {
         testUser2,
         testProduct1,
         testProduct2,
-        testProduct3,
         testReview1,
-        testReview2
+        testReview2,
+        testReview3
        } = require('./fakeTestData');
 
-describe('/api/products', function() {
+
+describe('/api/reviews', function() {
 
   let user1, user2, product1, product2, review1, review2;
 
@@ -47,70 +48,59 @@ describe('/api/products', function() {
 
   afterEach(() => db.sync({ force: true }));
 
-  it('GETS all products', () => {
+  it('GETS all reviews', () => {
     request(app)
-      .get('/api/products')
+      .get('/api/reviews')
       .expect(200)
       .then(res => {
         expect(res.body).to.be.an('array');
         expect(res.body.length).to.be.equal(2);
-        expect(res.body[0].title).to.be.equal(product1.title);
-        expect(res.body[1].title).to.be.equal(product2.title);
+        expect(res.body[0].title).to.be.equal(review1.title);
+        expect(res.body[1].title).to.be.equal(review2.title);
       });
   });
 
-  it('POSTS a product', () => {
+  it('POSTS a review', () => {
     request(app)
-      .post('/api/products')
-      .send(testProduct3)
+      .post('/api/reviews')
+      .send(testReview3)
       .expect(201)
       .then(res => {
-        expect(res.body.title).to.be.equal('something else');
+        expect(res.body.title).to.be.equal('bad bad bad');
       });
   });
 
-  it('GETS a product by id', () => {
+  it('GETS a review by id', () => {
     request(app)
-      .get('/api/products/1')
+      .get('/api/reviews/1')
       .expect(200)
       .then(res => {
-        expect(res.body.title).to.be.equal(product1.title);
+        expect(res.body.title).to.be.equal(review1.title);
       });
   });
 
-  it('DELETES a product by id', (done) => {
+  it('DELETES a review by id', (done) => {
     request(app)
-      .delete('/api/products/1')
+      .delete('/api/reviews/1')
       .expect(204)
       .end((err, res) => {
         if (err) return done(err);
-        Product.findById(1)
-        .then(foundProduct => {
-          expect(foundProduct).to.be.equal(null);
+        Review.findById(1)
+        .then(foundReview => {
+          expect(foundReview).to.be.equal(null);
           done();
         })
         .catch(done);
       });
   });
 
-  it('PUTS a product by id', () => {
+  it('PUTS a review by id', () => {
     request(app)
-      .put('/api/products/1')
-      .send({ title: 'new title for product 1' })
+      .put('/api/reviews/1')
+      .send({ title: 'new title for review 1' })
       .expect(200)
       .then(res => {
-        expect(res.body.title).to.be.equal('new title for product 1');
-      });
-  });
-
-  it('GETS all reviews for selected product', () => {
-    request(app)
-      .get('/api/products/1/reviews')
-      .expect(200)
-      .then(res => {
-        expect(res.body.length).to.be.equal(2);
-        expect(res.body[0].title).to.be.equal(review1.title);
-        expect(res.body[1].title).to.be.equal(review2.title);
+        expect(res.body.title).to.be.equal('new title for review 1');
       });
   });
 
