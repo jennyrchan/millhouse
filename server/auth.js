@@ -122,9 +122,6 @@ passport.use(new (require('passport-local').Strategy) (
 auth.get('/whoami', (req, res) => res.send(req.user))
 
 auth.post('/:strategy/login', (req, res, next) => {
-  console.log('HITTING THIS ROUTE!!'.blue);
-  console.log(req.body.email.rainbow);
-  console.log(req.body.password.rainbow);
   passport.authenticate(req.params.strategy, {
     successRedirect: '/'
   })(req, res, next)
