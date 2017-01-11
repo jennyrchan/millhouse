@@ -14,7 +14,8 @@ module.exports = require('express').Router()
 		User.create(req.body)
 		.then(user => res.status(201).json(user))
 		.catch(next))
-	.get('/:id', forbidden('only admins can list all users'), (req, res, next) =>
+	.get('/:id', (req, res, next) =>
 		User.findById(req.params.id)
 		.then(user => res.json(user))
 		.catch(next));
+	//TODO: user route by id should only be accessibly by that logged in user... there's a self-only thing we could use here
