@@ -69,6 +69,21 @@ const testReview3 = {
   product_id: 2
 };
 
+const testOrder1 = {
+  status: 'processing',
+  user_id: 1
+};
+
+const testOrder2 = {
+  status: 'in transit',
+  user_id: 1
+};
+
+const testOrder3 = {
+  status: 'delivered',
+  user_id: 2
+};
+
 module.exports = {
   testUser1,
   testUser2,
@@ -77,5 +92,8 @@ module.exports = {
   testProduct3,
   testReview1,
   testReview2,
-  testReview3
+  testReview3,
+  testOrder1,
+  testOrder2,
+  testOrder3,
 };

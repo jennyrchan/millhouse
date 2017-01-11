@@ -1,7 +1,7 @@
 'use strict';
 
 const db = require('APP/db');
-const Review = db.model('reviews');
+const Review = db.model('orders');
 
 const {mustBeLoggedIn, forbidden} = require('./auth.filters');
 
@@ -30,8 +30,9 @@ module.exports = require('express').Router()
     .spread((rowCount, updatedReviews) => {
       res.json(updatedReviews[0]);
     })
-    .catch(next));
+    .catch(next))
 
 // TODOS
-// Only authenticated users can post, edit, and delete THEIR OWN reviews
-// Only admins can delete anyone's reviews
+// Only authenticated users can post, edit, and delete THEIR OWN orders
+// Only orders with status of processing can be edited/deleted
+// Only admins can post/delete/edit anyone's orders
