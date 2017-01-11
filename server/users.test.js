@@ -4,7 +4,7 @@ const db = require('APP/db')
 const User = require('APP/db/models/user')
 const app = require('./start')
 
-xdescribe('/api/users', () => {
+describe('/api/users', () => {
   describe('when not logged in', () => {
     it('GET /:id fails 401 (Unauthorized)', () =>
       request(app)
@@ -16,8 +16,12 @@ xdescribe('/api/users', () => {
       request(app)
         .post('/api/users')
         .send({
-          email: 'beth@secrets.org',
-          password: '12345'
+          firstName: 'Rich',
+          lastName: 'S',
+          userType: 'user',
+          email: 'rich@secrets.org',
+          shippingAddress: '12345',
+          billingAddress: '12345'
         })
         .expect(201)
     )
@@ -26,13 +30,21 @@ xdescribe('/api/users', () => {
       request(app)
         .post('/api/users')
         .send({
-          email: 'eve@interloper.com',
-          password: '23456',
+          firstName: 'Rich',
+          lastName: 'S',
+          userType: 'user',
+          email: 'rich@secrets.org',
+          shippingAddress: '12345',
+          billingAddress: '12345'
         })
         .redirects(1)
-        .then(res => expect(res.body).to.contain({
-          email: 'eve@interloper.com'
-        }))
+        .then(res => {
+          expect(res.body).to.contain({
+          email: 'rich@secrets.org'
+        })
+        }
     )
-  })
-})
+  )
+});
+});
+

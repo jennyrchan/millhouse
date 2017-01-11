@@ -4,9 +4,8 @@
 // so any other part of the application could call sequelize.model('User')
 // to get access to the User model.
 
-const User = require('./user');
 const Product = require('./product');
-
+const User = require('./user');
 const Review = require('./review');
 const Order = require('./order');
 const OrderProduct = require('./orderProduct');
