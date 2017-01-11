@@ -59,7 +59,6 @@ function randTitle () {
 
 function randReview (createdUsers) {
   const user = chance.pick(createdUsers);
-  console.log(user);
   return Review.build({
     user_id: user.id,
     product_id: chance.natural({ min: 1, max: products.length }),

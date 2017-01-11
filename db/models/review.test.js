@@ -77,17 +77,9 @@ describe('MODELS: Review', function() {
       });
     });
 
-    it('doesn’t allow null ratings', function() {
-      review.rating = null;
 
-      return review.validate()
-      .then((savedReview) => {
-        expect(savedReview).to.be.an.instanceOf(Error);
-        expect(savedReview.message).to.contain('rating cannot be null');
-      });
-    });
 
-    it('must have a rating of 1-5', function() {
+    it('must have a rating of 1 or more', function() {
       review.rating = 6;
 
       return review.validate()
@@ -95,7 +87,9 @@ describe('MODELS: Review', function() {
         expect(savedReview).to.be.an.instanceOf(Error);
         expect(savedReview.message).to.contain('Validation max failed');
       });
+    });
 
+    it('must have a rating of 5 or less', function() {
       review.rating = 0;
 
       return review.validate()
@@ -103,7 +97,6 @@ describe('MODELS: Review', function() {
         expect(savedReview).to.be.an.instanceOf(Error);
         expect(savedReview.message).to.contain('Validation min failed');
       });
-
     });
   });
 });
