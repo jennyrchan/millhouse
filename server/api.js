@@ -20,8 +20,8 @@ api.use((err, req, res, next) => {
   console.error(err.stack);
   const html = [
     `<html><body>`,
-    `<p>ERROR: ${err.status} - ${err.message} </p>`,
-    `<pre>${err.stack}</pre>`
+    `<h2>ERROR: ${err.status} - ${err.message} </h2>`,
+    // `<pre>${err.stack}</pre>`,
     `</body></html>`
   ].join('');
   res.status(err.status).send(html);
