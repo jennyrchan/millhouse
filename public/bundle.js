@@ -72,7 +72,7 @@
 	
 	var _WhoAmI2 = _interopRequireDefault(_WhoAmI);
 	
-	var _ProductContainer = __webpack_require__(300);
+	var _ProductContainer = __webpack_require__(299);
 	
 	var _ProductContainer2 = _interopRequireDefault(_ProductContainer);
 	
@@ -30761,8 +30761,7 @@
 	}, { logout: _auth.logout })(WhoAmI);
 
 /***/ },
-/* 299 */,
-/* 300 */
+/* 299 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
