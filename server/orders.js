@@ -1,38 +1,37 @@
 'use strict';
 
 const db = require('APP/db');
-const Review = db.model('orders');
+const Order = db.model('orders');
 
-const {mustBeLoggedIn, forbidden} = require('./auth.filters');
+const {forbidden} = require('./auth.filters');
 
 module.exports = require('express').Router()
-  .get('/', (req, res, next) =>
-    Review.findAll()
-    .then(reviews => res.json(reviews))
-    .catch(next))
-  .post('/', (req, res, next) =>
-    Review.create(req.body)
-    .then(review => res.status(201).json(review))
-    .catch(next))
-  .get('/:reviewId', (req, res, next) =>
-    Review.findById(req.params.reviewId)
-    .then(review => res.json(review))
-    .catch(next))
-  .delete('/:reviewId', (req, res, next) =>
-    Review.destroy({ where: { id: req.params.reviewId }})
-    .then(() => res.status(204).send('Deleted review!!'))
-    .catch(next))
-  .put('/:reviewId', (req, res, next) =>
-    Review.update(req.body, {
-      where: { id: req.params.reviewId },
-      returning: true
-    })
-    .spread((rowCount, updatedReviews) => {
-      res.json(updatedReviews[0]);
-    })
+  .get('/', forbidden('list all orders'), (req, res, next) =>
+    Order.findAll()
+    .then(orders => res.json(orders))
     .catch(next))
 
-// TODOS
-// Only authenticated users can post, edit, and delete THEIR OWN orders
-// Only orders with status of processing can be edited/deleted
-// Only admins can post/delete/edit anyone's orders
+  .post('/', (req, res, next) =>
+    Order.create(req.body)
+    .then(order => res.status(201).json(order))
+    .catch(next))
+
+  .get('/:orderId', (req, res, next) =>
+    Order.findById(req.params.orderId)
+    .then(order => res.json(order))
+    .catch(next))
+
+  .put('/:orderId', (req, res, next) =>
+  Order.update(req.body, {
+    where: { id: req.params.orderId },
+    returning: true
+  })
+  .spread((rowCount, updatedReviews) => {
+    res.json(updatedReviews[0]);
+  })
+  .catch(next))
+
+  .delete('/:orderId', (req, res, next) =>
+    Order.destroy({ where: { id: req.params.orderId }})
+    .then(() => res.status(204).send('Deleted order!!'))
+    .catch(next))
