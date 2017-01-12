@@ -21,15 +21,17 @@ module.exports = require('express').Router()
     .then(order => res.json(order))
     .catch(next))
 
-  .put('/:orderId', (req, res, next) =>
-  Order.update(req.body, {
-    where: { id: req.params.orderId },
-    returning: true
+  .put('/:orderId', (req, res, next) => {
+
+    Order.update(req.body, {
+      where: { id: req.params.orderId, status: null },
+      returning: true
+    })
+    .spread((rowCount, updatedReviews) => {
+      res.json(updatedReviews[0]);
+    })
+    .catch(next);
   })
-  .spread((rowCount, updatedReviews) => {
-    res.json(updatedReviews[0]);
-  })
-  .catch(next))
 
   .delete('/:orderId', (req, res, next) =>
     Order.destroy({ where: { id: req.params.orderId }})
