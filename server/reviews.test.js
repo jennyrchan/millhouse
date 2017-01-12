@@ -2,9 +2,9 @@ const request = require('supertest-as-promised');
 const {expect} = require('chai');
 const db = require('APP/db');
 const app = require('./start');
+const User = require('APP/db/models/user');
 const Product = require('APP/db/models/product');
 const Review = require('APP/db/models/review');
-const User = require('APP/db/models/user');
 const {
         testUser1,
         testUser2,
@@ -15,8 +15,7 @@ const {
         testReview3
        } = require('./fakeTestData');
 
-
-describe('/api/reviews', function() {
+xdescribe('/api/reviews', function() {
 
   let user1, user2, product1, product2, review1, review2;
 
