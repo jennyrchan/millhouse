@@ -19,16 +19,21 @@ class Cart extends Component {
             return (
               <div id={product.id} className="row">
                 <div className="col-xs-1">
-                  product.quantity
+                  { product.quantity >= 2
+                    ? (<button type="button" className="btn btn-default btn-xs"><span className="glyphicon glyphicon-minus"></span> </button>)
+                    : (<button type="button" className="btn btn-default btn-xs"><span className="glyphicon glyphicon-remove"></span> </button>)
+                  }
+                  <span>product.quantity</span>
+                  <button type="button" className="btn btn-default btn-xs"><span className="glyphicon glyphicon-plus"></span> </button>
                 </div>
                 <div className="col-xs-6">
-                  {product.name}
+                  <span>{product.name}</span>
                 </div>
                 <div className="col-xs-3">
                   <img src={product.image} />
                 </div>
                 <div className="col-xs-2">
-                  Price
+                  <span>product.price</span>
                 </div>
               </div>
             );
@@ -37,10 +42,15 @@ class Cart extends Component {
 
         <div className="row">
           <div className="col-xs-10">
-            Total:
+            <h4>Total:</h4>
           </div>
           <div className="col-xs-2">
-            Price
+            {
+              products.reduce((subtotal, product) => {
+                const productTotal = product.quantity * product.price;
+                return subtotal + productTotal
+              }, 0)
+            }
           </div>
         </div>
       </div>
@@ -53,6 +63,6 @@ class Cart extends Component {
 
 const mapState = ({ orderProducts }) => ({ products: orderProducts });
 
-const mapDispatch = ;
+const mapDispatch = null;
 
 export default connect(mapState, mapDispatch)(Cart);
