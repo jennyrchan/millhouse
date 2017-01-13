@@ -5,9 +5,9 @@ export const Login = ({ login }) => (
     evt.preventDefault()
     login(evt.target.email.value, evt.target.password.value)
   } }>
-    <input name="email" placeholder="Email" />
-    <input name="password" type="password" placeholder="Password" />
-    <button type="submit" className="btn btn-success btn-lg"><span className="glyphicon glyphicon-log-in" ></span> Login</button>
+    <button type="submit" className="btn btn-success pull-right"><span className="glyphicon glyphicon-log-in" ></span> Login</button>
+    <input name="password" type="password" placeholder="Password" className="pull-right"/>
+    <input name="email" placeholder="Email" className="pull-right"/>
   </form>
 )
 
@@ -18,4 +18,3 @@ export default connect (
   state => ({}),
   {login},
 ) (Login)
-

@@ -12,16 +12,19 @@ class Navbar extends Component {
   }
 
   render () {
+    const user = this.props.user;
 
     return (
       <div id="top-nav" className="col-xs-12">
         <div className="col-xs-2">
-          <h1 id="title">MILLHOUSE</h1>
+          <h2 id="title">MILLHOUSE</h2>
         </div>
         <div className="col-xs-10">
-          {user ? <WhoAmI/> : <Login/>}
-          <button type="button" className="btn btn-success btn-lg"><span className="glyphicon glyphicon-question-sign"></span> </button>
-          <button type="button" className="btn btn-success btn-lg"><span className="glyphicon glyphicon-shopping-cart"></span> </button>
+          <div className="row">
+            <button type="button" className="btn btn-success pull-right col-xs-1"><span className="glyphicon glyphicon-question-sign"></span> </button>
+            <button type="button" className="btn btn-success pull-right col-xs-1"><span className="glyphicon glyphicon-shopping-cart"></span> </button>
+            {user ? <WhoAmI/> : <Login/>}
+          </div>
         </div>
       </div>
     );
@@ -31,7 +34,7 @@ class Navbar extends Component {
 
 /* -----------------    CONTAINER     ------------------ */
 
-const mapState = null;
+const mapState = ({ auth }) => ({ user: auth });
 
 const mapDispatch = null;
 
