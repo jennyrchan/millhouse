@@ -2,7 +2,7 @@
 
 const express = require('express')
 const bodyParser = require('body-parser')
-const path = require('path')
+const {resolve} = require('path')
 const passport = require('passport')
 const db = require('APP/db')
 
@@ -36,13 +36,13 @@ module.exports = app
   .use(passport.session())
 
   // Serve static files from ../public
-  .use(express.static(path.join(__dirname, '..', 'public')))
+  .use(express.static(resolve(__dirname, '..', 'public')))
 
   // Serve our api
   .use('/api', require('./api'))
 
   // Send index.html for anything else.
-  .get('/*', (_, res) => res.sendFile(path.join(__dirname, '..', 'public', 'index.html')))
+  .get('/*', (_, res) => res.sendFile(resolve(__dirname, '..', 'public', 'index.html')))
 
 if (module === require.main) {
   // Start listening only if we're the main module.
