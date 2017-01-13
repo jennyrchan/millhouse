@@ -49,7 +49,7 @@ describe('MODELS: Product', function() {
     });
   });
 
-  it('converts an image filename to a full URL', function() {
+  xit('converts an image filename to a full URL', function() {
 
     const imgName = testProduct.title.split(' ').join('-');
 

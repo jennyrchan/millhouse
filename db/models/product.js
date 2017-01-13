@@ -41,9 +41,10 @@ module.exports = db.define('products', {
 {
   getterMethods: {
     image: function() {
-      const img = this.title.split(' ').join('-');
-      const image = `http://millhouse/img/${img}.jpeg`;
-      return 'http://cdn3-www.dogtime.com/assets/uploads/gallery/30-impossibly-cute-puppies/impossibly-cute-puppy-15.jpg'
+      const img = 1;
+      //this.title.split(' ').join('-');
+      const image = `/cereals/${img}.jpg`;
+      return image;
     },
     category: function() {
       return this.calories < 200

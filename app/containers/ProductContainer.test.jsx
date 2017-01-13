@@ -25,6 +25,10 @@ describe('Product container', () => {
     expect(productContainer.get(0).props.children[10].props.children[0]).to.contain('Average User Rating');
   });
 
+  xit('should calculate inventory based on how much is left', () => {
+    expect()
+  })
+
 
 
 });

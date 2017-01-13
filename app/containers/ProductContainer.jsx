@@ -46,10 +46,12 @@ export default class Product extends Component {
       <div>
       <h1>Category: {this.state.category}</h1>
       <h1>{this.state.title}</h1>
-      <img src = {this.state.image} />
+      <img src = {`/cereals/${this.state.id}.jpg`} />
       <h2>{this.state.summary}</h2>
       <h2>Price: ${this.state.price}</h2>
-      <h2>Inventory: {this.state.inventory}</h2>
+      <h2>Inventory: {this.state.inventory < 100
+        ? `Hurry Up And Buy!!!!! Only ${this.state.inventory} left in stock!`
+        : 'In Stock'}</h2>
       <h2>Calories: {this.state.calories}</h2>
       <h2>Sugar: {this.state.sugar}</h2>
       <h2>Fiber: {this.state.fiber}</h2>

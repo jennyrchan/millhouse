@@ -72,7 +72,7 @@
 	
 	var _WhoAmI2 = _interopRequireDefault(_WhoAmI);
 	
-	var _ProductContainer = __webpack_require__(299);
+	var _ProductContainer = __webpack_require__(300);
 	
 	var _ProductContainer2 = _interopRequireDefault(_ProductContainer);
 	
@@ -30761,7 +30761,8 @@
 	}, { logout: _auth.logout })(WhoAmI);
 
 /***/ },
-/* 299 */
+/* 299 */,
+/* 300 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30854,7 +30855,7 @@
 	          null,
 	          this.state.title
 	        ),
-	        _react2.default.createElement('img', { src: this.state.image }),
+	        _react2.default.createElement('img', { src: '/cereals/' + this.state.id + '.jpg' }),
 	        _react2.default.createElement(
 	          'h2',
 	          null,
@@ -30870,7 +30871,7 @@
 	          'h2',
 	          null,
 	          'Inventory: ',
-	          this.state.inventory
+	          this.state.inventory < 100 ? 'Hurry Up And Buy!!!!! Only ' + this.state.inventory + ' left in stock!' : 'In Stock'
 	        ),
 	        _react2.default.createElement(
 	          'h2',
