@@ -30699,11 +30699,16 @@
 	    "form",
 	    { onSubmit: function onSubmit(evt) {
 	        evt.preventDefault();
-	        login(evt.target.username.value, evt.target.password.value);
+	        login(evt.target.email.value, evt.target.password.value);
 	      } },
-	    _react2.default.createElement("input", { name: "username" }),
-	    _react2.default.createElement("input", { name: "password", type: "password" }),
-	    _react2.default.createElement("input", { type: "submit", value: "Login" })
+	    _react2.default.createElement("input", { name: "email", placeholder: "Email" }),
+	    _react2.default.createElement("input", { name: "password", type: "password", placeholder: "Password" }),
+	    _react2.default.createElement(
+	      "button",
+	      { type: "submit", className: "btn btn-success btn-lg" },
+	      _react2.default.createElement("span", { className: "glyphicon glyphicon-log-in" }),
+	      " Login"
+	    )
 	  );
 	};
 	
