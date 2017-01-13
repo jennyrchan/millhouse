@@ -30754,8 +30754,9 @@
 	    ),
 	    _react2.default.createElement(
 	      "button",
-	      { className: "logout", onClick: logout },
-	      "Logout"
+	      { type: "button", className: "btn btn-success pull-right logout", onClick: logout },
+	      _react2.default.createElement("span", { className: "glyphicon glyphicon-log-out" }),
+	      " Logout"
 	    )
 	  );
 	};
