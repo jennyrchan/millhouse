@@ -12,10 +12,16 @@ const Review = require('APP/db/models/review');
 const Product = require('APP/db/models/product');
 
 const numUsers = 100;
+const numOrders = 150;
 const numReviews = 500;
 
 const emails = chance.unique(chance.email, numUsers);
 const products = require('./productsSeed');
+
+// Generates random but valid product numbers
+chance.prototype.product = function () {
+  return chance.natural({ min: 1, max: products.length })
+}
 
 function doTimes (n, fn) {
   const results = [];
@@ -57,11 +63,30 @@ function randTitle () {
   .slice(0, -1);
 }
 
+function randOrder (createdUsers) {
+  const user = chance.pick(createdUsers);
+  const products = chance.unique(chance.product(), chance.natural({min: 1, max: 6}));
+  const order = Order.build({
+    user_id: chance.natural({ min: 101, max: 104 }),
+  })
+
+
+  doTimes(numReviews, function () {
+      return randReview(createdUsers);
+    })
+
+  return OrderProducts.build({
+    quantity: chance.natural({ min: 1, max: 5}),
+    order_id: order.id,
+    product_id: products.pop(),
+  })
+}
+
 function randReview (createdUsers) {
   const user = chance.pick(createdUsers);
   return Review.build({
     user_id: user.id,
-    product_id: chance.natural({ min: 1, max: products.length }),
+    product_id: chance.product(),
     title: randTitle(),
     body: chance.paragraph(),
     rating: chance.integer({min: 1, max: 5})
@@ -117,10 +142,17 @@ function generateUsers () {
   return users;
 }
 
-function generateReviews (createdUsers) {
-  return doTimes(numReviews, function () {
-    return randReview(createdUsers);
-  });
+function generateOrders (createdUsers, createdProducts)
+
+function generateOrdersAndReviews (createdUsers) {
+  return {
+    orders: doTimes(numOrders, function () {
+      return randOrder(createdUsers);
+    }),
+    reviews: doTimes(numReviews, function () {
+        return randReview(createdUsers);
+      })
+  };
 }
 
 function createUsers () {
