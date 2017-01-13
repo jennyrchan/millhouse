@@ -11,6 +11,12 @@ import WhoAmI from './components/WhoAmI'
 import Navbar from './components/Navbar'
 import ProductContainer from './containers/ProductContainer'
 
+import {fetchCart} from './reducers/cart';
+
+const onAppEnter = () => {
+  fetchCart();
+};
+
 const AuthContainer = connect(
   ({ auth }) => ({ user: auth })
 ) (
@@ -24,7 +30,7 @@ const AuthContainer = connect(
 render (
   <Provider store={store}>
     <Router history={browserHistory}>
-      <Route path="/" component={AuthContainer}>
+      <Route path="/" component={AuthContainer} onEnter={onAppEnter}>
         <IndexRedirect to="/products/:productId" />
         <Route path="/products/:productId" component={ProductContainer} />
       </Route>

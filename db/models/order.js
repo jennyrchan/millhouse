@@ -4,8 +4,8 @@ const db = require('APP/db');
 
 const Order = db.define('orders', {
   status: {
-    type: Sequelize.ENUM('processing', 'canceled', 'in transit', 'delivered'),
-    defaultValue: 'processing',
+    type: Sequelize.ENUM('pending', 'confirmed', 'shipped', 'delivered', 'canceled'),
+    defaultValue: 'pending',
   }
 }, {
     instanceMethods: {
@@ -25,10 +25,3 @@ function getTotalPrice() {
 }
 
 module.exports = Order;
-
-// Notes for when we make a route to add items to shopping cart
-// Order.create()
-// .then(createdOrder => {
-//   createdOrder.addProduct(someObjectWithProductIdQuantityAndPrice)
-// })
-

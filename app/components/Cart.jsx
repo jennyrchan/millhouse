@@ -10,27 +10,28 @@ class Cart extends Component {
   }
 
   render () {
+    const products = this.props.products;
 
     return (
       <div>
         {
-          something.map(product => {
+          products.map(product => {
             return (
-              <div className="row">
+              <div id={product.id} className="row">
                 <div className="col-xs-1">
-                  Quantity
+                  product.quantity
                 </div>
                 <div className="col-xs-6">
-                  Product Name
+                  {product.name}
                 </div>
                 <div className="col-xs-3">
-                  Picture
+                  <img src={product.image} />
                 </div>
                 <div className="col-xs-2">
                   Price
                 </div>
               </div>
-            )
+            );
           })
         }
 
@@ -52,6 +53,6 @@ class Cart extends Component {
 
 const mapState = ({ orderProducts }) => ({ products: orderProducts });
 
-const mapDispatch = null;
+const mapDispatch = ;
 
 export default connect(mapState, mapDispatch)(Cart);

@@ -76,11 +76,17 @@
 	
 	var _Navbar2 = _interopRequireDefault(_Navbar);
 	
-	var _ProductContainer = __webpack_require__(301);
+	var _ProductContainer = __webpack_require__(300);
 	
 	var _ProductContainer2 = _interopRequireDefault(_ProductContainer);
 	
+	var _cart = __webpack_require__(301);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var onAppEnter = function onAppEnter() {
+	  (0, _cart.fetchCart)();
+	};
 	
 	var AuthContainer = (0, _reactRedux.connect)(function (_ref) {
 	  var auth = _ref.auth;
@@ -104,7 +110,7 @@
 	    { history: _reactRouter.browserHistory },
 	    _react2.default.createElement(
 	      _reactRouter.Route,
-	      { path: '/', component: AuthContainer },
+	      { path: '/', component: AuthContainer, onEnter: onAppEnter },
 	      _react2.default.createElement(_reactRouter.IndexRedirect, { to: '/products/:productId' }),
 	      _react2.default.createElement(_reactRouter.Route, { path: '/products/:productId', component: _ProductContainer2.default })
 	    )
@@ -28125,7 +28131,8 @@
 	var _redux = __webpack_require__(240);
 	
 	var rootReducer = (0, _redux.combineReducers)({
-	  auth: __webpack_require__(263).default
+	  auth: __webpack_require__(263).default,
+	  cart: __webpack_require__(301).default
 	});
 	
 	exports.default = rootReducer;
@@ -30754,8 +30761,9 @@
 	    ),
 	    _react2.default.createElement(
 	      "button",
-	      { className: "logout", onClick: logout },
-	      "Logout"
+	      { type: "button", className: "btn btn-success pull-right logout", onClick: logout },
+	      _react2.default.createElement("span", { className: "glyphicon glyphicon-log-out" }),
+	      " Logout"
 	    )
 	  );
 	};
@@ -30869,8 +30877,7 @@
 	exports.default = (0, _reactRedux.connect)(mapState, mapDispatch)(Navbar);
 
 /***/ },
-/* 300 */,
-/* 301 */
+/* 300 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31019,6 +31026,54 @@
 	}(_react.Component);
 	
 	exports.default = ProductContainer;
+
+/***/ },
+/* 301 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.fetchCart = exports.receiveCart = undefined;
+	
+	var _axios = __webpack_require__(264);
+	
+	var _axios2 = _interopRequireDefault(_axios);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var reducer = function reducer() {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+	  var action = arguments[1];
+	
+	  switch (action.type) {
+	    case RECEIVE_CART:
+	      return action.cart;
+	  }
+	  return state;
+	};
+	
+	var RECEIVE_CART = 'RECEIVE_CART';
+	var receiveCart = exports.receiveCart = function receiveCart(cart) {
+	  return {
+	    type: RECEIVE_CART, cart: cart
+	  };
+	};
+	
+	var fetchCart = exports.fetchCart = function fetchCart() {
+	  return function (dispatch) {
+	    return _axios2.default.get('/api/orders/cart').then(function (response) {
+	      var cart = response.data;
+	      dispatch(receiveCart(cart));
+	    }).catch(function (err) {
+	      return console.error('Fetching shopping cart unsuccesful', err);
+	    });
+	  };
+	};
+	
+	exports.default = reducer;
 
 /***/ }
 /******/ ]);
