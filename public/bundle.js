@@ -72,9 +72,15 @@
 	
 	var _WhoAmI2 = _interopRequireDefault(_WhoAmI);
 	
+<<<<<<< HEAD
 	var _ProductContainer = __webpack_require__(300);
 	
 	var _ProductContainer2 = _interopRequireDefault(_ProductContainer);
+=======
+	var _Navbar = __webpack_require__(299);
+	
+	var _Navbar2 = _interopRequireDefault(_Navbar);
+>>>>>>> 1e621d65a462958a6f4273b4ff381b0b8ec5445d
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -87,11 +93,7 @@
 	  return _react2.default.createElement(
 	    'div',
 	    null,
-	    _react2.default.createElement(
-	      'nav',
-	      null,
-	      user ? _react2.default.createElement(_WhoAmI2.default, null) : _react2.default.createElement(_Login2.default, null)
-	    ),
+	    _react2.default.createElement(_Navbar2.default, null),
 	    children
 	  );
 	});
@@ -30703,11 +30705,16 @@
 	    "form",
 	    { onSubmit: function onSubmit(evt) {
 	        evt.preventDefault();
-	        login(evt.target.username.value, evt.target.password.value);
+	        login(evt.target.email.value, evt.target.password.value);
 	      } },
-	    _react2.default.createElement("input", { name: "username" }),
-	    _react2.default.createElement("input", { name: "password", type: "password" }),
-	    _react2.default.createElement("input", { type: "submit", value: "Login" })
+	    _react2.default.createElement(
+	      "button",
+	      { type: "submit", className: "btn btn-success pull-right" },
+	      _react2.default.createElement("span", { className: "glyphicon glyphicon-log-in" }),
+	      " Login"
+	    ),
+	    _react2.default.createElement("input", { name: "password", type: "password", placeholder: "Password", className: "pull-right" }),
+	    _react2.default.createElement("input", { name: "email", placeholder: "Email", className: "pull-right" })
 	  );
 	};
 	
@@ -30761,8 +30768,12 @@
 	}, { logout: _auth.logout })(WhoAmI);
 
 /***/ },
+<<<<<<< HEAD
 /* 299 */,
 /* 300 */
+=======
+/* 299 */
+>>>>>>> 1e621d65a462958a6f4273b4ff381b0b8ec5445d
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30777,9 +30788,23 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+<<<<<<< HEAD
 	var _axios = __webpack_require__(264);
 	
 	var _axios2 = _interopRequireDefault(_axios);
+=======
+	var _reactRedux = __webpack_require__(233);
+	
+	var _reactRouter = __webpack_require__(32);
+	
+	var _Login = __webpack_require__(297);
+	
+	var _Login2 = _interopRequireDefault(_Login);
+	
+	var _WhoAmI = __webpack_require__(298);
+	
+	var _WhoAmI2 = _interopRequireDefault(_WhoAmI);
+>>>>>>> 1e621d65a462958a6f4273b4ff381b0b8ec5445d
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -30789,6 +30814,7 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
+<<<<<<< HEAD
 	var Product = function (_Component) {
 	  _inherits(Product, _Component);
 	
@@ -30902,15 +30928,81 @@
 	          null,
 	          'Average User Rating: ',
 	          this.state.avgRating
+=======
+	/* -----------------    COMPONENT     ------------------ */
+	
+	var Navbar = function (_Component) {
+	  _inherits(Navbar, _Component);
+	
+	  function Navbar(props) {
+	    _classCallCheck(this, Navbar);
+	
+	    return _possibleConstructorReturn(this, (Navbar.__proto__ || Object.getPrototypeOf(Navbar)).call(this, props));
+	  }
+	
+	  _createClass(Navbar, [{
+	    key: 'render',
+	    value: function render() {
+	      var user = this.props.user;
+	
+	      return _react2.default.createElement(
+	        'div',
+	        { id: 'top-nav', className: 'col-xs-12' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'col-xs-2' },
+	          _react2.default.createElement(
+	            'h2',
+	            { id: 'title' },
+	            'MILLHOUSE'
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'col-xs-10' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'row' },
+	            _react2.default.createElement(
+	              'button',
+	              { type: 'button', className: 'btn btn-success pull-right col-xs-1' },
+	              _react2.default.createElement('span', { className: 'glyphicon glyphicon-question-sign' }),
+	              ' '
+	            ),
+	            _react2.default.createElement(
+	              'button',
+	              { type: 'button', className: 'btn btn-success pull-right col-xs-1' },
+	              _react2.default.createElement('span', { className: 'glyphicon glyphicon-shopping-cart' }),
+	              ' '
+	            ),
+	            user ? _react2.default.createElement(_WhoAmI2.default, null) : _react2.default.createElement(_Login2.default, null)
+	          )
+>>>>>>> 1e621d65a462958a6f4273b4ff381b0b8ec5445d
 	        )
 	      );
 	    }
 	  }]);
 	
+<<<<<<< HEAD
 	  return Product;
 	}(_react.Component);
 	
 	exports.default = Product;
+=======
+	  return Navbar;
+	}(_react.Component);
+	
+	/* -----------------    CONTAINER     ------------------ */
+	
+	var mapState = function mapState(_ref) {
+	  var auth = _ref.auth;
+	  return { user: auth };
+	};
+	
+	var mapDispatch = null;
+	
+	exports.default = (0, _reactRedux.connect)(mapState, mapDispatch)(Navbar);
+>>>>>>> 1e621d65a462958a6f4273b4ff381b0b8ec5445d
 
 /***/ }
 /******/ ]);
