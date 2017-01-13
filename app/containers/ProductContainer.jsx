@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import Review from '../components/Review';
 
 export default class ProductContainer extends Component {
   constructor(props) {
@@ -16,7 +17,7 @@ export default class ProductContainer extends Component {
       sugar: 0,
       fiber: 0,
       protein: 0,
-      avgRating: 0
+      reviews: []
     };
   }
 
@@ -36,33 +37,63 @@ export default class ProductContainer extends Component {
         sugar: product.sugar,
         fiber: product.fiber,
         protein: product.protein,
-        avgRating: product.averageRating
+      })
+    })
+    axios.get(`/api/products/${this.state.id}/reviews`)
+    .then(res => res.data)
+    .then(reviews => {
+      this.setState({
+        reviews
       })
     })
   }
 
   render () {
+    const {title, summary, price, inventory, calories, sugar, fiber, protein, category, reviews} = this.state;
+
+
+    const avgRating = reviews.reduce((accumlator, currentElement) => {
+        return accumlator + currentElement.rating
+    },0)/reviews.length
+
+
+    let arr = [];
+    for (let i = 1; i < avgRating; i++) {
+      arr.push(<img src = {`/cheerio.jpg`} key = {i} />);
+    }
+    if (avgRating % 1 > 0.5) {
+      arr.push(<img src = {'/halfCheerio.jpg'} key = "half" />);
+    }
+
+    let pencil =           <button type="button" className="btn btn-default btn-xs"><span className="glyphicon glyphicon-pencil"></span> </button>
+
+
     return (
       <div className="col-xs-6">
         <ul className="product-list">
-          <li>{this.state.title}<button type="button" className="btn btn-default btn-xs"><span className="glyphicon glyphicon-pencil"></span> </button></li>
-
+          <li>{title}    {pencil}</li>
           <li><img src = {`/cereals/${this.state.id}.jpg`} /></li>
-          <li>{this.state.summary}</li>
-          <li>Price: ${this.state.price}</li>
-          <li>Inventory: {this.state.inventory < 100
+          <li>{summary}  {pencil}</li>
+          <li>Price: ${price}   {pencil}</li>
+          <li>Inventory: {inventory < 100
             ? `Hurry Up And Buy!!!!! Only ${this.state.inventory} left in stock!`
-            : 'In Stock'}</li>
-          <h3 className="list-heading">Nutritional Information:</h3>
-          <ul className="product-list">
-            <li>Calories: {this.state.calories}</li>
-            <li>Sugar: {this.state.sugar}</li>
-            <li>Fiber: {this.state.fiber}</li>
-            <li>Protein: {this.state.protein}</li>
-            <li>Average User Rating: {this.state.avgRating}</li>
-          </ul>
+            : 'In Stock'}   {pencil}</li>
+          <div className="nutrition-heading">
+          <div>
+            <h3 className = "nutrition" >Nutritional Information {pencil}</h3>
+            <h4 className = "nutrition">Calories: {calories}</h4>
+            <h4 className = "nutrition">Sugar: {sugar}</h4>
+            <h4 className = "nutrition">Fiber: {fiber}</h4>
+            <h4>Protein: {protein}</h4>
+          </div>
+            <h4>Average User Rating: {arr}</h4>
+          </div>
         </ul>
-        <a href = "">See other {this.state.category} cereals!</a>
+        <h1><a href = "">See other {category} cereals!</a></h1>
+        <h1> Reviews </h1>
+        {reviews.map(review =>
+        (< Review key = {review.id} title = {review.title} body = {review.body} rating = {review.rating} />)
+        )}
       </div>
     )
   }

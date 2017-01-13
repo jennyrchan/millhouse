@@ -35,7 +35,7 @@ module.exports = db.define('products', {
   },
   averageRating: {
     type: Sequelize.FLOAT,
-    defaultValue: 5.00
+
   }
 },
 {
