@@ -41,8 +41,10 @@ module.exports = db.define('products', {
 {
   getterMethods: {
     image: function() {
-      const img = this.title.split(' ').join('-');
-      return `http://millhouse/img/${img}.jpeg`;
+      const img = 1;
+      //this.title.split(' ').join('-');
+      const image = `/cereals/${img}.jpg`;
+      return image;
     },
     category: function() {
       return this.calories < 200

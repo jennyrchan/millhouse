@@ -72,9 +72,15 @@
 	
 	var _WhoAmI2 = _interopRequireDefault(_WhoAmI);
 	
+<<<<<<< HEAD
+	var _ProductContainer = __webpack_require__(300);
+	
+	var _ProductContainer2 = _interopRequireDefault(_ProductContainer);
+=======
 	var _Navbar = __webpack_require__(299);
 	
 	var _Navbar2 = _interopRequireDefault(_Navbar);
+>>>>>>> 1e621d65a462958a6f4273b4ff381b0b8ec5445d
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -101,8 +107,8 @@
 	    _react2.default.createElement(
 	      _reactRouter.Route,
 	      { path: '/', component: ExampleApp },
-	      _react2.default.createElement(_reactRouter.IndexRedirect, { to: '/jokes' }),
-	      _react2.default.createElement(_reactRouter.Route, { path: '/jokes', component: _Jokes2.default })
+	      _react2.default.createElement(_reactRouter.IndexRedirect, { to: '/products/:productId' }),
+	      _react2.default.createElement(_reactRouter.Route, { path: '/products/:productId', component: _ProductContainer2.default })
 	    )
 	  )
 	), document.getElementById('main'));
@@ -30762,7 +30768,12 @@
 	}, { logout: _auth.logout })(WhoAmI);
 
 /***/ },
+<<<<<<< HEAD
+/* 299 */,
+/* 300 */
+=======
 /* 299 */
+>>>>>>> 1e621d65a462958a6f4273b4ff381b0b8ec5445d
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30777,6 +30788,11 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+<<<<<<< HEAD
+	var _axios = __webpack_require__(264);
+	
+	var _axios2 = _interopRequireDefault(_axios);
+=======
 	var _reactRedux = __webpack_require__(233);
 	
 	var _reactRouter = __webpack_require__(32);
@@ -30788,6 +30804,7 @@
 	var _WhoAmI = __webpack_require__(298);
 	
 	var _WhoAmI2 = _interopRequireDefault(_WhoAmI);
+>>>>>>> 1e621d65a462958a6f4273b4ff381b0b8ec5445d
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -30797,6 +30814,121 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
+<<<<<<< HEAD
+	var Product = function (_Component) {
+	  _inherits(Product, _Component);
+	
+	  function Product(props) {
+	    _classCallCheck(this, Product);
+	
+	    var _this = _possibleConstructorReturn(this, (Product.__proto__ || Object.getPrototypeOf(Product)).call(this, props));
+	
+	    _this.state = {
+	      id: +_this.props.routeParams.productId,
+	      category: '',
+	      title: '',
+	      image: '',
+	      summary: '',
+	      price: 0,
+	      inventory: 0,
+	      calories: 0,
+	      sugar: 0,
+	      fiber: 0,
+	      protein: 0,
+	      avgRating: 0
+	    };
+	    return _this;
+	  }
+	
+	  _createClass(Product, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var _this2 = this;
+	
+	      _axios2.default.get('/api/products/' + this.state.id).then(function (response) {
+	        return response.data;
+	      }).then(function (product) {
+	        _this2.setState({
+	          id: product.id,
+	          category: product.category,
+	          title: product.title,
+	          image: product.image,
+	          summary: product.summary,
+	          price: product.price,
+	          inventory: product.inventory,
+	          calories: product.calories,
+	          sugar: product.sugar,
+	          fiber: product.fiber,
+	          protein: product.protein,
+	          avgRating: product.averageRating
+	        });
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'h1',
+	          null,
+	          'Category: ',
+	          this.state.category
+	        ),
+	        _react2.default.createElement(
+	          'h1',
+	          null,
+	          this.state.title
+	        ),
+	        _react2.default.createElement('img', { src: '/cereals/' + this.state.id + '.jpg' }),
+	        _react2.default.createElement(
+	          'h2',
+	          null,
+	          this.state.summary
+	        ),
+	        _react2.default.createElement(
+	          'h2',
+	          null,
+	          'Price: $',
+	          this.state.price
+	        ),
+	        _react2.default.createElement(
+	          'h2',
+	          null,
+	          'Inventory: ',
+	          this.state.inventory < 100 ? 'Hurry Up And Buy!!!!! Only ' + this.state.inventory + ' left in stock!' : 'In Stock'
+	        ),
+	        _react2.default.createElement(
+	          'h2',
+	          null,
+	          'Calories: ',
+	          this.state.calories
+	        ),
+	        _react2.default.createElement(
+	          'h2',
+	          null,
+	          'Sugar: ',
+	          this.state.sugar
+	        ),
+	        _react2.default.createElement(
+	          'h2',
+	          null,
+	          'Fiber: ',
+	          this.state.fiber
+	        ),
+	        _react2.default.createElement(
+	          'h2',
+	          null,
+	          'Protein: ',
+	          this.state.protein
+	        ),
+	        _react2.default.createElement(
+	          'h2',
+	          null,
+	          'Average User Rating: ',
+	          this.state.avgRating
+=======
 	/* -----------------    COMPONENT     ------------------ */
 	
 	var Navbar = function (_Component) {
@@ -30845,11 +30977,18 @@
 	            ),
 	            user ? _react2.default.createElement(_WhoAmI2.default, null) : _react2.default.createElement(_Login2.default, null)
 	          )
+>>>>>>> 1e621d65a462958a6f4273b4ff381b0b8ec5445d
 	        )
 	      );
 	    }
 	  }]);
 	
+<<<<<<< HEAD
+	  return Product;
+	}(_react.Component);
+	
+	exports.default = Product;
+=======
 	  return Navbar;
 	}(_react.Component);
 	
@@ -30863,6 +31002,7 @@
 	var mapDispatch = null;
 	
 	exports.default = (0, _reactRedux.connect)(mapState, mapDispatch)(Navbar);
+>>>>>>> 1e621d65a462958a6f4273b4ff381b0b8ec5445d
 
 /***/ }
 /******/ ]);
