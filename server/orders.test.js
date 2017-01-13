@@ -2,8 +2,9 @@ const request = require('supertest-as-promised');
 const {expect} = require('chai');
 const db = require('APP/db');
 const app = require('./start');
-const Product = require('APP/db/models/product');
 const User = require('APP/db/models/user');
+const Product = require('APP/db/models/product');
+const Order = require('APP/db/models/order');
 const {
         testUser1,
         testUser2,
@@ -15,7 +16,7 @@ const {
        } = require('./fakeTestData');
 
 
-describe('/api/orders', function() {
+xdescribe('/api/orders', function() {
 
   let user1, user2, product1, product2, order1, order2, order3;
 
@@ -42,65 +43,64 @@ describe('/api/orders', function() {
     .then(createdOrders => {
       order1 = createdOrders[0];
       order2 = createdOrders[1];
-      order3 = createdOrders[2];
     });
   });
 
   afterEach(() => db.sync({ force: true }));
 
-  it('GETS all reviews', () => {
+  it('GETS all orders', () => {
     request(app)
-      .get('/api/reviews')
+      .get('/api/orders')
       .expect(200)
       .then(res => {
         expect(res.body).to.be.an('array');
         expect(res.body.length).to.be.equal(2);
-        expect(res.body[0].title).to.be.equal(review1.title);
-        expect(res.body[1].title).to.be.equal(review2.title);
+        expect(res.body[0].title).to.be.equal(order1.title);
+        expect(res.body[1].title).to.be.equal(order2.title);
       });
   });
 
-  it('POSTS a review', () => {
+  it('POSTS an order', () => {
     request(app)
-      .post('/api/reviews')
-      .send(testReview3)
+      .post('/api/orders')
+      .send(testOrder3)
       .expect(201)
       .then(res => {
-        expect(res.body.title).to.be.equal('bad bad bad');
+        expect(res.body.status).to.be.equal('delivered');
       });
   });
 
-  it('GETS a review by id', () => {
+  it('GETS an order by id', () => {
     request(app)
-      .get('/api/reviews/1')
+      .get('/api/orders/1')
       .expect(200)
       .then(res => {
-        expect(res.body.title).to.be.equal(review1.title);
+        expect(res.body.status).to.be.equal(order1.status);
       });
   });
 
-  it('DELETES a review by id', (done) => {
+  it('DELETES an order by id', (done) => {
     request(app)
-      .delete('/api/reviews/1')
+      .delete('/api/orders/1')
       .expect(204)
       .end((err, res) => {
         if (err) return done(err);
-        Review.findById(1)
-        .then(foundReview => {
-          expect(foundReview).to.be.equal(null);
+        Order.findById(1)
+        .then(foundOrder => {
+          expect(foundOrder).to.be.equal(null);
           done();
         })
         .catch(done);
       });
   });
 
-  it('PUTS a review by id', () => {
+  it('PUTS an order by id', () => {
     request(app)
-      .put('/api/reviews/1')
-      .send({ title: 'new title for review 1' })
+      .put('/api/orders/1')
+      .send({ status: 'in transit' })
       .expect(200)
       .then(res => {
-        expect(res.body.title).to.be.equal('new title for review 1');
+        expect(res.body.status).to.be.equal('in transit');
       });
   });
 

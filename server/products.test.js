@@ -2,9 +2,9 @@ const request = require('supertest-as-promised');
 const {expect} = require('chai');
 const db = require('APP/db');
 const app = require('./start');
+const User = require('APP/db/models/user');
 const Product = require('APP/db/models/product');
 const Review = require('APP/db/models/review');
-const User = require('APP/db/models/user');
 const {
         testUser1,
         testUser2,

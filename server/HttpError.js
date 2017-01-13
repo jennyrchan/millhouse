@@ -15,7 +15,7 @@ HttpError.prototype.middleware = function () {
   var self = this;
   return function (req, res, next) {
     next(self);
-  }
+  };
 };
 
 module.exports = HttpError;
