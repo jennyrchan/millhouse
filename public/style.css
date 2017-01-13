@@ -1,4 +1,8 @@
 h2 {
   font-family: helvetica;
-  text-align: right;
+}
+
+ul.product-list {
+  list-style-type: none;
+  font-size: 30px;
 }

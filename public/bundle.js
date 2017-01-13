@@ -76,7 +76,7 @@
 	
 	var _Navbar2 = _interopRequireDefault(_Navbar);
 	
-	var _ProductContainer = __webpack_require__(301);
+	var _ProductContainer = __webpack_require__(300);
 	
 	var _ProductContainer2 = _interopRequireDefault(_ProductContainer);
 	
@@ -30869,8 +30869,7 @@
 	exports.default = (0, _reactRedux.connect)(mapState, mapDispatch)(Navbar);
 
 /***/ },
-/* 300 */,
-/* 301 */
+/* 300 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30951,65 +30950,89 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-	        null,
+	        { className: 'col-xs-6' },
 	        _react2.default.createElement(
-	          'h1',
-	          null,
-	          'Category: ',
-	          this.state.category
+	          'ul',
+	          { className: 'product-list' },
+	          _react2.default.createElement(
+	            'li',
+	            null,
+	            this.state.title,
+	            _react2.default.createElement(
+	              'button',
+	              { type: 'button', className: 'btn btn-default btn-xs' },
+	              _react2.default.createElement('span', { className: 'glyphicon glyphicon-pencil' }),
+	              ' '
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'li',
+	            null,
+	            _react2.default.createElement('img', { src: '/cereals/' + this.state.id + '.jpg' })
+	          ),
+	          _react2.default.createElement(
+	            'li',
+	            null,
+	            this.state.summary
+	          ),
+	          _react2.default.createElement(
+	            'li',
+	            null,
+	            'Price: $',
+	            this.state.price
+	          ),
+	          _react2.default.createElement(
+	            'li',
+	            null,
+	            'Inventory: ',
+	            this.state.inventory < 100 ? 'Hurry Up And Buy!!!!! Only ' + this.state.inventory + ' left in stock!' : 'In Stock'
+	          ),
+	          _react2.default.createElement(
+	            'h3',
+	            { className: 'list-heading' },
+	            'Nutritional Information:'
+	          ),
+	          _react2.default.createElement(
+	            'ul',
+	            { className: 'product-list' },
+	            _react2.default.createElement(
+	              'li',
+	              null,
+	              'Calories: ',
+	              this.state.calories
+	            ),
+	            _react2.default.createElement(
+	              'li',
+	              null,
+	              'Sugar: ',
+	              this.state.sugar
+	            ),
+	            _react2.default.createElement(
+	              'li',
+	              null,
+	              'Fiber: ',
+	              this.state.fiber
+	            ),
+	            _react2.default.createElement(
+	              'li',
+	              null,
+	              'Protein: ',
+	              this.state.protein
+	            ),
+	            _react2.default.createElement(
+	              'li',
+	              null,
+	              'Average User Rating: ',
+	              this.state.avgRating
+	            )
+	          )
 	        ),
 	        _react2.default.createElement(
-	          'h1',
-	          null,
-	          this.state.title
-	        ),
-	        _react2.default.createElement('img', { src: '/cereals/' + this.state.id + '.jpg' }),
-	        _react2.default.createElement(
-	          'h2',
-	          null,
-	          this.state.summary
-	        ),
-	        _react2.default.createElement(
-	          'h2',
-	          null,
-	          'Price: $',
-	          this.state.price
-	        ),
-	        _react2.default.createElement(
-	          'h2',
-	          null,
-	          'Inventory: ',
-	          this.state.inventory < 100 ? 'Hurry Up And Buy!!!!! Only ' + this.state.inventory + ' left in stock!' : 'In Stock'
-	        ),
-	        _react2.default.createElement(
-	          'h2',
-	          null,
-	          'Calories: ',
-	          this.state.calories
-	        ),
-	        _react2.default.createElement(
-	          'h2',
-	          null,
-	          'Sugar: ',
-	          this.state.sugar
-	        ),
-	        _react2.default.createElement(
-	          'h2',
-	          null,
-	          'Fiber: ',
-	          this.state.fiber
-	        ),
-	        _react2.default.createElement(
-	          'h2',
-	          null,
-	          'Protein: ',
-	          this.state.protein
-	        ),
-	        _react2.default.createElement(
-	          'h2',
-	          null,
-	          'Average User Rating: ',
-	          this.state.avgRating
+	          'a',
+	          { href: '' },
+	          'See other ',
+	          this.state.category,
+	          ' cereals!'
 	        )
 	      );
 	    }
