@@ -15,9 +15,8 @@ describe('Product container', () => {
   });
 
   it('should render the correct nodes', () => {
-    expect(productContainer.get(0).props.children[0].props.children[0]).to.contain('Category');
-    expect(productContainer.get(0).props.children[4].props.children[0]).to.contain('Price');
-    expect(productContainer.get(0).props.children[5].props.children[0]).to.contain('Inventory');
+    expect(productContainer.get(0).props.children[3].props.children[0]).to.contain('Price');
+    expect(productContainer.get(0).props.children[4].props.children[0]).to.contain('Inventory');
     expect(productContainer.get(0).props.children[6].props.children[0]).to.contain('Calories');
     expect(productContainer.get(0).props.children[7].props.children[0]).to.contain('Sugar');
     expect(productContainer.get(0).props.children[8].props.children[0]).to.contain('Fiber');

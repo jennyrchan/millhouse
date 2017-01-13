@@ -6,3 +6,16 @@ ul.product-list {
   list-style-type: none;
   font-size: 30px;
 }
+
+div.nutrition-heading div {
+  box-sizing: border-box;
+  border-style: solid;
+}
+
+h4.nutrition {
+  border-bottom: solid;
+}
+
+h3.nutrition {
+  border-bottom: solid;
+}
