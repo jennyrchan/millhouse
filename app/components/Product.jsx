@@ -5,20 +5,25 @@ import { connect } from 'react-redux';
 
 export const Product = props => {
 
-    const {id, title, summary, price, inventory, calories, sugar, fiber, protein, category, reviews} = props;
+    const {id, title, summary, price, inventory, calories, sugar, fiber, protein, category} = props.product;
 
-    // const avgRating = reviews.reduce((accumlator, currentElement) => {
-    //     return accumlator + currentElement.rating
-    // },0)/reviews.length
+    const reviews = props.reviews;
 
+    let avgRating;
 
-    // let arr = [];
-    // for (let i = 1; i < avgRating; i++) {
-    //   arr.push(<img src = {`/cheerio.jpg`} key = {i} />);
-    // }
-    // if (avgRating % 1 > 0.5) {
-    //   arr.push(<img src = {'/halfCheerio.jpg'} key = "half" />);
-    // }
+    if (reviews.length) {
+      avgRating = reviews.reduce((accumlator, currentElement) => {
+          return accumlator + currentElement.rating
+      },0)/reviews.length
+    }
+
+    let arr = [];
+    for (let i = 1; i < avgRating; i++) {
+      arr.push(<img src = {`/cheerio.jpg`} key = {i} />);
+    }
+    if (avgRating % 1 > 0.5) {
+      arr.push(<img src = {'/halfCheerio.jpg'} key = "half" />);
+    }
 
     let pencil = <button type="button" className="btn btn-default btn-xs"><span className="glyphicon glyphicon-pencil"></span> </button>
 
@@ -41,10 +46,16 @@ export const Product = props => {
             <h4 className = "nutrition">Fiber: {fiber}</h4>
             <h4>Protein: {protein}</h4>
           </div>
-            <h4>Average User Rating: </h4>
+            <h4>Average User Rating: {arr}</h4>
           </div>
         </ul>
         <h1><a href = "">See other {category} cereals!</a></h1>
+        <h1> Reviews </h1>
+          <div>
+          {reviews.length && reviews.map(review =>
+            (< Review key = {review.id} title = {review.title} body = {review.body} rating = {review.rating} />)
+          )}
+          </div>
       </div>
     )
 }
@@ -54,20 +65,10 @@ export const Product = props => {
 
 
 const mapState = state => {
-  console.log(state);
-  return ({
-    id : state.product.id,
-    category : state.category.id,
-    title : state.category.title,
-    image : state.category.image,
-    summary : state.category.summary,
-    price : state.category.price,
-    inventory : state.cateogry.inventory,
-    calories : state.category.calories,
-    sugar : state.category.sugar,
-    fiber : state.category.fiber,
-    protein : state.cateogry.protein
-  })
+return {
+  product: state.product,
+  reviews: state.reviews
+  }
 }
 
 const mapDispatch = null;
