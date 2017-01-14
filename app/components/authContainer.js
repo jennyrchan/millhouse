@@ -8,3 +8,5 @@ const authContainer = connect(
     </div>
 )
 export default authContainer;
+
+// What is the purpose of this authContainer file? Isn't this code already in main.jsx?

@@ -5,21 +5,21 @@ import {render} from 'react-dom'
 import {connect, Provider} from 'react-redux'
 
 import store from './store'
-import Jokes from './components/Jokes'
-import Login from './components/Login'
-import WhoAmI from './components/WhoAmI'
 import Navbar from './components/Navbar'
+import Products from './components/Products'
 import ProductContainer from './containers/ProductContainer'
 
 import {fetchCart} from './reducers/cart';
+import {fetchProducts} from './reducers/products';
 
 const onAppEnter = () => {
-  fetchCart();
+  store.dispatch(fetchCart());
+  store.dispatch(fetchProducts());
 };
 
 const AuthContainer = connect(
   ({ auth }) => ({ user: auth })
-) (
+)(
   ({ user, children }) =>
     <div>
       <Navbar />
@@ -27,12 +27,13 @@ const AuthContainer = connect(
     </div>
 )
 
-render (
+render(
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route path="/" component={AuthContainer} onEnter={onAppEnter}>
-        <IndexRedirect to="/products/:productId" />
+        <Route path="/products" component={Products} />
         <Route path="/products/:productId" component={ProductContainer} />
+        <IndexRedirect to="/products" />
       </Route>
     </Router>
   </Provider>,

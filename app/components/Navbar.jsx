@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
 import Login from './Login';
 import WhoAmI from './WhoAmI';
 

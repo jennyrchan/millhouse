@@ -4,8 +4,8 @@ import axios from 'axios'
 
 const reducer = (state = null, action) => {
   switch(action.type) {
-  case RECEIVE_CART:
-    return action.cart;
+  case RECEIVE_PRODUCTS:
+    return action.products;
   }
   return state;
 };
@@ -14,21 +14,21 @@ export default reducer
 
 /* -----------------    ACTION     ------------------ */
 
-const RECEIVE_CART = 'RECEIVE_CART';
+const RECEIVE_PRODUCTS = 'RECEIVE_PRODUCTS';
 
 /* ------------   ACTION CREATOR     ------------------ */
 
-export const receiveCart = cart => ({
-  type: RECEIVE_CART, cart
+export const receiveProducts = products => ({
+  type: RECEIVE_PRODUCTS, products
 });
 
 /* ------------       DISPATCHER     ------------------ */
 
-export const fetchCart = () =>
+export const fetchProducts = () =>
   dispatch =>
-    axios.get('/api/orders/cart')
+    axios.get('/api/products')
       .then(response => {
-        const cart = response.data;
-        dispatch(receiveCart(cart));
+        const products = response.data;
+        dispatch(receiveProducts(products));
       })
-      .catch(err => console.error('Fetching shopping cart unsuccessful', err));
+      .catch(err => console.error('Fetching products unsuccessful', err));
