@@ -50,6 +50,12 @@ export const Product = props => {
           </div>
         </ul>
         <h1><a href = "">See other {category} cereals!</a></h1>
+        <h1> Reviews </h1>
+          <div>
+          {reviews.length && reviews.map(review =>
+            (< Review key = {review.id} title = {review.title} body = {review.body} rating = {review.rating} />)
+          )}
+          </div>
       </div>
     )
 }
