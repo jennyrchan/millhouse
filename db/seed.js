@@ -14,7 +14,6 @@ const Order = require('APP/db/models/order');
 const OrderProduct = require('APP/db/models/orderProduct');
 
 const numUsers = 100;
-const numOrders = 4;
 const numReviews = 500;
 
 const emails = chance.unique(chance.email, numUsers);
@@ -74,10 +73,6 @@ function randReview (createdUsers) {
     body: chance.paragraph(),
     rating: chance.integer({min: 1, max: 5})
   });
-}
-
-function randOrder (user_id) {
-  return Order.build({ user_id });
 }
 
 function generateUsers () {
