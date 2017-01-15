@@ -1,24 +1,31 @@
 import axios from 'axios'
 
-const reducer = (state=null, action) => {
+/* ------------   ACTION CREATOR     ------------------ */
+const AUTHENTICATED = 'AUTHENTICATED'
+
+export const authenticated = user => ({
+  type: AUTHENTICATED, user
+})
+/* ------------       REDUCER     ------------------ */
+
+const reducer = (state = null, action) => {
   switch(action.type) {
-  case AUTHENTICATED:
-    return action.user  
+    case AUTHENTICATED:
+      return action.user
   }
   return state
 }
 
-const AUTHENTICATED = 'AUTHENTICATED'
-export const authenticated = user => ({
-  type: AUTHENTICATED, user
-})
+export default reducer
+
+/* ------------       DISPATCHERS     ------------------ */
 
 export const login = (username, password) =>
   dispatch =>
     axios.post('/api/auth/local/login',
       {username, password})
       .then(() => dispatch(whoami()))
-      .catch(() => dispatch(whoami()))      
+      .catch(() => dispatch(whoami()))
 
 export const logout = () =>
   dispatch =>
@@ -34,5 +41,3 @@ export const whoami = () =>
         dispatch(authenticated(user))
       })
       .catch(failed => dispatch(authenticated(null)))
-
-export default reducer
