@@ -14,11 +14,7 @@ const reducer = (state = {}, action) => {
   switch (action.type) {
 
     case RECEIVE_USERREVIEWS:
-      let arr = [];
-      action.reviews.map(review => {
-        arr.push(review);
-      })
-      newState = arr;
+      newState = action.reviews;
       break;
 
     default: return state;

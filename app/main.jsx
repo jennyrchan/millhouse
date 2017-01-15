@@ -19,6 +19,7 @@ import {receiveProduct} from './reducers/product';
 import {receiveProductReviews} from './reducers/productReviews';
 import {receiveUser} from './reducers/userSettings';
 import {receiveUserReviews} from './reducers/userReviews';
+import {receiveUserOrders} from './reducers/userOrders';
 
 
 const onAppEnter = () => {
@@ -58,6 +59,12 @@ const onUserReviewsEnter = route =>
   .then(reviews => store.dispatch(receiveUserReviews(reviews)))
   .catch(err => console.log('User Reviews Error', err));
 
+const onUserOrdersEnter = route =>
+  axios.get(`/api/users/${+route.params.userId}/orders`)
+  .then(orders => orders.data)
+  .then(orders => store.dispatch(receiveUserOrders(orders)))
+  .catch(err => console.log('User Orders Error', err));
+
 render (
   <Provider store={store}>
     <Router history={browserHistory}>
@@ -65,7 +72,7 @@ render (
         <IndexRedirect to="/products/:productId" />
         <Route path="/products/:productId" onEnter = {onProductEnter} component={Product} />
         <Redirect from="/users/:userId" to='/users/:userId/orders' />
-        <Route path="/users/:userId/orders" component= {UserOrders}/>
+        <Route path="/users/:userId/orders" component= {UserOrders}onEnter = {onUserOrdersEnter}/>
         <Route path="/users/:userId/reviews" component= {UserReviews} onEnter = {onUserReviewsEnter}/>
         <Route path="/users/:userId/settings" component= {UserSettings} onEnter = {onUserSettingsEnter} />
       </Route>

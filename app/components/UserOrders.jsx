@@ -7,8 +7,12 @@ const UserOrders = props => {
 
   return (
       <div>
-        <div className = 'col-xs-9 userContainer'>
+        <div className = 'col-xs-9'>
           <div id = 'userTitle'> Past Orders </div>
+
+
+
+
         </div>
 
         <div>
@@ -21,7 +25,9 @@ const UserOrders = props => {
 /*  --------------   Container ---------------- */
 
 const mapState = state => {
-  return {};
+  return {
+    orders : state.orders
+  };
 }
 
 const mapDispatch = dispatch => {
