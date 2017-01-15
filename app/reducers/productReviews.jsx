@@ -1,6 +1,6 @@
 const RECEIVE_REVIEWS = 'RECEIVE_REVIEWS';
 
-export const receiveReviews = reviews => ({
+export const receiveProductReviews = reviews => ({
   type: RECEIVE_REVIEWS, reviews
 });
 
@@ -15,7 +15,7 @@ const reducer = (state = {}, action) => {
 
   case RECEIVE_REVIEWS:
       let arr = [];
-      action.reviews.map((review, i) => {
+      action.reviews.map(review => {
         arr.push(review);
       });
       newState = arr;

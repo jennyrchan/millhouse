@@ -16,8 +16,9 @@ import UserReviews from './components/UserReviews';
 
 import {fetchCart} from './reducers/cart';
 import {receiveProduct} from './reducers/product';
-import {receiveReviews} from './reducers/productReviews';
+import {receiveProductReviews} from './reducers/productReviews';
 import {receiveUser} from './reducers/userSettings';
+import {receiveUserReviews} from './reducers/userReviews';
 
 
 const onAppEnter = () => {
@@ -31,7 +32,7 @@ const onProductEnter = (route) => Promise.all([
 .then(responses=> responses.map(response=>response.data))
 .then(([product, reviews]) => {
   store.dispatch(receiveProduct(product));
-  store.dispatch(receiveReviews(reviews));
+  store.dispatch(receiveProductReviews(reviews));
 })
 .catch(err => console.log('Product Error', err));
 
@@ -51,6 +52,12 @@ const onUserSettingsEnter = route =>
   .then(user => store.dispatch(receiveUser(user)))
   .catch(err => console.log('UserSettings Error', err));
 
+const onUserReviewsEnter = route =>
+  axios.get(`/api/users/${+route.params.userId}/reviews`)
+  .then(reviews => reviews.data)
+  .then(reviews => store.dispatch(receiveUserReviews(reviews)))
+  .catch(err => console.log('User Reviews Error', err));
+
 render (
   <Provider store={store}>
     <Router history={browserHistory}>
@@ -59,7 +66,7 @@ render (
         <Route path="/products/:productId" onEnter = {onProductEnter} component={Product} />
         <Redirect from="/users/:userId" to='/users/:userId/orders' />
         <Route path="/users/:userId/orders" component= {UserOrders}/>
-        <Route path="/users/:userId/reviews" component= {UserReviews}/>
+        <Route path="/users/:userId/reviews" component= {UserReviews} onEnter = {onUserReviewsEnter}/>
         <Route path="/users/:userId/settings" component= {UserSettings} onEnter = {onUserSettingsEnter} />
       </Route>
     </Router>
