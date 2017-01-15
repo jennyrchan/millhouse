@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import UserSidebar from './UserSidebar';
+import Review from './Review';
 
 const UserReviews = props => {
   let pencil = <button type="button" className="btn btn-default btn-xs pull-right"><span className="glyphicon glyphicon-pencil"></span> </button>
@@ -23,11 +24,7 @@ const UserReviews = props => {
         <div className = 'col-xs-9'>
           <div id = 'userTitle'> Reviews </div>
           {reviews.length && reviews.map((review,id) => (
-              <div key = {id}>
-                <h1> {review.title} {pencil}</h1>
-                <h2> {review.body} </h2>
-                <h2> User Rating:  {arr[id]}</h2>
-              </div>
+          <Review key = {id} title={review.title} body={review.body} rating={review.rating}/>
           ))}
         </div>
 
