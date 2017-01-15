@@ -7,6 +7,8 @@ const UserSettings = props => {
 
   const {firstName, lastName, email, phoneNumber, shippingAddress, billingAddress} = props.userSettings;
 
+  let userId = +props.params.userId;
+
   return (
     <div>
       <div className = 'col-xs-9'>
@@ -20,7 +22,7 @@ const UserSettings = props => {
       </div>
 
       <div>
-        <UserSidebar />
+        <UserSidebar userId={userId}/>
       </div>
     </div>
   )

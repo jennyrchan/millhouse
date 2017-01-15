@@ -8,11 +8,15 @@ const UserReviews = props => {
   const reviews = props.reviews;
 
   let arr = [];
-  for (let i = 0; i < reviews.rating; i++) {
-    arr.push(<img src = {`/cheerio.jpg`} key = {i} />);
-  }
+  reviews.length && reviews.map((review,id) => {
+    arr[id] = [];
+    for (let i = 0; i < review.rating; i++) {
+      arr[id].push(<img src = {`/cheerio.jpg`} key = {i} />);
+    }
+  })
 
-  let userId = reviews[0] && reviews[0].user_id;
+
+  let userId = reviews[0] && +reviews[0].user_id;
 
   return (
       <div>
@@ -23,11 +27,11 @@ const UserReviews = props => {
               <div key = {id}>
                 <h1> {review.title} </h1>
                 <h2> {review.body} </h2>
-                <h2> User Rating:  </h2>
+                <h2> User Rating:  {arr[id]}</h2>
               </div>
             ))}
           <div>
-          <UserSidebar props={userId}/>
+          <UserSidebar userId={userId}/>
         </div>
       </div>
   )
