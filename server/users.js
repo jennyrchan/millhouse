@@ -38,12 +38,12 @@ module.exports = require('express').Router()
 	.get('/:id/orders', selfOnly('view your own orders'), (req, res, next) =>
 		User.findById(req.params.id)
 		.then(user => user.getOrders())
-		.then(orders => res.json(orders))
+		.then(orders =>  res.json(orders))
 		.catch(next))
 
 	.get('/:id/reviews', (req, res, next) => {
 		User.findById(req.params.id)
 		.then(user => user.getReviews())
 		.then(reviews => res.json(reviews))
-		.catch(next)
+		.catch(next);
 	});

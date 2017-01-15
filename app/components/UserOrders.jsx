@@ -13,12 +13,19 @@ const UserOrders = props => {
       <div>
         <div className = 'col-xs-9'>
           <div id = 'userTitle'> Past Orders </div>
-          {orders.length && orders.map((order,id) => (
-            <div key = {id}>
-            <section> Order status: {order.status} </section>
+          {orders.length && orders.map((order,id) => {
+            let date = new Date(order.created_at).toString().split(' ');
+            return (
+            <div key = {id} id = 'userOrderProducts'>
+            <h1> {`${date[1]} ${date[2]}, ${date[3]}`} </h1>
+            <div>
+            Products
+            </div>
+          <h4> Order status: {order.status} </h4>
 
             </div>
-          ))}
+            )
+          })}
         </div>
 
         <div>
