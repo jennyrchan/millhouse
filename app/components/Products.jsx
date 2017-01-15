@@ -1,43 +1,31 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
+import ProductMini from './ProductMini';
 
 /* -----------------    COMPONENT     ------------------ */
 
-class Products extends Component {
-  constructor(props) {
-    super(props);
-  }
+export const Products = props => {
 
-  render () {
-    const products = this.props.products;
-    console.log('PRODUCTS', products)
+  const products = props.products;
 
-    return (
-      <div>
-        <h3>Products</h3>
+  return (
+    <div>
+      <h3>Products</h3>
         <div className="row">
           {
-            products && products.products.map(product => (
+            products && products.map(product => (
               <div className="col-xs-4" key={ product.id }>
-                <Link className="thumbnail" to={`/api/products/${product.id}`}>
-                  <img src={`/cereals/${product.id}.jpg`}/>
-                  <div className="caption">
-                    <h5>
-                      <span>{ product.title }</span>
-                    </h5>
-                    <small>${ product.price }</small>
-                  </div>
+                <Link className="thumbnail" to={`/products/${product.id}`}>
+                  <ProductMini product={product} />
                 </Link>
               </div>
             ))
           }
         </div>
-      </div>
-    );
-  }
+    </div>
+  );
 }
-
 
 /* -----------------    CONTAINER     ------------------ */
 

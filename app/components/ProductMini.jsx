@@ -1,25 +1,20 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
 
-/* -----------------    COMPONENT     ------------------ */
-
-const ProductMini = function (props) {
+function ProductMini (props) {
 
   const product = props.product;
 
   return (
-    <div className="product">
-      <img src={`/cereals/${product.id}.jpg`} className="img-thumbnail"/>
-      <h3>{ product.title }</h3>
-      <h4>{ product.price }</h4>
+    <div className="row">
+      <div className="col-xs-6">
+        <img src={`/cereals/${product.id}.jpg`} className="img-thumbnail"/>
+      </div>
+      <div className="col-xs-6">
+        <h3>{ product.title }</h3>
+        <h4>${ product.price }</h4>
+      </div>
     </div>
   );
 }
 
-/* -----------------    CONTAINER     ------------------ */
-
-const mapState = ({ product }) => ({ product: product });
-
-const mapDispatch = null;
-
-export default connect(mapState, mapDispatch)(ProductMini);
+export default ProductMini;
