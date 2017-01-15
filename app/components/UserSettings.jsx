@@ -7,12 +7,12 @@ const UserSettings = props => {
 
   return (
     <div>
-      <div className = 'col-xs-11'>
+      <div className = 'col-xs-9'>
         UserSettings
       </div>
 
       <div>
-        <UserSidebar/>
+        <UserSidebar />
       </div>
     </div>
   )

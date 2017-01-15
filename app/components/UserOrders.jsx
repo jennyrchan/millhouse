@@ -5,7 +5,7 @@ import UserSidebar from './UserSidebar';
 const UserOrders = props => {
   return (
     <div>
-      <div className = 'col-xs-11'>
+      <div className = 'col-xs-9'>
         UserOrders
       </div>
 

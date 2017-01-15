@@ -17,20 +17,10 @@ const UserSidebar = props => {
         <Link to='/users/:userId/settings'> Settings </Link>
       </section>
 
-      <img src ='/millhouse.jpg' />
+      <div className = 'millhouse' />
 
     </sidebar>
   )
 }
 
-/*  --------------   Container ---------------- */
-
-const mapState = state => {
-  return {};
-}
-
-const mapDispatch = dispatch => {
-  return {};
-}
-
-export default connect(mapState,mapDispatch)(UserSidebar);
+export default UserSidebar;

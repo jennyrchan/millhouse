@@ -7,7 +7,7 @@ const UserReviews = props => {
 
   return (
     <div>
-      <div className = 'col-xs-11'>
+      <div className = 'col-xs-9'>
         UserReviews
       </div>
 

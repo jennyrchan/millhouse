@@ -27,7 +27,7 @@ sidebar {
   padding: 0 !important;
   background: white;
   height: 600px;
-  width: 269px;
+  width: 250px;
   overflow-y: auto;
   border-style: solid;
 }
@@ -41,6 +41,14 @@ sidebar section {
 sidebar section a{
   text-align: left;
   color: black;
+}
+
+.millhouse {
+  position: relative;
+  background-image: url('./millhouse.jpg');
+  height: 600px;
+  width: 275px;
+  right: 15px;
 }
 
 
