@@ -61,7 +61,7 @@ class Cart extends Component {
 
 /* -----------------    CONTAINER     ------------------ */
 
-const mapState = ({ orderProducts }) => ({ products: orderProducts });
+const mapState = ({ cart }) => ({ products: cart.products });
 
 const mapDispatch = null;
 

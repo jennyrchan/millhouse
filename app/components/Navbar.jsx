@@ -3,12 +3,18 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import Login from './Login';
 import WhoAmI from './WhoAmI';
+import {fetchCart} from '../reducers/cart';
 
 /* -----------------    COMPONENT     ------------------ */
 
 class Navbar extends Component {
   constructor(props) {
     super(props);
+    this.clickHandler = this.clickHandler.bind(this);
+  }
+
+  clickHandler() {
+    this.props.fetchCart();
   }
 
   render () {
@@ -21,8 +27,10 @@ class Navbar extends Component {
         </div>
         <div className="col-xs-10">
           <div className="row">
-            <button type="button" className="btn btn-success pull-right col-xs-1"><span className="glyphicon glyphicon-question-sign"></span> </button>
-            <button type="button" className="btn btn-success pull-right col-xs-1"><span className="glyphicon glyphicon-shopping-cart"></span> </button>
+            <button id="help" type="button" className="btn btn-success pull-right col-xs-1"><span className="glyphicon glyphicon-question-sign"></span> </button>
+
+            <button id="shopping-cart" type="button" className="btn btn-success pull-right col-xs-1" onClick={this.clickHandler} ><span className="glyphicon glyphicon-shopping-cart"></span> </button>
+
             {user ? <WhoAmI/> : <Login/>}
           </div>
         </div>
@@ -36,6 +44,8 @@ class Navbar extends Component {
 
 const mapState = ({ auth }) => ({ user: auth });
 
-const mapDispatch = null;
+const mapDispatch = dispatch => ({
+  fetchCart: () => dispatch(fetchCart())
+});
 
 export default connect(mapState, mapDispatch)(Navbar);

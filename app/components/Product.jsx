@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 export const Product = props => {
 
-    const {id, title, summary, price, inventory, calories, sugar, fiber, protein, category, reviews} = props;
+    const {id, title, summary, price, inventory, calories, sugar, fiber, protein, category, reviews} = props.product;
 
     // const avgRating = reviews.reduce((accumlator, currentElement) => {
     //     return accumlator + currentElement.rating
@@ -53,22 +53,9 @@ export const Product = props => {
 /*  ----------------   Container  --------------------------*/
 
 
-const mapState = state => {
-  console.log(state);
-  return ({
-    id : state.product.id,
-    category : state.category.id,
-    title : state.category.title,
-    image : state.category.image,
-    summary : state.category.summary,
-    price : state.category.price,
-    inventory : state.cateogry.inventory,
-    calories : state.category.calories,
-    sugar : state.category.sugar,
-    fiber : state.category.fiber,
-    protein : state.cateogry.protein
-  })
-}
+const mapState = state => ({
+    product: state.product
+});
 
 const mapDispatch = null;
 

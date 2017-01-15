@@ -17,14 +17,13 @@ module.exports = require('express').Router()
     .then(order => res.status(201).json(order))
     .catch(next))
 
-  .get('/cart', selfOnly('use your own shopping cart.'), (req, res, next) => {
+  .get('/cart', selfOnly('access your own shopping cart.'), (req, res, next) =>
     Order.findOne({
-      include: [{ model: Product }],
+      include: {model: Product},
       where: {user_id: req.user.id, status: 'pending'}
     })
-    .then(cart => res.json(cart))
-    .catch(next);
-  })
+    .then(cart => res.status(201).json(cart))
+    .catch(next))
 
   .get('/:orderId', (req, res, next) =>
     Order.findById(req.params.orderId)
