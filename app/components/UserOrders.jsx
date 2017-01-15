@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import UserSidebar from './UserSidebar';
 
 const UserOrders = props => {
-  let pencil = <button type="button" className="btn btn-default btn-xs pull-right"><span className="glyphicon glyphicon-pencil"></span> </button>
+  let pencil = <button type="button" className="btn btn-default btn-xs"><span className="glyphicon glyphicon-pencil"></span> </button>
 
   const {orders} = props;
 
@@ -21,7 +21,7 @@ const UserOrders = props => {
             <div>
             Products
             </div>
-          <h4> Order status: {order.status} </h4>
+          <h4> Order status: {order.status} {pencil} </h4>
 
             </div>
             )
