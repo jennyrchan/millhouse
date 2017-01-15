@@ -3,16 +3,18 @@ import {connect} from 'react-redux';
 import UserSidebar from './UserSidebar';
 
 const UserOrders = props => {
-  return (
-    <div>
-      <div className = 'col-xs-9'>
-        UserOrders
-      </div>
+  let pencil = <button type="button" className="btn btn-default btn-xs pull-right"><span className="glyphicon glyphicon-pencil"></span> </button>
 
+  return (
       <div>
-        <UserSidebar/>
+        <div className = 'col-xs-9 userContainer'>
+          <div id = 'userTitle'> Past Orders </div>
+        </div>
+
+        <div>
+          <UserSidebar />
+        </div>
       </div>
-    </div>
   )
 }
 

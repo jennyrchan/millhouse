@@ -26,7 +26,7 @@ sidebar {
   top: 63px;
   padding: 0 !important;
   background: white;
-  height: 600px;
+  height: 640px;
   width: 250px;
   overflow-y: auto;
   border-style: solid;
@@ -46,9 +46,26 @@ sidebar section a{
 .millhouse {
   position: relative;
   background-image: url('./millhouse.jpg');
-  height: 600px;
-  width: 275px;
+  height: 493px;
+  width: 269px;
   right: 15px;
 }
 
+.user {
+  padding: 30px;
+  border-bottom: solid;
+  border-left: solid;
+  border-right: solid;
+  font-size: 30px;
+}
 
+#firstName {
+  border-top: solid;
+}
+
+#userTitle {
+  padding: 30px;
+  font-size: 50px;
+  border-style: dashed;
+  margin-bottom: 10px;
+}

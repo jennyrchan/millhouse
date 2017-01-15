@@ -17,6 +17,7 @@ import UserReviews from './components/UserReviews';
 import {fetchCart} from './reducers/cart';
 import {receiveProduct} from './reducers/product';
 import {receiveReviews} from './reducers/reviews';
+import {receiveUser} from './reducers/userSettings';
 
 
 const onAppEnter = () => {
@@ -32,7 +33,7 @@ const onProductEnter = (route) => Promise.all([
   store.dispatch(receiveProduct(product));
   store.dispatch(receiveReviews(reviews));
 })
-.catch(err => console.log(err));
+.catch(err => console.log('Product Error', err));
 
 const AuthContainer = connect(
   ({ auth }) => ({ user: auth })
@@ -44,6 +45,12 @@ const AuthContainer = connect(
     </div>
 )
 
+const onUserSettingsEnter = route =>
+  axios.get(`/api/users/${+route.params.userId}`)
+  .then(user => user.data)
+  .then(user => store.dispatch(receiveUser(user)))
+  .catch(err => console.log('UserSettings Error', err));
+
 render (
   <Provider store={store}>
     <Router history={browserHistory}>
@@ -53,7 +60,7 @@ render (
         <Redirect from="/users/:userId" to='/users/:userId/orders' />
         <Route path="/users/:userId/orders" component= {UserOrders}/>
         <Route path="/users/:userId/reviews" component= {UserReviews}/>
-        <Route path="/users/:userId/settings" component= {UserSettings}/>
+        <Route path="/users/:userId/settings" component= {UserSettings} onEnter = {onUserSettingsEnter} />
       </Route>
     </Router>
   </Provider>,

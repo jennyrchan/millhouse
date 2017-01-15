@@ -25,7 +25,7 @@ export const Product = props => {
       arr.push(<img src = {'/halfCheerio.jpg'} key = "half" />);
     }
 
-    let pencil = <button type="button" className="btn btn-default btn-xs"><span className="glyphicon glyphicon-pencil"></span> </button>
+    let pencil = <button type="button" className="btn btn-default btn-xs pull-right"><span className="glyphicon glyphicon-pencil"></span> </button>
 
 
     return (
