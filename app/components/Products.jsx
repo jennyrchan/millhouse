@@ -11,16 +11,17 @@ class Products extends Component {
 
   render () {
     const products = this.props.products;
+    console.log('PRODUCTS', products)
 
     return (
       <div>
         <h3>Products</h3>
         <div className="row">
           {
-            products && products.map(product => (
+            products && products.products.map(product => (
               <div className="col-xs-4" key={ product.id }>
                 <Link className="thumbnail" to={`/api/products/${product.id}`}>
-                  <img src={ `/cereals/${product.id}.jpg` }/>
+                  <img src={`/cereals/${product.id}.jpg`}/>
                   <div className="caption">
                     <h5>
                       <span>{ product.title }</span>

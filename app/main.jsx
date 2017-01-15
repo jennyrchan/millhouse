@@ -10,11 +10,12 @@ import Products from './components/Products'
 import ProductContainer from './containers/ProductContainer'
 
 import {fetchCart} from './reducers/cart';
-import {fetchProducts} from './reducers/products';
+import {fetchProducts, fetchProduct} from './reducers/products';
 
 const onAppEnter = () => {
-  store.dispatch(fetchCart());
+  // store.dispatch(fetchCart());
   store.dispatch(fetchProducts());
+  // store.dispatch(fetchProduct());
 };
 
 const AuthContainer = connect(
