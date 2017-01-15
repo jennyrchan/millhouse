@@ -22,7 +22,7 @@ h3.nutrition {
 
 sidebar {
   position: fixed;
-  right: 0;
+  right: 15px;
   top: 63px;
   padding: 0 !important;
   background: white;
@@ -72,5 +72,18 @@ sidebar section a{
 
 .nutritionTable {
   border-style: none;
+}
+
+#productPencil {
+  margin-top: 12px;
+}
+
+#userSettingsPencil {
+  margin:10px;
+  padding: 20px;
+}
+
+#userReviewsPencil {
+  margin-top:15px;
 }
 

@@ -13,12 +13,12 @@ const UserOrders = props => {
       <div>
         <div className = 'col-xs-9'>
           <div id = 'userTitle'> Past Orders </div>
-          <div>
-          {orders.length && orders.map(order => {
-            console.log(order);
-            <div>{order.id} </div>
-          })}
-          </div>
+          {orders.length && orders.map((order,id) => (
+            <div key = {id}>
+            <section> Order status: {order.status} </section>
+
+            </div>
+          ))}
         </div>
 
         <div>

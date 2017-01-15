@@ -25,7 +25,7 @@ export const Product = props => {
       arr.push(<img src = {'/halfCheerio.jpg'} key = "half" />);
     }
 
-    let pencil = <button type="button" className="btn btn-default btn-xs pull-right"><span className="glyphicon glyphicon-pencil"></span> </button>
+    let pencil = <button type="button" className="btn btn-default btn-xs pull-right" id='productPencil'><span className="glyphicon glyphicon-pencil"></span> </button>
 
 
     return (
@@ -52,9 +52,9 @@ export const Product = props => {
         <h1><a href = "">See other {category} cereals!</a></h1>
         <h1> Reviews </h1>
           <div>
-          {reviews.length && reviews.map(review =>
-            (< Review key = {review.id} title = {review.title} body = {review.body} rating = {review.rating} />)
-          )}
+          {reviews.length && reviews.map(review => (
+            <Review key = {review.id} title = {review.title} body = {review.body} rating = {review.rating} pencil= {pencil} />
+          ))}
           </div>
       </div>
     )

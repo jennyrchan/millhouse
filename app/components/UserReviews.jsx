@@ -4,7 +4,7 @@ import UserSidebar from './UserSidebar';
 import Review from './Review';
 
 const UserReviews = props => {
-  let pencil = <button type="button" className="btn btn-default btn-xs pull-right"><span className="glyphicon glyphicon-pencil"></span> </button>
+  let pencil = <button type="button" className="btn btn-default btn-xs pull-right" id="userReviewsPencil" ><span className="glyphicon glyphicon-pencil"></span> </button>
 
   const reviews = props.reviews;
 
@@ -24,7 +24,7 @@ const UserReviews = props => {
         <div className = 'col-xs-9'>
           <div id = 'userTitle'> Reviews </div>
           {reviews.length && reviews.map((review,id) => (
-          <Review key = {id} title={review.title} body={review.body} rating={review.rating}/>
+          <Review key = {id} title={review.title} body={review.body} rating={review.rating} pencil={pencil}/>
           ))}
         </div>
 

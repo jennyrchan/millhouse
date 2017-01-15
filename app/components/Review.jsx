@@ -6,8 +6,8 @@ function Review (props) {
     arr.push(<img src = {`/cheerio.jpg`} key = {i} />);
   }
   return (
-    <div>
-      <h1> {props.title} </h1>
+    <div >
+      <h1> {props.title} {props.pencil}</h1>
       <h2> {props.body} </h2>
       <h2> User Rating: {arr} </h2>
     </div>

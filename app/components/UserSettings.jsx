@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import UserSidebar from './UserSidebar';
 
 const UserSettings = props => {
-  let pencil = <button type="button" className="btn btn-default btn-xs pull-right"><span className="glyphicon glyphicon-pencil"></span> </button>
+  let pencil = <button type="button" className="btn btn-default btn-xs pull-right" id = 'userSettingsPencil'><span className="glyphicon glyphicon-pencil"></span> </button>
 
   const {firstName, lastName, email, phoneNumber, shippingAddress, billingAddress} = props.userSettings;
 
@@ -12,13 +12,13 @@ const UserSettings = props => {
   return (
     <div>
       <div className = 'col-xs-9'>
-        <div id = 'userTitle'> User Profile </div>
-        <div className = 'user' id = 'firstName'> First Name: {firstName && firstName} {pencil}</div>
-        <div className = 'user'> Last Name: {lastName && lastName} {pencil}</div>
-        <div className = 'user'> Email: {email && email} {pencil}</div>
-        <div className = 'user'> Phone Number: {phoneNumber && phoneNumber} {pencil}</div>
-        <div className = 'user'> Shipping Address: {shippingAddress && shippingAddress} {pencil}</div>
-        <div className = 'user'> Billing Address: {billingAddress && billingAddress} {pencil}</div>
+        <div id = 'userTitle'> User Profile {pencil}</div>
+        <div className = 'user' id = 'firstName'> First Name: {firstName && firstName} </div>
+        <div className = 'user'> Last Name: {lastName && lastName} </div>
+        <div className = 'user'> Email: {email && email} </div>
+        <div className = 'user'> Phone Number: {phoneNumber && phoneNumber} </div>
+        <div className = 'user'> Shipping Address: {shippingAddress && shippingAddress} </div>
+        <div className = 'user'> Billing Address: {billingAddress && billingAddress} </div>
       </div>
 
       <div>
