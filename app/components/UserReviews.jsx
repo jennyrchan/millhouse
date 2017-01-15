@@ -12,6 +12,8 @@ const UserReviews = props => {
     arr.push(<img src = {`/cheerio.jpg`} key = {i} />);
   }
 
+  let userId = reviews[0] && reviews[0].user_id;
+
   return (
       <div>
         <div className = 'col-xs-9'>
@@ -25,7 +27,7 @@ const UserReviews = props => {
               </div>
             ))}
           <div>
-          <UserSidebar />
+          <UserSidebar props={userId}/>
         </div>
       </div>
   )
