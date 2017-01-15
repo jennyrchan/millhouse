@@ -10,12 +10,19 @@ const db = require('APP/db');
 const User = require('APP/db/models/user');
 const Review = require('APP/db/models/review');
 const Product = require('APP/db/models/product');
+const Order = require('APP/db/models/order');
+const OrderProduct = require('APP/db/models/orderProduct');
 
 const numUsers = 100;
 const numReviews = 500;
 
 const emails = chance.unique(chance.email, numUsers);
-const products = require('./productsSeed');
+const productsJSON = require('./productsSeed');
+
+// Generates random but valid product numbers
+chance.product = function () {
+  return chance.natural({ min: 1, max: productsJSON.length });
+};
 
 function doTimes (n, fn) {
   const results = [];
@@ -61,7 +68,7 @@ function randReview (createdUsers) {
   const user = chance.pick(createdUsers);
   return Review.build({
     user_id: user.id,
-    product_id: chance.natural({ min: 1, max: products.length }),
+    product_id: chance.product(),
     title: randTitle(),
     body: chance.paragraph(),
     rating: chance.integer({min: 1, max: 5})
@@ -123,6 +130,39 @@ function generateReviews (createdUsers) {
   });
 }
 
+function generateOrders () {
+  return [101, 102, 103, 104].map(user_id => {
+    return Order.build({ user_id });
+  });
+}
+
+function randOrderProducts(createdOrder, products) {
+  return doTimes(products.length, () => {
+    const product = products.pop();
+    return OrderProduct.build({
+        quantity: chance.natural({ min: 1, max: 5}),
+        order_id: createdOrder.id,
+        product_id: product,
+        priceAtPurchase: 5
+      });
+  });
+}
+
+function generateOrderProducts (createdOrders) {
+  const orderProducts = createdOrders.map(order => {
+    // Ensures against duplicate products in the same order
+    const products = chance.unique(chance.product, chance.natural({min: 1, max: 6}));
+    return randOrderProducts(order, products);
+  });
+
+  return orderProducts.reduce((allOrders, order) => {
+    order.forEach(row => {
+      allOrders.push(row);
+    });
+    return allOrders;
+  }, []);
+}
+
 function createUsers () {
   return Promise.map(generateUsers(), user => {
     return user.save();
@@ -130,20 +170,49 @@ function createUsers () {
 }
 
 function createReviews (createdUsers) {
-  return Promise.map(generateReviews(createdUsers), function (review) {
+  return Promise.map(generateReviews(createdUsers), review => {
     return review.save();
   });
 }
 
+function createOrders () {
+  return Promise.map(generateOrders(), order => {
+    return order.save();
+  });
+}
+
+function createOrderProducts (createdOrders) {
+  return Promise.map(generateOrderProducts(createdOrders), orderProduct => {
+    return orderProduct.save();
+  });
+}
+
 function seed () {
-  return Product.bulkCreate(products)
-    .then(createdProducts => createUsers())
-    .then(createdUsers => createReviews(createdUsers));
+  return Product.bulkCreate(productsJSON)
+    .then(createdProducts => {
+      console.log(`Seeded ${createdProducts.length} products OK`.yellow);
+      return createUsers();
+    })
+    .then(createdUsers => {
+      console.log(`Seeded ${createdUsers.length} users OK`.yellow);
+      return createReviews(createdUsers);
+    })
+    .then(createdReviews => {
+      console.log(`Seeded ${createdReviews.length} reviews OK`.yellow);
+      return createOrders();
+    })
+    .then(createdOrders => {
+      console.log(`Seeded ${createdOrders.length} orders OK`.yellow);
+      return createOrderProducts(createdOrders);
+    })
+    .then(createdOPs => {
+      console.log(`And seeded ${createdOPs.length} products for those orders`.yellow);
+    });
 }
 
 db.didSync
   .then(() => db.sync({force: true}))
   .then(seed)
-  .then(users => console.log(`Seeded ${users.length} users OK`.yellow))
+  .then(users => console.log(`Seeded successfully`.yellow))
   .catch(error => console.error(error))
-  .finally(() => db.close())
+  .finally(() => db.close());
