@@ -22,15 +22,16 @@ const UserReviews = props => {
       <div>
         <div className = 'col-xs-9'>
           <div id = 'userTitle'> Reviews </div>
-          </div>
-            {reviews.length && reviews.map((review,id) => (
+          {reviews.length && reviews.map((review,id) => (
               <div key = {id}>
-                <h1> {review.title} </h1>
+                <h1> {review.title} {pencil}</h1>
                 <h2> {review.body} </h2>
                 <h2> User Rating:  {arr[id]}</h2>
               </div>
-            ))}
-          <div>
+          ))}
+        </div>
+
+        <div>
           <UserSidebar userId={userId}/>
         </div>
       </div>
