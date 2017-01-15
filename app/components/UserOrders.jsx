@@ -5,18 +5,18 @@ import UserSidebar from './UserSidebar';
 const UserOrders = props => {
   let pencil = <button type="button" className="btn btn-default btn-xs pull-right"><span className="glyphicon glyphicon-pencil"></span> </button>
 
-  let userId = props.orders.length && props.orders[0].user_id;
+  const {orders} = props;
+
+  let userId = orders.length && orders[0].user_id;
 
   return (
       <div>
         <div className = 'col-xs-9'>
           <div id = 'userTitle'> Past Orders </div>
           <div>
-          {props.orders.length && props.orders.map(order => {
-            <div>
-              HIIIIII
-
-            </div>
+          {orders.length && orders.map(order => {
+            console.log(order);
+            <div>{order.id} </div>
           })}
           </div>
         </div>
