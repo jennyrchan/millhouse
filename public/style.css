@@ -25,19 +25,22 @@ sidebar {
   right: 0;
   top: 63px;
   padding: 0 !important;
-  background: #585388;
-  height: calc(100vh - 100px);
-  width: 85px;
+  background: white;
+  height: 600px;
+  width: 269px;
   overflow-y: auto;
+  border-style: solid;
 }
 
 sidebar section {
   padding: 20px;
-  align-content: flex-start;
+  text-align: center;
+  font-size: 20px;
 }
 
 sidebar section a{
   text-align: left;
-  color: white;
+  color: black;
 }
+
 

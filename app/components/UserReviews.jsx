@@ -3,6 +3,8 @@ import {connect} from 'react-redux';
 import UserSidebar from './UserSidebar';
 
 const UserReviews = props => {
+  let pencil = <button type="button" className="btn btn-default btn-xs"><span className="glyphicon glyphicon-pencil"></span> </button>
+
   return (
     <div>
       <div className = 'col-xs-11'>

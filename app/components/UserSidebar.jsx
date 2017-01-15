@@ -17,6 +17,7 @@ const UserSidebar = props => {
         <Link to='/users/:userId/settings'> Settings </Link>
       </section>
 
+      <img src ='/millhouse.jpg' />
 
     </sidebar>
   )
