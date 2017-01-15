@@ -19,3 +19,28 @@ h4.nutrition {
 h3.nutrition {
   border-bottom: solid;
 }
+
+sidebar {
+  position: fixed;
+  right: 0;
+  top: 63px;
+  padding: 0 !important;
+  background: #585388;
+  height: calc(100vh - 100px);
+  width: 85px;
+  overflow-y: auto;
+}
+
+sidebar section {
+  padding: 20px;
+  align-content: flex-start;
+}
+
+sidebar section a{
+  text-align: left;
+  color: white;
+}
+
+div.batman {
+  border-style: solid;
+}
