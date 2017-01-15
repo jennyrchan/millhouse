@@ -36,7 +36,7 @@ module.exports = require('express').Router()
 		.catch(next))
 
 	.get('/:id/orders', selfOnly('view your own orders'), (req, res, next) =>
-		User.findById(req.user.id)
+		User.findById(req.params.id)
 		.then(user => user.getOrders())
 		.then(orders => res.json(orders))
 		.catch(next))
