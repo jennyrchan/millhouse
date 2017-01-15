@@ -7,7 +7,7 @@ ul.product-list {
   font-size: 30px;
 }
 
-div.nutrition-heading div {
+.nutrition-heading>div {
   box-sizing: border-box;
   border-style: solid;
 }
@@ -69,3 +69,8 @@ sidebar section a{
   border-style: dashed;
   margin-bottom: 10px;
 }
+
+.nutritionTable {
+  border-style: none;
+}
+

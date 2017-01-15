@@ -16,7 +16,7 @@ import UserReviews from './components/UserReviews';
 
 import {fetchCart} from './reducers/cart';
 import {receiveProduct} from './reducers/product';
-import {receiveReviews} from './reducers/reviews';
+import {receiveReviews} from './reducers/productReviews';
 import {receiveUser} from './reducers/userSettings';
 
 

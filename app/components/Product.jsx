@@ -29,7 +29,7 @@ export const Product = props => {
 
 
     return (
-      <div className = "col-xs-6">
+      <div className = "col-xs-8">
         <ul className="product-list">
           <li>{title}    {pencil}</li>
           <li><img src = {`/cereals/${id}.jpg`} /></li>
@@ -41,10 +41,10 @@ export const Product = props => {
           <div className="nutrition-heading">
           <div>
             <h3 className = "nutrition" >Nutritional Information {pencil}</h3>
-            <h4 className = "nutrition">Calories: {calories}</h4>
-            <h4 className = "nutrition">Sugar: {sugar}</h4>
-            <h4 className = "nutrition">Fiber: {fiber}</h4>
-            <h4>Protein: {protein}</h4>
+            <h4 className = "nutrition">Calories: <div className = 'pull-right nutritionTable'>{calories}</div></h4>
+            <h4 className = "nutrition">Sugar: <div className = 'pull-right nutritionTable'>{sugar} </div></h4>
+            <h4 className = "nutrition">Fiber: <div className = 'pull-right nutritionTable'>{fiber}</div></h4>
+            <h4>Protein: <div className = 'pull-right nutritionTable'>{protein}</div></h4>
           </div>
             <h4>Average User Rating: {arr}</h4>
           </div>
