@@ -9,9 +9,9 @@ function Review (props) {
 
   return (
     <div>
-      <h1>{ props.title }</h1>
-      <h2>{ props.body }</h2>
-      <h2>User Rating: {arr}</h2>
+      <h2>{ props.title }</h2>
+      <p>{ props.body }</p>
+      <h3>User Rating: {arr}</h3>
     </div>
   );
 }
