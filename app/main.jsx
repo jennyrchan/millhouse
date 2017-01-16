@@ -19,7 +19,7 @@ import { receiveProduct } from './reducers/product';
 import { receiveProducts } from './reducers/products';
 import { receiveProductReviews } from './reducers/productReviews';
 import { receiveUser } from './reducers/userSettings';
-import { receiveReviews } from './reducers/reviews';
+// import { receiveReviews } from './reducers/reviews';
 import { receiveUserReviews } from './reducers/userReviews';
 import { receiveUserOrders } from './reducers/userOrders';
 
@@ -77,6 +77,7 @@ render(
     <Router history={browserHistory}>
       <Route path="/" component={AuthContainer} onEnter={onAppEnter}>
         <IndexRedirect to="/products" />
+        <Route path="/products" component={Products} />
         <Route path="/products/:productId" onEnter = {onProductEnter} component={Product} />
         <Redirect from="/users/:userId" to="/users/:userId/orders" />
         <Route path="/users/:userId/orders" component= {UserOrders}onEnter = {onUserOrdersEnter}/>
