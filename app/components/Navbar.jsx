@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {Component} from 'react';
+import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import Login from './Login';
 import WhoAmI from './WhoAmI';
@@ -15,14 +16,14 @@ class Navbar extends Component {
   clickHandler() {
     this.props.fetchCart(this.props.user.id);
   }
-  
+
   render () {
-  const user = props.user;
+  const user = this.props.user;
 
     return (
       <div id="top-nav" className="col-xs-12">
         <div className="col-xs-2">
-          <h2 id="title">MILLHOUSE</h2>
+          <Link to={'/'}><h2 id="title">MILLHOUSE</h2></Link>
         </div>
         <div className="col-xs-10">
           <div className="row">
@@ -34,7 +35,8 @@ class Navbar extends Component {
           </div>
         </div>
       </div>
-  );
+    );
+  }
 }
 
 /* -----------------    CONTAINER     ------------------ */
