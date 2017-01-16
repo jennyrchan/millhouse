@@ -1,25 +1,39 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 /* -----------------    COMPONENT     ------------------ */
 
-export const Cart = props => {
+class Cart extends Component {
+  constructor (props) {
+    super(props);
+    this.clickHandler = this.clickHandler.bind(this);
+  }
 
-  const products = props.products;
-  const cartEmpty = 'Buy some Cheerios!'
-  const totalPrice = products.reduce((subtotal, product) => {
-    const productTotal = product.orderProducts.quantity * product.price;
-    return subtotal + productTotal;
-  }, 0)
+  clickHandler() {
+    alert('checking out!')
+  }
 
-  return (
-    <shoppingCart id="shopping-cart">
-      <h1>Shopping Cart</h1>
+  render () {
+    const cart = this.props.cart || {products: null};
+    const products = cart.products;
+    const cartEmpty = 'Why not buy some Cheerios?';
+    let totalPrice = 0;
+
+    if (products) {
+      totalPrice = products.reduce((subtotal, product) => {
+        const productTotal = product.orderProducts.quantity * product.price;
+        return subtotal + productTotal;
+      }, 0);
+    }
+
+    return (
+      <shoppingCart id="shopping-cart">
+        <h1>Shopping Cart</h1>
         {
-          (!products) ? (
+          !products ? (
             <section><h4>{cartEmpty}</h4></section>
           ) : (
-            products && products.map(product => {
+            products.map(product => {
               return (
                 <section key={product.id}>
                   <button type="button" className="btn btn-default btn-xs"><span className="glyphicon glyphicon-minus"></span></button>
@@ -34,16 +48,18 @@ export const Cart = props => {
             })
           )
         }
-      <section><h4>Tax — meh</h4></section>
-      <section><h4>{`Total — $${totalPrice / 100}`}</h4></section>
-      <section><a href="" className="btn btn-primary btn-sm"><span className="glyphicon glyphicon-shopping-cart" onClick={clickHandler}></span> Checkout</a></section>
-    </shoppingCart>
-  );
-}
+        <section><h4>Tax — meh</h4></section>
+        <section><h4>{`Total — $${totalPrice / 100}`}</h4></section>
+        <section><a href="" className="btn btn-primary btn-sm"><span className="glyphicon glyphicon-shopping-cart" onClick={this.clickHandler}></span> Checkout</a></section>
+        <div className="millhouse" />
+      </shoppingCart>
+    );
+  }
+  }
 
 /* -----------------    CONTAINER     ------------------ */
 
-const mapState = ({ cart }) => ({ products: cart.products });
+const mapState = ({ cart }) => ({ cart });
 
 const mapDispatch = null;
 

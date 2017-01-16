@@ -23,10 +23,9 @@ sidebar section a{
 
 shoppingCart {
   position: fixed;
-  right: 15px;
-  top: 63px;
   padding: 0 !important;
   background: white;
+  height: 80vh;
   overflow-y: auto;
   border-style: solid;
 }
@@ -34,7 +33,7 @@ shoppingCart {
 shoppingCart section {
   padding: 10px;
   text-align: left;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 shoppingCart section a {
