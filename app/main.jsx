@@ -1,29 +1,43 @@
 'use strict'
 import React from 'react'
-import {Router, Route, IndexRedirect, browserHistory} from 'react-router'
-import {render} from 'react-dom'
-import {connect, Provider} from 'react-redux'
+import { Router, Route, IndexRedirect, browserHistory } from 'react-router'
+import { render } from 'react-dom'
+import { connect, Provider } from 'react-redux';
+import axios from 'axios';
 
 import store from './store'
-import Login from './components/Login'
-import WhoAmI from './components/WhoAmI'
 import Navbar from './components/Navbar'
+import Products from './components/Products'
 import Product from './components/Product'
 
-import {fetchCart} from './reducers/cart';
-import {fetchProduct, fetchReviews} from './reducers/product';
+import { fetchCart } from './reducers/cart';
+import { receiveProducts } from './reducers/products';
+import { receiveProduct } from './reducers/product';
+import { receiveReviews } from './reducers/reviews';
 
 const onAppEnter = () => {
-  fetchCart();
+  // fetchCart();
+  axios.get('/api/products')
+    .then(response => {
+      const products = response.data;
+      store.dispatch(receiveProducts(products));
+    })
+    .catch(err => console.error('Fetching products unsuccessful', err));
 };
 
-const onProductEnter = (route) => (store.dispatch(fetchProduct(+route.params.productId)));
-
-const onReviewsEnter = (route) => (fetchReviews(+route.params.productId));
+const onProductEnter = route => Promise.all([
+  axios.get(`/api/products/${+route.params.productId}`),
+  axios.get(`/api/products/${+route.params.productId}/reviews`)])
+    .then(responses => responses.map(response => response.data))
+    .then(([product, reviews]) => {
+      store.dispatch(receiveProduct(product));
+      store.dispatch(receiveReviews(reviews));
+    })
+    .catch(err => console.log('Fetching product and reviews unsuccessful', err));
 
 const AuthContainer = connect(
   ({ auth }) => ({ user: auth })
-) (
+)(
   ({ user, children }) =>
     <div>
       <Navbar />
@@ -31,12 +45,13 @@ const AuthContainer = connect(
     </div>
 )
 
-render (
+render(
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route path="/" component={AuthContainer} onEnter={onAppEnter}>
-        <IndexRedirect to="/products/:productId" />
-        <Route path="/products/:productId" onEnter = {onProductEnter} component={Product} />
+        <Route path="/products" component={Products} />
+          <Route path="/products/:productId" component={Product} onEnter={onProductEnter} />
+        <IndexRedirect to="/products" />
       </Route>
     </Router>
   </Provider>,

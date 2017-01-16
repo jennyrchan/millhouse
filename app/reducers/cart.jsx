@@ -54,4 +54,4 @@ export const saveToCart = (id, orderItem) =>
         priceAtPurchase: orderItem.product.price,
         quantity: orderItem.quantity
       })
-      .catch(err => console.error('Saving shopping cart unsuccesful', err));
+      .catch(err => console.error('Adding to shopping cart unsuccesful', err));

@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
 import Login from './Login';
 import WhoAmI from './WhoAmI';
 import {fetchCart} from '../reducers/cart';
@@ -16,9 +15,9 @@ class Navbar extends Component {
   clickHandler() {
     this.props.fetchCart(this.props.user.id);
   }
-
+  
   render () {
-    const user = this.props.user;
+  const user = props.user;
 
     return (
       <div id="top-nav" className="col-xs-12">
@@ -35,10 +34,8 @@ class Navbar extends Component {
           </div>
         </div>
       </div>
-    );
-  }
+  );
 }
-
 
 /* -----------------    CONTAINER     ------------------ */
 

@@ -1,18 +1,26 @@
 import axios from 'axios';
 import fetchCart from './cart';
 
-const reducer = (state=null, action) => {
+/* ------------   ACTION CREATOR     ------------------ */
+const AUTHENTICATED = 'AUTHENTICATED'
+
+export const authenticated = user => ({
+  type: AUTHENTICATED, user
+})
+/* ------------       REDUCER     ------------------ */
+
+const reducer = (state = null, action) => {
   switch(action.type) {
+
   case AUTHENTICATED:
     return action.user
   }
   return state
 }
 
-const AUTHENTICATED = 'AUTHENTICATED'
-export const authenticated = user => ({
-  type: AUTHENTICATED, user
-})
+export default reducer
+
+/* ------------       DISPATCHERS     ------------------ */
 
 export const login = (username, password) =>
   dispatch =>
@@ -31,10 +39,4 @@ export const whoami = () =>
   dispatch =>
     axios.get('/api/auth/whoami')
       .then(user => dispatch(authenticated(user.data)))
-      // .then(() => {
-      //   console.log('FETCHING CART!');
-      //   dispatch(fetchCart());
-      // })
       .catch(failed => dispatch(authenticated(null)))
-
-export default reducer
