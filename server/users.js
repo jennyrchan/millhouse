@@ -1,8 +1,12 @@
 'use strict';
 
+require
+
 const db = require('APP/db');
 const User = db.model('users');
 const Orders = db.model('orders');
+const Promise = require('bluebird');
+
 
 const {selfOnly, forbidden} = require('./auth.filters');
 
@@ -36,14 +40,15 @@ module.exports = require('express').Router()
 		.then(() => res.status(204).send('User deleted'))
 		.catch(next))
 
-	.get('/:id/orders', selfOnly('view your own orders'), (req, res, next) =>
+	.get('/:id/orders', selfOnly('view your own orders'), (req, res, next) => {
 		User.findById(req.params.id)
 		.then(user => user.getOrders())
-		.then(orders => orders.map(order => {
-			return order.getProducts({include: [{model: Orders}]})
-						.then(orderProduct => res.json(orderProduct));
-		}))
-		.catch(next))
+		.then(orders => Promise.all(orders.map(order => {
+				return order.getProducts({include: [{model: Orders}]})
+		})))
+		.then(orderProducts => console.log(orderProducts))
+		.catch(next)
+	});
 
 	.get('/:id/reviews', (req, res, next) => {
 		User.findById(req.params.id)
