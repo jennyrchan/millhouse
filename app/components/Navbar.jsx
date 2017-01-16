@@ -14,7 +14,7 @@ class Navbar extends Component {
   }
 
   clickHandler() {
-    this.props.fetchCart();
+    this.props.fetchCart(this.props.user.id);
   }
 
   render () {
@@ -45,7 +45,7 @@ class Navbar extends Component {
 const mapState = ({ auth }) => ({ user: auth });
 
 const mapDispatch = dispatch => ({
-  fetchCart: () => dispatch(fetchCart())
+  fetchCart: (id) => dispatch(fetchCart(id))
 });
 
 export default connect(mapState, mapDispatch)(Navbar);

@@ -3,6 +3,7 @@
 const db = require('APP/db');
 const Order = db.model('orders');
 const Product = db.model('products');
+const OrderProduct = db.modle('orderProducts');
 
 const {forbidden, selfOnly} = require('./auth.filters');
 
@@ -17,12 +18,14 @@ module.exports = require('express').Router()
     .then(order => res.status(201).json(order))
     .catch(next))
 
-  .get('/cart', selfOnly('access your own shopping cart.'), (req, res, next) =>
-    Order.findOne({
-      include: {model: Product},
-      where: {user_id: req.user.id, status: 'pending'}
+  .get('/cart/:id', selfOnly('access your own shopping cart'), (req, res, next) =>
+    Order.findOrCreate({
+      where: {user_id: req.user.id, status: 'pending'},
+      include: {model: Product}
     })
-    .then(cart => res.status(201).json(cart))
+    .then((cart, created) => {
+      res.status(201).json(cart);
+    })
     .catch(next))
 
   .get('/:orderId', (req, res, next) =>
@@ -31,6 +34,10 @@ module.exports = require('express').Router()
     .catch(next))
 
   .put('/:orderId', (req, res, next) => {
+    Order.findById(req.params.orderId, { include: {model: Product} })
+    .then(order => {
+      order.update
+    })
     Order.update(req.body, {
       where: { id: req.params.orderId, status: null },
       returning: true
