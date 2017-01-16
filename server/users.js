@@ -43,9 +43,10 @@ module.exports = require('express').Router()
 	.get('/:id/orders', selfOnly('view your own orders'), (req, res, next) => {
 		User.findById(req.params.id)
 		.then(user => user.getOrders())
-		.then(orders => Promise.all(orders.map(order => {
-				return order.getProducts({include: [{model: Orders}]})
-		})))
+		.then(orders => {
+			let newArr = orders.map(order => order.getProducts({include: [{model: Orders}]}));
+			return Promise.all(newArr);
+			})
 		.then(orderProducts => console.log(orderProducts))
 		.catch(next)
 	});
