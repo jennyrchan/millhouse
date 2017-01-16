@@ -49,7 +49,7 @@ module.exports = require('express').Router()
 			})
 		.then(orderProducts => console.log(orderProducts))
 		.catch(next)
-	});
+	})
 
 	.get('/:id/reviews', (req, res, next) => {
 		User.findById(req.params.id)
@@ -57,4 +57,3 @@ module.exports = require('express').Router()
 		.then(reviews => res.json(reviews))
 		.catch(next);
 	});
-
