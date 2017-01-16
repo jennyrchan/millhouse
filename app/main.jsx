@@ -78,11 +78,11 @@ render(
       <Route path="/" component={AuthContainer} onEnter={onAppEnter}>
         <IndexRedirect to="/products" />
         <Route path="/products" component={Products} />
-        <Route path="/products/:productId" onEnter = {onProductEnter} component={Product} />
+        <Route path="/products/:productId" onEnter={onProductEnter} component={Product} />
         <Redirect from="/users/:userId" to="/users/:userId/orders" />
-        <Route path="/users/:userId/orders" component= {UserOrders}onEnter = {onUserOrdersEnter}/>
-        <Route path="/users/:userId/reviews" component= {UserReviews} onEnter = {onUserReviewsEnter}/>
-        <Route path="/users/:userId/settings" component= {UserSettings} onEnter = {onUserSettingsEnter} />
+        <Route path="/users/:userId/orders" component={UserOrders} onEnter={onUserOrdersEnter} />
+        <Route path="/users/:userId/reviews" component={UserReviews} onEnter={onUserReviewsEnter} />
+        <Route path="/users/:userId/settings" component={UserSettings} onEnter={onUserSettingsEnter} />
       </Route>
     </Router>
   </Provider>,

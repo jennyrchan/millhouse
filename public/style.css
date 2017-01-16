@@ -1,50 +1,3 @@
-@font-face {
-  font-family: simpsons;
-  src: url(simpsonFont.ttf);
-}
-
-h1 {
-  font-family: simpsons;
-  text-align: center;
-}
-
-h2, h3, h4 {
-  font-family: helvetica;
-}
-
-ul.product-list {
-  list-style-type: none;
-  font-size: 30px;
-}
-
-.nutrition-heading>div {
-  box-sizing: border-box;
-  border-style: solid;
-}
-
-h4.nutrition {
-  border-bottom: solid;
-}
-
-h3.nutrition {
-  border-bottom: solid;
-}
-
-body {
-  background-image: url("background.jpg");
-}
-
-#review, #product {
-  background-color: rgba(255, 255, 255, 0.5);
-  border-radius: 25px;
-}
-
-#navbar {
-  text-align: center;
-  background-color: #968d7f;
-  padding-bottom: 20px;
-  margin-top: -10px;
-
 sidebar {
   position: fixed;
   right: 15px;
@@ -70,7 +23,7 @@ sidebar section a{
 
 .millhouse {
   position: relative;
-  background-image: url('./millhouse.jpg');
+  background-image: url("millhouse.jpg");
   height: 493px;
   width: 269px;
   right: 15px;
@@ -119,4 +72,52 @@ sidebar section a{
 #userOrderImage {
   max-height: 200px;
   max-width: 160px;
+}
+
+@font-face {
+  font-family: simpsons;
+  src: url(simpsonFont.ttf);
+}
+
+h1 {
+  font-family: simpsons;
+  text-align: center;
+}
+
+h2, h3, h4 {
+  font-family: helvetica;
+}
+
+ul.product-list {
+  list-style-type: none;
+  font-size: 30px;
+}
+
+.nutrition-heading>div {
+  box-sizing: border-box;
+  border-style: solid;
+}
+
+h4.nutrition {
+  border-bottom: solid;
+}
+
+h3.nutrition {
+  border-bottom: solid;
+}
+
+body {
+  background-image: url("background.jpg");
+}
+
+#review, #product {
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 25px;
+}
+
+#navbar {
+  text-align: center;
+  background-color: #968d7f;
+  padding-bottom: 20px;
+  margin-top: -10px;
 }
