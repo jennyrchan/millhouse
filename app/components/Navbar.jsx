@@ -21,11 +21,14 @@ class Navbar extends Component {
   const user = this.props.user;
 
     return (
-      <div id="top-nav" className="col-xs-12">
+      <div id="navbar" className="col-xs-12">
         <div className="col-xs-2">
-          <Link to={'/'}><h2 id="title">MILLHOUSE</h2></Link>
+          <Link to={'/'}><h1 id="title">MILLHOUSE</h1></Link>
         </div>
-        <div className="col-xs-10">
+        <div className="col-xs-4">
+          <h4>Your source for all Cheerios cravings</h4>
+        </div>
+        <div className="col-xs-6">
           <div className="row">
             <button id="help" type="button" className="btn btn-success pull-right col-xs-1"><span className="glyphicon glyphicon-question-sign"></span> </button>
 

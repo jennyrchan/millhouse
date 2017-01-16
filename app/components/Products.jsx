@@ -11,7 +11,7 @@ export const Products = props => {
 
   return (
     <div>
-      <h3>Products</h3>
+      <h1>Products</h1>
         <div className="row">
           {
             products && products.map(product => (

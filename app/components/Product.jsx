@@ -20,22 +20,22 @@ export const Product = props => {
 
     let arr = [];
     for (let i = 1; i < avgRating; i++) {
-      arr.push(<img src={`/cheerio.jpg`} key={i} />);
+      arr.push(<img className="img-circle" src={`/cheerio.jpg`} key={i} />);
     }
     if (avgRating % 1 > 0.5) {
-      arr.push(<img src={'/halfCheerio.jpg'} key="half" />);
+      arr.push(<img className="img-circle" src={'/halfCheerio.jpg'} key="half" />);
     }
 
     let pencil = <button type="button" className="btn btn-default btn-xs pull-right" id='productPencil'><span className="glyphicon glyphicon-pencil"></span> </button>
 
 
     return (
-      <div id="proudct">
+      <div>
         <div className="row">
           <div className="col-xs-6">
-            <img src={`/cereals/${product.id}.jpg`} />
+            <img className="img-responsive" src={`/cereals/${product.id}.jpg`} />
           </div>
-          <div className="col-xs-6">
+          <div id="product" className="col-xs-6">
             <ul className="product-list">
               <li><strong>{product.title + ' Cheerios'}</strong>    {pencil}</li>
               <li>{product.summary} {pencil}</li>

@@ -11,7 +11,7 @@ function ProductMini (props) {
       </div>
       <div className="col-xs-6">
         <h3>{ product.title }</h3>
-        <h4>${ product.price }</h4>
+        <h4>${ product.price / 100 }</h4>
       </div>
     </div>
   );
