@@ -10,7 +10,8 @@ api
   .use('/auth', require('./auth'))
   .use('/users', require('./users'))
   .use('/products', require('./products'))
-  .use('/reviews', require('./reviews'));
+  .use('/reviews', require('./reviews'))
+  .use('/orders', require('./orders'))
 
 api.use(HttpError(404).middleware());
 

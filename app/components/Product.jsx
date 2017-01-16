@@ -1,75 +1,83 @@
-import React, { Component } from 'react';
-import axios from 'axios';
+import React from 'react';
 import Review from './Review';
 import { connect } from 'react-redux';
 
+/* -----------------    COMPONENT     ------------------ */
+
 export const Product = props => {
 
-    const {id, title, summary, price, inventory, calories, sugar, fiber, protein, category} = props.product;
+    const product = props.product;
 
     const reviews = props.reviews;
 
     let avgRating;
 
     if (reviews.length) {
-      avgRating = reviews.reduce((accumlator, currentElement) => {
-          return accumlator + currentElement.rating
-      },0)/reviews.length
+      avgRating = reviews.reduce((accumulator, currentElement) => {
+          return accumulator + currentElement.rating
+      }, 0) / reviews.length
     }
 
     let arr = [];
     for (let i = 1; i < avgRating; i++) {
-      arr.push(<img src = {`/cheerio.jpg`} key = {i} />);
+      arr.push(<img src={`/cheerio.jpg`} key={i} />);
     }
     if (avgRating % 1 > 0.5) {
-      arr.push(<img src = {'/halfCheerio.jpg'} key = "half" />);
+      arr.push(<img src={'/halfCheerio.jpg'} key="half" />);
     }
 
     let pencil = <button type="button" className="btn btn-default btn-xs pull-right" id='productPencil'><span className="glyphicon glyphicon-pencil"></span> </button>
 
 
     return (
-      <div className = "col-xs-8">
-        <ul className="product-list">
-          <li>{title}    {pencil}</li>
-          <li><img src = {`/cereals/${id}.jpg`} /></li>
-          <li>{summary}  {pencil}</li>
-          <li>Price: ${price}   {pencil}</li>
-          <li>Inventory: {inventory < 100
-            ? `Hurry Up And Buy!!!!! Only ${inventory} left in stock!`
-            : 'In Stock'}   {pencil}</li>
-          <div className="nutrition-heading">
-          <div>
-            <h3 className = "nutrition" >Nutritional Information {pencil}</h3>
-            <h4 className = "nutrition">Calories: <div className = 'pull-right nutritionTable'>{calories}</div></h4>
-            <h4 className = "nutrition">Sugar: <div className = 'pull-right nutritionTable'>{sugar} </div></h4>
-            <h4 className = "nutrition">Fiber: <div className = 'pull-right nutritionTable'>{fiber}</div></h4>
-            <h4>Protein: <div className = 'pull-right nutritionTable'>{protein}</div></h4>
+      <div id="proudct">
+        <div className="row">
+          <div className="col-xs-6">
+            <img src={`/cereals/${product.id}.jpg`} />
           </div>
-            <h4>Average User Rating: {arr}</h4>
+          <div className="col-xs-6">
+            <ul className="product-list">
+              <li><strong>{product.title + ' Cheerios'}</strong>    {pencil}</li>
+              <li>{product.summary} {pencil}</li>
+              <li>${product.price / 100} {pencil} {product.inventory < 100
+                ? `Hurry Up And Buy!!!!! Only ${product.inventory} left in stock!`
+                : 'In Stock'}   {pencil} <a href="#" className="btn btn-success">Add to Cart <span className="glyphicon glyphicon-shopping-cart"></span></a></li>
+              <div className="nutrition-heading">
+                <div>
+                  <h3 className="nutrition" >Nutritional Information {pencil}</h3>
+                  <h4 className="nutrition">Calories: {product.calories}</h4>
+                  <h4 className="nutrition">Sugar: {product.sugar}</h4>
+                  <h4 className="nutrition">Fiber: {product.fiber}</h4>
+                  <h4>Protein: {product.protein}</h4>
+                </div>
+                <h4>Average User Rating: {arr}</h4>
+                <h3><a href="">See more {product.category} cereals!</a></h3>
+              </div>
+            </ul>
           </div>
-        </ul>
-        <h1><a href = "">See other {category} cereals!</a></h1>
-        <h1> Reviews </h1>
-          <div>
-          {reviews.length && reviews.map(review => (
-            <Review key = {review.id} title = {review.title} body = {review.body} rating = {review.rating} pencil= {pencil} />
-          ))}
+        </div>
+        <div className="row">
+          <div className="col-xs-12">
+            <h1>Reviews</h1>
+            <div>
+              {reviews.length && reviews.map(review =>
+                (<Review key={ review.id } title={ review.title } body={ review.body } rating={ review.rating } />)
+              )}
+            </div>
           </div>
+        </div>
       </div>
-    )
-}
+    );
+};
 
-
-/*  ----------------   Container  --------------------------*/
-
+/* -----------------    CONTAINER     ------------------ */
 
 const mapState = state => {
-return {
-  product: state.product,
-  reviews: state.reviews
-  }
-}
+  return {
+    product: state.product,
+    reviews: state.reviews
+  };
+};
 
 const mapDispatch = null;
 

@@ -1,11 +1,12 @@
+/* ------------   ACTION CREATOR     ------------------ */
+
 const RECEIVE_REVIEWS = 'RECEIVE_REVIEWS';
 
 export const receiveProductReviews = reviews => ({
   type: RECEIVE_REVIEWS, reviews
 });
 
-
-// ===========   Reducer =========================
+/* ------------       REDUCER     ------------------ */
 
 const reducer = (state = {}, action) => {
 
@@ -21,7 +22,7 @@ const reducer = (state = {}, action) => {
       newState = arr;
       break;
 
-  default: return state;
+    default: return state;
 
   }
 

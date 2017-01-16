@@ -12,7 +12,7 @@ const selfOnly = action => (req, res, next) => {
   if (!req.user) {
     next(new HttpError(401, 'You must be logged in.'));
   } else if (req.user.userType !== 'admin') {
-    if (req.params.id !== req.user.id) {
+    if (Number(req.params.id) !== req.user.id) {
       next(new HttpError(403, `You can only ${action}.`));
     }
   } else {

@@ -1,5 +1,7 @@
 import React from 'react'
 
+/* -----------------    COMPONENT     ------------------ */
+
 export const Login = ({ login }) => (
   <form onSubmit={evt => {
     evt.preventDefault()
@@ -10,6 +12,8 @@ export const Login = ({ login }) => (
     <input name="email" placeholder="Email" className="pull-right"/>
   </form>
 )
+
+/* -----------------    CONTAINER     ------------------ */
 
 import {login} from 'APP/app/reducers/auth'
 import {connect} from 'react-redux'
