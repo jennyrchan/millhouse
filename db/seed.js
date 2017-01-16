@@ -143,7 +143,7 @@ function randOrderProducts(createdOrder, products) {
         quantity: chance.natural({ min: 1, max: 5}),
         order_id: createdOrder.id,
         product_id: product,
-        priceAtPurchase: 5
+        priceAtPurchase: 499
       });
   });
 }

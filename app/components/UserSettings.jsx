@@ -12,7 +12,7 @@ const UserSettings = props => {
   return (
     <div>
       <div className = 'col-xs-9'>
-        <div id = 'userTitle'> User Profile {pencil}</div>
+        <h1 id = 'userTitle'> User Profile {pencil}</h1>
         <div className = 'user' id = 'firstName'> First Name: {firstName && firstName} </div>
         <div className = 'user'> Last Name: {lastName && lastName} </div>
         <div className = 'user'> Email: {email && email} </div>
