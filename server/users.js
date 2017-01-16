@@ -49,7 +49,7 @@ module.exports = require('express').Router()
 		.catch(next)
 	})
 
-	.get('/:id/reviews', (req, res, next) => {
+	.get('/:id/reviews', selfOnly('view your own reviews'), (req, res, next) => {
 		User.findById(req.params.id)
 		.then(user => user.getReviews())
 		.then(reviews => res.json(reviews))

@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 function ProductMini (props) {
 
   const product = props.product;
+  const price = props.price;
 
   return (
     <div className="row">
@@ -13,7 +14,7 @@ function ProductMini (props) {
         </div>
         <div className="col-xs-6">
           <h3>{ product.title }</h3>
-          <h4>${ product.price / 100 }</h4>
+          <h4>${ price / 100 }</h4>
         </div>
       </Link>
     </div>

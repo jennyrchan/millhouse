@@ -15,7 +15,7 @@ export const Products = props => {
           {
             products && products.map(product => (
               <div className="col-xs-4 link-container" key={ product.id }>
-                <ProductMini product={product} />
+                <ProductMini product={product} price={product.price} />
               </div>
             ))
           }

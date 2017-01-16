@@ -22,7 +22,7 @@ const UserReviews = props => {
   return (
       <div>
         <div className = 'col-xs-9'>
-          <div id = 'userTitle'> Reviews </div>
+          <h1 id = 'userTitle'> Reviews </h1>
           {reviews.length && reviews.map((review,id) => (
           <Review key = {id} title={review.title} body={review.body} rating={review.rating} pencil={pencil}/>
           ))}
