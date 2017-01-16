@@ -1,4 +1,14 @@
-h2 {
+@font-face {
+  font-family: simpsons;
+  src: url(simpsonFont.ttf);
+}
+
+h1 {
+  font-family: simpsons;
+  text-align: center;
+}
+
+h2, h3, h4 {
   font-family: helvetica;
 }
 
@@ -18,4 +28,20 @@ h4.nutrition {
 
 h3.nutrition {
   border-bottom: solid;
+}
+
+body {
+  background-image: url("background.jpg");
+}
+
+#review, #product {
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 25px;
+}
+
+#navbar {
+  text-align: center;
+  background-color: #968d7f;
+  padding-bottom: 20px;
+  margin-top: -10px;
 }
