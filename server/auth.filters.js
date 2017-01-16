@@ -14,6 +14,8 @@ const selfOnly = action => (req, res, next) => {
   } else if (req.user.userType !== 'admin') {
     if (Number(req.params.id) !== req.user.id) {
       next(new HttpError(403, `You can only ${action}.`));
+    } else {
+      next();
     }
   } else {
     next();
