@@ -1,7 +1,8 @@
 import axios from 'axios';
-import fetchCart from './cart';
+import { browserHistory } from 'react-router';
 
 /* ------------   ACTION CREATOR     ------------------ */
+
 const AUTHENTICATED = 'AUTHENTICATED'
 
 export const authenticated = user => ({
@@ -32,7 +33,10 @@ export const login = (username, password) =>
 export const logout = () =>
   dispatch =>
     axios.post('/api/auth/logout')
-      .then(() => dispatch(whoami()))
+      .then(() => {
+        dispatch(whoami());
+        browserHistory.push('/');
+      })
       .catch(() => dispatch(whoami()))
 
 export const whoami = () =>
