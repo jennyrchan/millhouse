@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 function ProductMini (props) {
 
@@ -6,13 +7,15 @@ function ProductMini (props) {
 
   return (
     <div className="row">
-      <div className="col-xs-6">
-        <img src={`/cereals/${product.id}.jpg`} className="img-thumbnail"/>
-      </div>
-      <div className="col-xs-6">
-        <h3>{ product.title }</h3>
-        <h4>${ product.price / 100 }</h4>
-      </div>
+      <Link className="thumbnail" to={`/products/${product.id}`}>
+        <div className="col-xs-6">
+          <img src={`/cereals/${product.id}.jpg`} className="img-thumbnail"/>
+        </div>
+        <div className="col-xs-6">
+          <h3>{ product.title }</h3>
+          <h4>${ product.price / 100 }</h4>
+        </div>
+      </Link>
     </div>
   );
 }

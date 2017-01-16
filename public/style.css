@@ -1,4 +1,59 @@
+@font-face {
+  font-family: simpsons;
+  src: url(simpsonFont.ttf);
+}
+
+h1 {
+  font-family: simpsons;
+  text-align: center;
+}
+
+h2, h3, h4 {
+  font-family: helvetica;
+}
+
+#navbar {
+  text-align: center;
+  background-color: #968d7f;
+  padding-bottom: 20px;
+  margin-top: -10px;
+}
+
+.link-container:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 25px;
+}
+
+ul.product-list {
+  list-style-type: none;
+  font-size: 30px;
+}
+
+.nutrition-heading>div {
+  box-sizing: border-box;
+  border-style: solid;
+}
+
+h4.nutrition {
+  border-bottom: solid;
+}
+
+h3.nutrition {
+  border-bottom: solid;
+}
+
+#review, #product {
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 25px;
+}
+
+.thumbnail {
+  background-color: rgba(255, 255, 255, 0);
+  border-style: none;
+}
+
 sidebar {
+  font-family: simpsons;
   position: fixed;
   right: 15px;
   top: 63px;
@@ -16,7 +71,7 @@ sidebar section {
   font-size: 20px;
 }
 
-sidebar section a{
+sidebar section a {
   text-align: left;
   color: black;
 }
@@ -57,12 +112,12 @@ sidebar section a{
 }
 
 #userSettingsPencil {
-  margin:10px;
+  margin: 10px;
   padding: 20px;
 }
 
 #userReviewsPencil {
-  margin-top:15px;
+  margin-top: 15px;
 }
 
 #userOrderProducts {
@@ -74,50 +129,6 @@ sidebar section a{
   max-width: 160px;
 }
 
-@font-face {
-  font-family: simpsons;
-  src: url(simpsonFont.ttf);
-}
-
-h1 {
-  font-family: simpsons;
-  text-align: center;
-}
-
-h2, h3, h4 {
-  font-family: helvetica;
-}
-
-ul.product-list {
-  list-style-type: none;
-  font-size: 30px;
-}
-
-.nutrition-heading>div {
-  box-sizing: border-box;
-  border-style: solid;
-}
-
-h4.nutrition {
-  border-bottom: solid;
-}
-
-h3.nutrition {
-  border-bottom: solid;
-}
-
 body {
   background-image: url("background.jpg");
-}
-
-#review, #product {
-  background-color: rgba(255, 255, 255, 0.5);
-  border-radius: 25px;
-}
-
-#navbar {
-  text-align: center;
-  background-color: #968d7f;
-  padding-bottom: 20px;
-  margin-top: -10px;
 }
