@@ -3,6 +3,7 @@
 const db = require('APP/db');
 const Order = db.model('orders');
 const Product = db.model('products');
+const OrderProduct = db.model('orderProducts');
 
 const {forbidden, selfOnly} = require('./auth.filters');
 
@@ -17,32 +18,28 @@ module.exports = require('express').Router()
     .then(order => res.status(201).json(order))
     .catch(next))
 
-  .get('/cart', selfOnly('use your own shopping cart.'), (req, res, next) => {
-    Order.findOne({
-      include: [{ model: Product }],
-      where: {user_id: req.user.id, status: 'pending'}
+  .get('/cart/:id', selfOnly('access your own shopping cart'), (req, res, next) =>
+    Order.findOrCreate({
+      where: {user_id: req.user.id, status: 'pending'},
+      include: {model: Product}
     })
-    .then(cart => res.json(cart))
-    .catch(next);
-  })
+    .then((cart, created) => {
+      res.status(200).json(cart);
+    })
+    .catch(next))
 
   .get('/:orderId', (req, res, next) =>
     Order.findById(req.params.orderId)
-    .then(order => res.json(order))
+    .then(order => res.status(200).json(order))
     .catch(next))
 
-  .put('/:orderId', (req, res, next) => {
-    Order.update(req.body, {
-      where: { id: req.params.orderId, status: null },
-      returning: true
-    })
-    .spread((rowCount, updatedReviews) => {
-      res.json(updatedReviews[0]);
-    })
+  .post('/:orderId', (req, res, next) => {
+    OrderProduct.create(req.body)
+    .then(() => res.sendStatus(201))
     .catch(next);
   })
 
   .delete('/:orderId', (req, res, next) =>
     Order.destroy({ where: { id: req.params.orderId }})
-    .then(() => res.status(204).send('Deleted order!!'))
+    .then(() => res.sendStatus(204))
     .catch(next))

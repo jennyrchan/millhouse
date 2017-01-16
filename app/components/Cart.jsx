@@ -54,7 +54,7 @@ export const Cart = props => {
 
 /* -----------------    CONTAINER     ------------------ */
 
-const mapState = ({ orderProducts }) => ({ products: orderProducts });
+const mapState = ({ cart }) => ({ products: cart.products });
 
 const mapDispatch = null;
 

@@ -1,4 +1,5 @@
-import axios from 'axios'
+import axios from 'axios';
+import fetchCart from './cart';
 
 /* ------------   ACTION CREATOR     ------------------ */
 const AUTHENTICATED = 'AUTHENTICATED'
@@ -10,8 +11,9 @@ export const authenticated = user => ({
 
 const reducer = (state = null, action) => {
   switch(action.type) {
-    case AUTHENTICATED:
-      return action.user
+
+  case AUTHENTICATED:
+    return action.user
   }
   return state
 }
@@ -36,8 +38,5 @@ export const logout = () =>
 export const whoami = () =>
   dispatch =>
     axios.get('/api/auth/whoami')
-      .then(response => {
-        const user = response.data
-        dispatch(authenticated(user))
-      })
+      .then(user => dispatch(authenticated(user.data)))
       .catch(failed => dispatch(authenticated(null)))

@@ -1,32 +1,57 @@
-import axios from 'axios'
+import axios from 'axios';
 
-/* ------------   ACTION CREATOR     ------------------ */
+/* -----------------    ACTIONS     ------------------ */
 
 const RECEIVE_CART = 'RECEIVE_CART';
+const ADD_TO_CART = 'ADD_TO_CART';
+const CHECKOUT = 'CHECKOUT';
 
-export const receiveCart = cart => ({
-  type: RECEIVE_CART, cart
-});
+
+/* ------------   ACTION CREATORS     ------------------ */
+
+export const receiveCart = cart => ({ type: RECEIVE_CART, cart });
+export const addToCart = product => ({ type: ADD_TO_CART, product });
+export const checkoutReq = cart => ({ type: CHECKOUT, cart });
+
 
 /* ------------       REDUCER     ------------------ */
 
-const reducer = (state = null, action) => {
-  switch(action.type) {
+export default function reducer (state = null, action) {
+  switch (action.type) {
+
     case RECEIVE_CART:
       return action.cart;
+
+    case ADD_TO_CART:
+      state.products.push(action.product);
+      break;
+
+    case CHECKOUT:
+      return null;
+
+    default:
+      return state;
   }
-  return state;
-};
+}
 
-export default reducer
+/* ------------       DISPATCHERS     ------------------ */
 
-/* ------------       DISPATCHER     ------------------ */
-
-export const fetchCart = () =>
+// Finds or creates the user's cart
+export const fetchCart = (id) =>
   dispatch =>
-    axios.get('/api/orders/cart')
-      .then(response => {
-        const cart = response.data;
-        dispatch(receiveCart(cart));
+    axios.get(`/api/orders/cart/${id}`)
+      .then(res => res.data[0])
+      .then(cart => dispatch(receiveCart(cart)))
+      .catch(err => console.error('Fetching shopping cart unsuccesful', err));
+
+// export const deleteFromCart
+
+export const saveToCart = (id, orderItem) =>
+  dispatch =>
+    axios.create(`.a/orders/${id}/${orderItem.order_id}`, {
+        order_id: orderItem.order_id,
+        product_id: orderItem.product.id,
+        priceAtPurchase: orderItem.product.price,
+        quantity: orderItem.quantity
       })
-      .catch(err => console.error('Fetching shopping cart unsuccessful', err));
+      .catch(err => console.error('Adding to shopping cart unsuccesful', err));
