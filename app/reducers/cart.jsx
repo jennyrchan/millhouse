@@ -36,7 +36,7 @@ export default function reducer (state = null, action) {
 
 /* ------------       DISPATCHERS     ------------------ */
 
-// Will find or create the user's cart
+// Finds or creates the user's cart
 export const fetchCart = (id) =>
   dispatch =>
     axios.get(`/api/orders/cart/${id}`)
@@ -46,11 +46,12 @@ export const fetchCart = (id) =>
 
 // export const deleteFromCart
 
-export const saveToCart = (id) =>
+export const saveToCart = (id, orderItem) =>
   dispatch =>
-    axios.put(`.api/orders/${order}/${product}`, {
-      quantity:
-    })
-      .then(res => res.data[0])
-      .then(cart => dispatch(receiveCart(cart)))
+    axios.create(`.a/orders/${id}/${orderItem.order_id}`, {
+        order_id: orderItem.order_id,
+        product_id: orderItem.product.id,
+        priceAtPurchase: orderItem.product.price,
+        quantity: orderItem.quantity
+      })
       .catch(err => console.error('Saving shopping cart unsuccesful', err));
