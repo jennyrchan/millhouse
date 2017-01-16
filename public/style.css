@@ -17,7 +17,7 @@ ul.product-list {
   font-size: 30px;
 }
 
-div.nutrition-heading div {
+.nutrition-heading>div {
   box-sizing: border-box;
   border-style: solid;
 }
@@ -44,4 +44,79 @@ body {
   background-color: #968d7f;
   padding-bottom: 20px;
   margin-top: -10px;
+
+sidebar {
+  position: fixed;
+  right: 15px;
+  top: 63px;
+  padding: 0 !important;
+  background: white;
+  height: 640px;
+  width: 250px;
+  overflow-y: auto;
+  border-style: solid;
+}
+
+sidebar section {
+  padding: 20px;
+  text-align: center;
+  font-size: 20px;
+}
+
+sidebar section a{
+  text-align: left;
+  color: black;
+}
+
+.millhouse {
+  position: relative;
+  background-image: url('./millhouse.jpg');
+  height: 493px;
+  width: 269px;
+  right: 15px;
+}
+
+.user {
+  padding: 30px;
+  border-bottom: solid;
+  border-left: solid;
+  border-right: solid;
+  font-size: 30px;
+}
+
+#firstName {
+  border-top: solid;
+}
+
+#userTitle {
+  padding: 30px;
+  font-size: 50px;
+  border-style: dashed;
+  margin-bottom: 10px;
+}
+
+.nutritionTable {
+  border-style: none;
+}
+
+#productPencil {
+  margin-top: 12px;
+}
+
+#userSettingsPencil {
+  margin:10px;
+  padding: 20px;
+}
+
+#userReviewsPencil {
+  margin-top:15px;
+}
+
+#userOrderProducts {
+  margin: 10px;
+}
+
+#userOrderImage {
+  max-height: 200px;
+  max-width: 160px;
 }
