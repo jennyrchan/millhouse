@@ -1,7 +1,5 @@
 'use strict';
 
-require
-
 const db = require('APP/db');
 const User = db.model('users');
 const Orders = db.model('orders');
@@ -47,7 +45,7 @@ module.exports = require('express').Router()
 			let newArr = orders.map(order => order.getProducts({include: [{model: Orders}]}));
 			return Promise.all(newArr);
 			})
-		.then(orderProducts => console.log(orderProducts))
+		.then(orderProducts => res.json(orderProducts))
 		.catch(next)
 	})
 
