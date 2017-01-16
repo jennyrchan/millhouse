@@ -21,6 +21,27 @@ sidebar section a{
   color: black;
 }
 
+shoppingCart {
+  position: fixed;
+  right: 15px;
+  top: 63px;
+  padding: 0 !important;
+  background: white;
+  overflow-y: auto;
+  border-style: solid;
+}
+
+shoppingCart section {
+  padding: 10px;
+  text-align: left;
+  font-size: 12px;
+}
+
+shoppingCart section a {
+  text-align: left;
+  color: black;
+}
+
 .millhouse {
   position: relative;
   background-image: url("millhouse.jpg");
