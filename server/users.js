@@ -42,7 +42,10 @@ module.exports = require('express').Router()
 		User.findById(req.params.id)
 		.then(user => user.getOrders())
 		.then(orders => {
-			let newArr = orders.map(order => order.getProducts({include: [{model: Orders}]}));
+			let newArr = orders.map(order => order.getProducts({
+				include: [
+					{ model: Orders, where: { user_id: req.params.id }}
+				]}));
 			return Promise.all(newArr);
 			})
 		.then(orderProducts => res.json(orderProducts))
