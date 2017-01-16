@@ -2,6 +2,7 @@
 
 const db = require('APP/db');
 const User = db.model('users');
+const Orders = db.model('orders');
 
 const {selfOnly, forbidden} = require('./auth.filters');
 
@@ -38,7 +39,10 @@ module.exports = require('express').Router()
 	.get('/:id/orders', selfOnly('view your own orders'), (req, res, next) =>
 		User.findById(req.params.id)
 		.then(user => user.getOrders())
-		.then(orders =>  res.json(orders))
+		.then(orders => orders.map(order => {
+			return order.getProducts({include: [{model: Orders}]})
+						.then(orderProduct => res.json(orderProduct));
+		}))
 		.catch(next))
 
 	.get('/:id/reviews', (req, res, next) => {
@@ -47,3 +51,4 @@ module.exports = require('express').Router()
 		.then(reviews => res.json(reviews))
 		.catch(next);
 	});
+

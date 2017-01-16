@@ -91,3 +91,7 @@ sidebar section a{
   margin: 10px;
 }
 
+#userOrderImage {
+  max-height: 200px;
+  max-width: 160px;
+}
