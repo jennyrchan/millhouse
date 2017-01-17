@@ -21,16 +21,17 @@ class Navbar extends Component {
   const user = this.props.user;
 
     return (
-      <div id="navbar" className="col-xs-12">
-        <div className="col-xs-2">
+      <div id="navbar" className="col-xs-12 navbar navbar-default container-fluid">
+        <div className="col-xs-1">
+          <img src={'/navbarMillhouse.jpg'} />
+        </div>
+        <div className="col-xs-5">
           <Link to={'/'}><h1 id="title">MILLHOUSE</h1></Link>
+          <h4><b>Your source for all Cheerios cravings</b></h4>
         </div>
-        <div className="col-xs-4">
-          <h4>Your source for all Cheerios cravings</h4>
-        </div>
-        <div className="col-xs-6">
+        <div className="col-xs-6 border-dashed">
           <div className="row">
-            <button id="shopping-cart" type="button" className="btn btn-success pull-right" onClick={this.clickHandler} ><span className="glyphicon glyphicon-shopping-cart"></span> Not Working</button>
+            <button id="shopping-cart" type="button" className="btn btn-success pull-right" onClick={this.clickHandler} ><span className="glyphicon glyphicon-shopping-cart"></span> Broken</button>
             {user ? <WhoAmI /> : <Login />}
           </div>
         </div>
