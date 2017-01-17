@@ -12,30 +12,32 @@ const UserOrders = props => {
   return (
     <div className = 'col-xs-9'>
       <h1 id = 'userTitle'> Past Orders </h1>
-        {
-          orders.length && orders.map((order,id) => {
-            let date = new Date(order[0].created_at).toString().split(' ');
-            newDate = date[1] + " " + date[2] + ", " + date[3];
-            total = 0;
-            return (
-              <div key={id} className= "row" >
-                <h2> {newDate} </h2>
-                {
-                  order.map(product => {
-                    total += product.orderProducts.priceAtPurchase * product.orderProducts.quantity;
-                    return (
-                      <div className="col-xs-4" key={product.id} >
-                        <ProductMini product={product} price={product.orderProducts.priceAtPurchase} />
-                        <h4>Quantity: {product.orderProducts.quantity} </h4>
-                      </div>
-                    )
-                  })
-                }
-                <h3>{total/100}</h3>
-              </div>
-            )
-          })
-        }
+        <div className="background-text-box">
+          {
+            orders.length && orders.map((order,id) => {
+              let date = new Date(order[0].created_at).toString().split(' ');
+              newDate = date[1] + " " + date[2] + ", " + date[3];
+              total = 0;
+              return (
+                <div key={id} className= "row" >
+                  <h2> {newDate} </h2>
+                  {
+                    order.map(product => {
+                      total += product.orderProducts.priceAtPurchase * product.orderProducts.quantity;
+                      return (
+                        <div className="col-xs-4" key={product.id} >
+                          <ProductMini product={product} price={product.orderProducts.priceAtPurchase} />
+                          <h4>Quantity: {product.orderProducts.quantity} </h4>
+                        </div>
+                      )
+                    })
+                  }
+                  <h3>{total/100}</h3>
+                </div>
+              )
+            })
+          }
+        </div>
       <UserSidebar userId={props.auth.id}/>
     </div>
   )
