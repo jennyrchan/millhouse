@@ -8,10 +8,15 @@ class Cart extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      show: false
-    }
+      show: false,
+      cardNumber: '',
+      cardMonthYear: '',
+      cardCVC: ''
+    };
     this.open = this.open.bind(this);
     this.close = this.close.bind(this);
+    this.handleCCNumChange = this.handleCCNumChange.bind(this);
+    this.handleCCSecurityChange = this.handleCCSecurityChange.bind(this);
   }
 
   open() {
@@ -22,9 +27,19 @@ class Cart extends Component {
     this.setState({show: false});
   }
 
+  handleCCNumChange(evt) {
+    if (evt.target.value.length <= 16 || typeof +evt.target.value === 'number') {
+        this.setState({cardNumber: evt.target.value});
+    }
+  }
+
+  handleCCSecurityChange (evt) {
+    if (evt.target.value.length <= 4) {
+      this.setState({cardCVC: evt.target.value});
+    }
+  }
 
   render () {
-    // console.log(this.getState());
     const cart = this.props.cart || {products: null};
     const products = cart.products;
     const cartEmpty = 'Why not buy some Cheerios?';
@@ -78,6 +93,18 @@ class Cart extends Component {
                   data-locale="auto"
                   data-zip-code="true">
                 </script>
+                <label>Credit Card</label>
+                <input placeholder="Credit Card"
+                  autoComplete="cc-number"
+                  type="text"
+                  value={this.state.cardNumber}
+                  onChange={this.handleCCNumChange} />
+                <label>CVC</label>
+                <input placeholder=""
+                  autoComplete="cc-csc"
+                  type="text"
+                  value={this.state.cardCVC}
+                  onChange={this.handleCCSecurityChange} />
               </form>
             </Modal.Body>
             <Modal.Footer>
@@ -86,8 +113,6 @@ class Cart extends Component {
           </Modal>
 
         <section><button className="btn btn-primary btn-sm" onClick={this.open} ><span className="glyphicon glyphicon-shopping-cart "/> Checkout</button></section>
-
-
 
         <div className="millhouse" />
       </shoppingCart>
