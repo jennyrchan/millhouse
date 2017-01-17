@@ -1,22 +1,33 @@
-import React from 'react';
+import React, {Component} from 'react';
 import Review from './Review';
 import Cart from './Cart';
 import { connect } from 'react-redux';
 
+import addToCart from '../reducers/cart';
+
 /* -----------------    COMPONENT     ------------------ */
 
-export const Product = props => {
+export class Product extends Component {
+  constructor(props) {
+    super(props);
+    this.chooseProduct = this.chooseProduct.bind(this);
+  }
 
-    const product = props.product;
+  chooseProduct () {
+    this.props.addToCart(this.props.product);
+  }
 
-    const reviews = props.reviews;
+  render () {
+    const product = this.props.product;
+
+    const reviews = this.props.reviews;
 
     let avgRating;
 
     if (reviews.length) {
       avgRating = reviews.reduce((accumulator, currentElement) => {
-          return accumulator + currentElement.rating
-      }, 0) / reviews.length
+          return accumulator + currentElement.rating;
+      }, 0) / reviews.length;
     }
 
     let arr = [];
@@ -27,7 +38,7 @@ export const Product = props => {
       arr.push(<img src={'/halfCheerio.jpg'} key="half" />);
     }
 
-    let pencil = <button type="button" className="btn btn-default btn-xs pull-right" id='productPencil'><span className="glyphicon glyphicon-pencil"></span> </button>
+    const pencil = <button type="button" className="btn btn-default btn-xs pull-right" id="productPencil"><span className="glyphicon glyphicon-pencil"></span></button>;
 
 
     return (
@@ -43,7 +54,7 @@ export const Product = props => {
                 <li>{product.summary} {pencil}</li>
                 <li>${product.price / 100} {pencil} {product.inventory < 100
                   ? `Hurry Up And Buy!!!!! Only ${product.inventory} left in stock!`
-                  : 'In Stock'}   {pencil} <a href="#" className="btn btn-success">Add to Cart <span className="glyphicon glyphicon-shopping-cart"></span></a></li>
+                  : 'In Stock'}   {pencil} <button className="btn btn-success" onClick={this.chooseProduct}>Add to Cart <span className="glyphicon glyphicon-shopping-cart"></span></button></li>
                 <div className="nutrition-heading">
                   <div>
                     <h3 className="nutrition" >Nutritional Information {pencil}</h3>
@@ -74,7 +85,8 @@ export const Product = props => {
         </div>
       </div>
     );
-};
+  }
+}
 
 /* -----------------    CONTAINER     ------------------ */
 
@@ -85,6 +97,4 @@ const mapState = state => {
   };
 };
 
-const mapDispatch = null;
-
-export default connect(mapState, mapDispatch)(Product);
+export default connect(mapState, {addToCart})(Product);
