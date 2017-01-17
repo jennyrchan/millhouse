@@ -17,6 +17,8 @@ import UserReviews from './components/UserReviews';
 import EditProduct from './components/EditProduct';
 import NewReview from './components/NewReview';
 
+import Stripe from './components/Stripe';
+
 import { fetchCart } from './reducers/cart';
 import { receiveProduct } from './reducers/product';
 import { receiveProducts } from './reducers/products';
