@@ -20,8 +20,8 @@ export const Login = ({ login }) => (
 
 /* -----------------    CONTAINER     ------------------ */
 
-import {login} from 'APP/app/reducers/auth'
-import {connect} from 'react-redux'
+import { login } from 'APP/app/reducers/auth'
+import { connect } from 'react-redux'
 
 export default connect (
   state => ({}),

@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import Login from './Login';
 import WhoAmI from './WhoAmI';
-import {fetchCart} from '../reducers/cart';
+import { fetchCart } from '../reducers/cart';
 
 /* -----------------    COMPONENT     ------------------ */
 

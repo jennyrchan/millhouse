@@ -21,6 +21,7 @@ const reducer = (state = [], action) => {
   let newState = [];
 
   switch (action.type) {
+
     case RECEIVE_REVIEWS:
         newState = [...action.reviews];
         break;
@@ -28,6 +29,7 @@ const reducer = (state = [], action) => {
         newState = [...state, action.review]
         break;
     default: return state;
+
   }
 
   return newState;
