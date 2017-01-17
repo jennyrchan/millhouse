@@ -16,20 +16,17 @@ const UserReviews = props => {
     }
   })
 
-
-  let userId = reviews[0] && +reviews[0].user_id;
-
   return (
       <div>
         <div className = 'col-xs-9'>
-          <div id = 'userTitle'> Reviews </div>
+          <h1 id = 'userTitle'> Reviews </h1>
           {reviews.length && reviews.map((review,id) => (
           <Review key = {id} title={review.title} body={review.body} rating={review.rating} pencil={pencil}/>
           ))}
         </div>
 
         <div>
-          <UserSidebar userId={userId}/>
+          <UserSidebar userId={props.auth.id}/>
         </div>
       </div>
   )
@@ -39,7 +36,8 @@ const UserReviews = props => {
 
 const mapState = state => {
   return {
-    reviews: state.userReviews
+    reviews: state.userReviews,
+    auth: state.auth
   };
 }
 

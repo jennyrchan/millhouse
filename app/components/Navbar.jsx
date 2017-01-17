@@ -30,11 +30,8 @@ class Navbar extends Component {
         </div>
         <div className="col-xs-6">
           <div className="row">
-            <button id="help" type="button" className="btn btn-success pull-right col-xs-1"><span className="glyphicon glyphicon-question-sign"></span> </button>
-
-            <button id="shopping-cart" type="button" className="btn btn-success pull-right col-xs-1" onClick={this.clickHandler} ><span className="glyphicon glyphicon-shopping-cart"></span> </button>
-
-            {user ? <WhoAmI/> : <Login/>}
+            <button id="shopping-cart" type="button" className="btn btn-success pull-right" onClick={this.clickHandler} ><span className="glyphicon glyphicon-shopping-cart"></span> Not Working</button>
+            {user ? <WhoAmI /> : <Login />}
           </div>
         </div>
       </div>

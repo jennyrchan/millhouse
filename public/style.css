@@ -76,6 +76,26 @@ sidebar section a {
   color: black;
 }
 
+shoppingCart {
+  position: fixed;
+  padding: 0 !important;
+  background: white;
+  height: 80vh;
+  overflow-y: auto;
+  border-style: solid;
+}
+
+shoppingCart section {
+  padding: 10px;
+  text-align: left;
+  font-size: 14px;
+}
+
+shoppingCart section a {
+  text-align: left;
+  color: black;
+}
+
 .millhouse {
   position: relative;
   background-image: url("millhouse.jpg");

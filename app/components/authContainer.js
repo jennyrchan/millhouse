@@ -1,10 +1,17 @@
+import Cart from './Cart';
+
 const authContainer = connect(
   ({ auth }) => ({ user: auth })
 ) (
   ({ user, children }) =>
     <div>
       <Navbar />
-      {children}
+      <div className="col-xs-9">
+        {children}
+      </div>
+      <div>
+        <Cart />
+      </div>
     </div>
 )
 export default authContainer;
