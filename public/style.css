@@ -175,3 +175,10 @@ shoppingCart section a {
 body {
   background-color: #e7982a;
 }
+
+.modal-container {
+  position: relative;
+}
+.modal-container .modal, .modal-container .modal-backdrop {
+  position: absolute;
+}

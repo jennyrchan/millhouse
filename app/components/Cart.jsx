@@ -1,19 +1,30 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Modal, Button } from 'react-bootstrap';
 
 /* -----------------    COMPONENT     ------------------ */
 
 class Cart extends Component {
   constructor (props) {
     super(props);
-    this.clickHandler = this.clickHandler.bind(this);
+    this.state = {
+      show: false
+    }
+    this.open = this.open.bind(this);
+    this.close = this.close.bind(this);
   }
 
-  clickHandler() {
-    alert('checking out!')
+  open() {
+    this.setState({show: true});
   }
+
+  close() {
+    this.setState({show: false});
+  }
+
 
   render () {
+    // console.log(this.getState());
     const cart = this.props.cart || {products: null};
     const products = cart.products;
     const cartEmpty = 'Why not buy some Cheerios?';
@@ -50,7 +61,34 @@ class Cart extends Component {
         }
         <section><h4>Tax — meh</h4></section>
         <section><h4>{`Total — $${totalPrice / 100}`}</h4></section>
-        <section><a href="" className="btn btn-primary btn-sm"><span className="glyphicon glyphicon-shopping-cart" onClick={this.clickHandler}></span> Checkout</a></section>
+
+          <Modal  show={this.state.show} onHide={this.close}>
+            <Modal.Header>
+              <h1>Modal heading</h1>
+            </Modal.Header>
+            <Modal.Body>
+              <form action="/your-server-side-code" method="POST">
+                <script
+                  src="https://checkout.stripe.com/checkout.js" className="stripe-button"
+                  data-key="pk_test_6pRNASCoBOKtIshFeQd4XMUh"
+                  data-amount="999"
+                  data-name="Stripe.com"
+                  data-description="Widget"
+                  data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                  data-locale="auto"
+                  data-zip-code="true">
+                </script>
+              </form>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button onClick={this.close}>Close</Button>
+            </Modal.Footer>
+          </Modal>
+
+        <section><button className="btn btn-primary btn-sm" onClick={this.open} ><span className="glyphicon glyphicon-shopping-cart "/> Checkout</button></section>
+
+
+
         <div className="millhouse" />
       </shoppingCart>
     );
