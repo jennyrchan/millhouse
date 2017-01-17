@@ -1,16 +1,42 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Modal, Button } from 'react-bootstrap';
 
 /* -----------------    COMPONENT     ------------------ */
 
 class Cart extends Component {
   constructor (props) {
     super(props);
-    this.clickHandler = this.clickHandler.bind(this);
+    this.state = {
+      show: false,
+      cardNumber: '',
+      cardMonthYear: '',
+      cardCVC: ''
+    };
+    this.open = this.open.bind(this);
+    this.close = this.close.bind(this);
+    this.handleCCNumChange = this.handleCCNumChange.bind(this);
+    this.handleCCSecurityChange = this.handleCCSecurityChange.bind(this);
   }
 
-  clickHandler() {
-    alert('checking out!')
+  open() {
+    this.setState({show: true});
+  }
+
+  close() {
+    this.setState({show: false});
+  }
+
+  handleCCNumChange(evt) {
+    if (evt.target.value.length <= 16 || typeof +evt.target.value === 'number') {
+        this.setState({cardNumber: evt.target.value});
+    }
+  }
+
+  handleCCSecurityChange (evt) {
+    if (evt.target.value.length <= 4) {
+      this.setState({cardCVC: evt.target.value});
+    }
   }
 
   render () {
@@ -50,7 +76,44 @@ class Cart extends Component {
         }
         <section><h4>Tax — meh</h4></section>
         <section><h4>{`Total — $${totalPrice / 100}`}</h4></section>
-        <section><a href="" className="btn btn-primary btn-sm"><span className="glyphicon glyphicon-shopping-cart" onClick={this.clickHandler}></span> Checkout</a></section>
+
+          <Modal  show={this.state.show} onHide={this.close}>
+            <Modal.Header>
+              <h1>Modal heading</h1>
+            </Modal.Header>
+            <Modal.Body>
+              <form action="/your-server-side-code" method="POST">
+                <script
+                  src="https://checkout.stripe.com/checkout.js" className="stripe-button"
+                  data-key="pk_test_6pRNASCoBOKtIshFeQd4XMUh"
+                  data-amount="999"
+                  data-name="Stripe.com"
+                  data-description="Widget"
+                  data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                  data-locale="auto"
+                  data-zip-code="true">
+                </script>
+                <label>Credit Card</label>
+                <input placeholder="Credit Card"
+                  autoComplete="cc-number"
+                  type="text"
+                  value={this.state.cardNumber}
+                  onChange={this.handleCCNumChange} />
+                <label>CVC</label>
+                <input placeholder=""
+                  autoComplete="cc-csc"
+                  type="text"
+                  value={this.state.cardCVC}
+                  onChange={this.handleCCSecurityChange} />
+              </form>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button onClick={this.close}>Close</Button>
+            </Modal.Footer>
+          </Modal>
+
+        <section><button className="btn btn-primary btn-sm" onClick={this.open} ><span className="glyphicon glyphicon-shopping-cart "/> Checkout</button></section>
+
         <div className="millhouse" />
       </shoppingCart>
     );
