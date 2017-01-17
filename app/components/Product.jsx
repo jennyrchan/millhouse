@@ -33,8 +33,8 @@ export const Product = props => {
     const user = props.auth
 
     return (
-      <div className="row">
-        <div className="col-xs-8">
+      <div>
+        <div className="col-xs-9">
           <div className="row">
             <div className="col-xs-6">
               <img className="img-responsive" src={`/cereals/${product.id}.jpg`} />
@@ -82,7 +82,7 @@ export const Product = props => {
             </div>
           </div>
         </div>
-        <div className="col-xs-4">
+        <div className="col-xs-3">
           <Cart />
         </div>
       </div>
