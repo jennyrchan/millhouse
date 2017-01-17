@@ -4,18 +4,24 @@ import Cart from './Cart';
 import { connect } from 'react-redux';
 import {Link} from 'react-router';
 
-import addToCart from '../reducers/cart';
+
+import {addToCart} from '../reducers/cart';
 
 /* -----------------    COMPONENT     ------------------ */
 
 export class Product extends Component {
   constructor(props) {
     super(props);
-    this.chooseProduct = this.chooseProduct.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
-  chooseProduct () {
-    this.props.addToCart(this.props.product);
+  handleClick(evt) {
+    const product = Object.assign({}, this.props.product);
+    product.orderProducts = {
+      priceAtPurchase: product.price,
+      quantity: 1
+    };
+    return this.props.chooseProduct(this.props.user.id, product)
   }
 
   render () {
@@ -55,7 +61,7 @@ export class Product extends Component {
                 <li>{product.summary} {pencil}</li>
                 <li>${product.price / 100} {pencil} {product.inventory < 100
                   ? `Hurry Up And Buy!!!!! Only ${product.inventory} left in stock!`
-                  : 'In Stock'}   {pencil} <button className="btn btn-success" onClick={this.chooseProduct}>Add to Cart <span className="glyphicon glyphicon-shopping-cart"></span></button></li>
+                  : 'In Stock'}   {pencil} <button className="btn btn-success" onClick={this.handleClick}>Add to Cart <span className="glyphicon glyphicon-shopping-cart"></span></button></li>
                 <div className="nutrition-heading">
                   <div>
                     <h3 className="nutrition" >Nutritional Information {pencil}</h3>
@@ -67,9 +73,10 @@ export class Product extends Component {
                   <h4>Average User Rating: {arr}</h4>
                   <h3><a href="">See more {product.category} cereals!</a></h3>
                 </div>
+                </ul>
             </div>
           </div>
-         
+
           <div className="row">
             <div className="col-xs-12">
               <h1>Reviews</h1>
@@ -94,8 +101,18 @@ export class Product extends Component {
 const mapState = state => {
   return {
     product: state.product,
-    reviews: state.reviews
+    reviews: state.reviews,
+    user: state.auth
   };
 };
 
-export default connect(mapState, {addToCart})(Product);
+const mapDispatch = dispatch => {
+  return {
+    chooseProduct: (id, productId) => {
+      dispatch(addToCart(id,productId));
+    }
+  }
+}
+
+
+export default connect(mapState, mapDispatch)(Product);

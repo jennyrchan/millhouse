@@ -29,6 +29,7 @@ module.exports = require('express').Router()
 
   // Add new product to the shopping cart
   .put('/cart/:id/product/:productId', (req, res, next) => {
+    console.log(req.body);
     Order.find({
       where: {user_id: req.params.id, status: 'pending' },
       include: [
@@ -36,8 +37,8 @@ module.exports = require('express').Router()
       })
       .then(order => {
         const product = {
-          quantity: req.body.qty,
-          priceAtPurchase: req.body.price,
+          quantity: req.body.quantity,
+          priceAtPurchase: req.body.priceAtPurchase,
           product_id: req.params.productId,
           order_id: order.id
         };

@@ -21,7 +21,7 @@ export const buyLess = product => ({ type: BUY_LESS, product });
 
 /* ------------       REDUCER     ------------------ */
 
-export default function reducer (state = {products: null}, action) {
+export default function reducer (state = {}, action) {
   const newCart = Object.assign({}, state);
 
   switch (action.type) {
@@ -75,31 +75,37 @@ export const fetchCart = (id) =>
       .then(cart => dispatch(receiveCart(cart)))
       .catch(err => console.error('Fetching shopping cart unsuccesful', err));
 
-export const addToCart = (id, product) =>
-  dispatch => {
+export const addToCart = (id, product) => {
+    return dispatch => {
     dispatch(addProduct(product));
-    axios.post(`/api/orders/cart/${id}/products/${product.id}`)
+    axios.put(`/api/orders/cart/${id}/product/${product.id}`, {
+      priceAtPurchase: product.orderProducts.priceAtPurchase,
+      quantity: product.orderProducts.quantity
+      })
       .catch(err => console.error('Add to cart unsuccesful', err));
+
   };
+};
+
 
 export const deleteFromCart = (id, product) =>
   dispatch => {
     dispatch(rmvProduct(product));
-    axios.delete(`/api/orders/cart/${id}/products/${product.id}`)
+    axios.delete(`/api/orders/cart/${id}/product/${product.id}`)
     .catch(err => console.error('Delete from cart unsuccesful', err));
   };
 
 export const increaseQuantity = (id, product) =>
   dispatch => {
     dispatch(buyMore(product));
-    axios.put(`/api/orders/cart${id}/products/${product.id}/plus`)
+    axios.put(`/api/orders/cart${id}/product/${product.id}/plus`)
       .catch(err => console.error('Quantity not altered', err));
   };
 
 export const decreaseQuantity = (id, product) =>
   dispatch => {
     dispatch(buyLess(product));
-    axios.put(`/api/orders/cart${id}/products/${product.id}/minus`)
+    axios.put(`/api/orders/cart${id}/product/${product.id}/minus`)
       .catch(err => console.error('Quantity not altered', err));
   };
 

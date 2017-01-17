@@ -12,19 +12,11 @@ h2, h3, h4 {
   font-family: helvetica;
 }
 
-#title {
-  text-align: left;
-}
-
 #navbar {
-  background-color: #e7982a;
-  border: none;
-}
-
-.border-dashed {
-  padding: 10px;
-  border-style: dashed;
-  margin-bottom: 10px;
+  text-align: center;
+  background-color: #968d7f;
+  padding-bottom: 20px;
+  margin-top: -10px;
 }
 
 .link-container:hover {
@@ -50,16 +42,9 @@ h3.nutrition {
   border-bottom: solid;
 }
 
-.background-text-box {
+#review, #product {
   background-color: rgba(255, 255, 255, 0.5);
-  padding: 10px;
   border-radius: 25px;
-}
-
-#review {
-  padding: 20px;
-  border-style: solid;
-  border-color: #e7982a;
 }
 
 .thumbnail {
@@ -109,14 +94,6 @@ shoppingCart section {
 shoppingCart section a {
   text-align: left;
   color: black;
-}
-
-.scared-millhouse {
-  position: relative;
-  background-image: url("scaredMillhouse.jpg");
-  height: 425px;
-  width: 269px;
-  right: 15px;
 }
 
 .millhouse {
@@ -173,12 +150,6 @@ shoppingCart section a {
 }
 
 body {
-  background-color: #e7982a;
+  background-image: url("background.jpg");
 }
 
-.modal-container {
-  position: relative;
-}
-.modal-container .modal, .modal-container .modal-backdrop {
-  position: absolute;
-}
