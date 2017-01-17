@@ -1,6 +1,7 @@
 import React from 'react';
 import Review from './Review';
 import { connect } from 'react-redux';
+import {Link} from 'react-router';
 
 /* -----------------    COMPONENT     ------------------ */
 
@@ -37,7 +38,7 @@ export const Product = props => {
           </div>
           <div id="product" className="col-xs-6">
             <ul className="product-list">
-              <li><strong>{product.title + ' Cheerios'}</strong>    {pencil}</li>
+              <li><strong>{product.title + ' Cheerios'}</strong>    <Link to={`/products/${product.id}/editproduct`}>{pencil}</Link></li>
               <li>{product.summary} {pencil}</li>
               <li>${product.price / 100} {pencil} {product.inventory < 100
                 ? `Hurry Up And Buy!!!!! Only ${product.inventory} left in stock!`

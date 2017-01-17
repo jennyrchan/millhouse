@@ -1,9 +1,14 @@
 /* ------------   ACTION CREATOR     ------------------ */
 
 const RECEIVE_REVIEWS = 'RECEIVE_REVIEWS';
+const EDIT_REVIEW = 'EDIT_REVIEW';
 
 export const receiveProductReviews = reviews => ({
   type: RECEIVE_REVIEWS, reviews
+});
+
+export const editReview = review => ({
+  type: EDIT_REVIEW, review
 });
 
 /* ------------       REDUCER     ------------------ */
@@ -15,12 +20,13 @@ const reducer = (state = {}, action) => {
   switch (action.type) {
 
   case RECEIVE_REVIEWS:
-      let arr = [];
-      action.reviews.map(review => {
-        arr.push(review);
-      });
-      newState = arr;
+      newState = action.reviews;
       break;
+  case EDIT_REVIEW:
+      //somehow replace the old review with the edited review
+
+      break;
+
 
     default: return state;
 
@@ -31,3 +37,15 @@ const reducer = (state = {}, action) => {
 };
 
 export default reducer;
+
+
+/*  ---------- Dispatchers ---------- */
+
+export const dispatchEditedReview = (review) =>
+  dispatch => {
+     dispatch(editReview(review))
+     axios.put(`api/reviews/${review.id}`, review)
+     .catch(error => console.error(error));
+  }
+
+
