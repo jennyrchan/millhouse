@@ -8,7 +8,7 @@ function Review (props) {
   }
 
   return (
-    <div id="review">
+    <div id="review" className="background-text-box">
       <h2>{ props.title }{ props.pencil }</h2>
       <p>{ props.body }</p>
       <h3>User Rating: {arr}</h3>
