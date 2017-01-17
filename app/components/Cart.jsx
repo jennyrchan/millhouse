@@ -20,27 +20,27 @@ class Cart extends Component {
   }
 
   open() {
-    this.setState({show: true});
+    this.setState({ show: true });
   }
 
   close() {
-    this.setState({show: false});
+    this.setState({ show: false });
   }
 
   handleCCNumChange(evt) {
     if (evt.target.value.length <= 16 || typeof +evt.target.value === 'number') {
-        this.setState({cardNumber: evt.target.value});
+        this.setState({ cardNumber: evt.target.value });
     }
   }
 
   handleCCSecurityChange (evt) {
     if (evt.target.value.length <= 4) {
-      this.setState({cardCVC: evt.target.value});
+      this.setState({ cardCVC: evt.target.value });
     }
   }
 
   render () {
-    const cart = this.props.cart || {products: null};
+    const cart = this.props.cart || { products: null };
     const products = cart.products;
     const cartEmpty = 'Why not buy some Cheerios?';
     let totalPrice = 0;
@@ -56,9 +56,9 @@ class Cart extends Component {
       <shoppingCart id="shopping-cart">
         <h1>Shopping Cart</h1>
         {
-          !products ? (
-            <section><h4>{cartEmpty}</h4></section>
-          ) : (
+          !products
+          ? (<section><h4>{cartEmpty}</h4></section>)
+          : (
             products.map(product => {
               return (
                 <section key={product.id}>
@@ -66,9 +66,9 @@ class Cart extends Component {
 
                   <strong> {product.orderProducts.quantity} </strong>
 
-                  <button type="button" className="btn btn-default btn-xs"><span className="glyphicon glyphicon-plus"></span> </button>
+                  <button type="button" className="btn btn-default btn-xs"><span className="glyphicon glyphicon-plus"></span></button>
 
-                  {` ${product.title} Cheerios — $${product.price / 100}`}
+                  {`${product.title} Cheerios — $${product.price / 100}`}
                 </section>
               );
             })
@@ -77,7 +77,7 @@ class Cart extends Component {
         <section><h4>Tax — meh</h4></section>
         <section><h4>{`Total — $${totalPrice / 100}`}</h4></section>
 
-          <Modal  show={this.state.show} onHide={this.close}>
+          <Modal show={this.state.show} onHide={this.close}>
             <Modal.Header>
               <h1>Modal heading</h1>
             </Modal.Header>

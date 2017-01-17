@@ -14,7 +14,7 @@ function ProductMini (props) {
         </div>
         <div className="col-xs-6">
           <h3>{ product.title }</h3>
-          <h4>${ price / 100 }</h4>
+          <h4>${ (price / 100).toFixed(2) }</h4>
         </div>
       </Link>
     </div>

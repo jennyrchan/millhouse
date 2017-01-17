@@ -1,10 +1,9 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux'
+import React, { Component } from 'react';
+import { connect } from 'react-redux'
 import store from '../store';
 import axios from 'axios';
 
-import {dispatchNewReview} from '../reducers/productReviews';
-
+import { dispatchNewReview } from '../reducers/productReviews';
 
 class NewReview extends Component {
 
@@ -32,17 +31,17 @@ class NewReview extends Component {
 
   handleTitleChange(event) {
     const title = event.target.value;
-    this.setState({title});
+    this.setState({ title });
   }
 
   handleBodyChange(event) {
     const body = event.target.value;
-    this.setState({body});
+    this.setState({ body });
   }
 
   handleRatingChange(event) {
     const rating = +event.target.id;
-    this.setState({rating});
+    this.setState({ rating });
   }
 
   handleSubmit(event) {

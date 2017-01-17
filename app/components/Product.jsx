@@ -2,7 +2,7 @@ import React from 'react';
 import Review from './Review';
 import Cart from './Cart';
 import { connect } from 'react-redux';
-import {Link} from 'react-router';
+import { Link } from 'react-router';
 
 /* -----------------    COMPONENT     ------------------ */
 
@@ -28,7 +28,7 @@ export const Product = props => {
       arr.push(<img src={'/halfCheerio.jpg'} key="half" />);
     }
 
-    let pencil = <button type="button" className="btn btn-default btn-xs pull-right" id='productPencil'><span className="glyphicon glyphicon-pencil"></span> </button>
+    let pencil = <button type="button" className="btn btn-default btn-xs pull-right" id="productPencil"><span className="glyphicon glyphicon-pencil"></span></button>
 
 
     return (
@@ -42,9 +42,11 @@ export const Product = props => {
               <ul className="product-list">
                 <li><strong>{product.title + ' Cheerios'}</strong>     <Link to={`/products/${product.id}/editproduct`} />{pencil}</li>
                 <li>{product.summary} {pencil}</li>
-                <li>${product.price / 100} {pencil} {product.inventory < 100
+                <li>${(product.price / 100).toFixed(2)} {pencil} {product.inventory < 100
                   ? `Hurry Up And Buy!!!!! Only ${product.inventory} left in stock!`
-                  : 'In Stock'}   {pencil} <a href="#" className="btn btn-success">Add to Cart <span className="glyphicon glyphicon-shopping-cart"></span></a></li>
+                  : 'In Stock'}   {pencil}
+                  <a href="#" className="btn btn-success">Add to Cart <span className="glyphicon glyphicon-shopping-cart"></span></a>
+                </li>
                 <div className="nutrition-heading">
                   <div>
                     <h3 className="nutrition" >Nutritional Information {pencil}</h3>
@@ -56,16 +58,19 @@ export const Product = props => {
                   <h4>Average User Rating: {arr}</h4>
                   <h3><a href="">See more {product.category} cereals!</a></h3>
                 </div>
+              </ul>
             </div>
           </div>
-         
+
           <div className="row">
             <div className="col-xs-12">
               <h1>Reviews</h1>
               <div>
-                {reviews.length && reviews.map(review =>
-                  (<Review key={ review.id } title={ review.title } body={ review.body } rating={ review.rating } />)
-                )}
+                {
+                  reviews.length && reviews.map(review => (
+                    <Review key={review.id} title={review.title} body={review.body} rating={review.rating} />
+                  ))
+                }
               </div>
             </div>
           </div>

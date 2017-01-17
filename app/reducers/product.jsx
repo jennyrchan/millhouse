@@ -28,7 +28,8 @@ const reducer = (state = {}, action) => {
         newState.protein = action.product.protein;
         break;
 
-    default: return state;
+    default:
+      return state;
 
   }
 

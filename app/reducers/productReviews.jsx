@@ -28,7 +28,8 @@ const reducer = (state = {}, action) => {
       break;
 
 
-    default: return state;
+    default:
+      return state;
 
   }
 
