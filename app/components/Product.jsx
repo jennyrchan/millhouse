@@ -2,6 +2,7 @@ import React from 'react';
 import Review from './Review';
 import Cart from './Cart';
 import { connect } from 'react-redux';
+import {Link} from 'react-router';
 
 /* -----------------    COMPONENT     ------------------ */
 
@@ -37,9 +38,9 @@ export const Product = props => {
             <div className="col-xs-6">
               <img className="img-responsive" src={`/cereals/${product.id}.jpg`} />
             </div>
-            <div id="product" className="col-xs-6">
+            <div className="col-xs-6 background-text-box">
               <ul className="product-list">
-                <li><strong>{product.title + ' Cheerios'}</strong>    {pencil}</li>
+                <li><strong>{product.title + ' Cheerios'}</strong>     <Link to={`/products/${product.id}/editproduct`} />{pencil}</li>
                 <li>{product.summary} {pencil}</li>
                 <li>${product.price / 100} {pencil} {product.inventory < 100
                   ? `Hurry Up And Buy!!!!! Only ${product.inventory} left in stock!`
@@ -55,9 +56,9 @@ export const Product = props => {
                   <h4>Average User Rating: {arr}</h4>
                   <h3><a href="">See more {product.category} cereals!</a></h3>
                 </div>
-              </ul>
             </div>
           </div>
+         
           <div className="row">
             <div className="col-xs-12">
               <h1>Reviews</h1>

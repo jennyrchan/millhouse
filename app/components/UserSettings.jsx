@@ -7,22 +7,22 @@ const UserSettings = props => {
 
   const {firstName, lastName, email, phoneNumber, shippingAddress, billingAddress} = props.userSettings;
 
-  let userId = +props.params.userId;
-
   return (
     <div>
       <div className = 'col-xs-9'>
         <h1 id = 'userTitle'> User Profile {pencil}</h1>
-        <div className = 'user' id = 'firstName'> First Name: {firstName && firstName} </div>
-        <div className = 'user'> Last Name: {lastName && lastName} </div>
-        <div className = 'user'> Email: {email && email} </div>
-        <div className = 'user'> Phone Number: {phoneNumber && phoneNumber} </div>
-        <div className = 'user'> Shipping Address: {shippingAddress && shippingAddress} </div>
-        <div className = 'user'> Billing Address: {billingAddress && billingAddress} </div>
+        <div className="background-text-box">
+          <div className = 'user' id = 'firstName'> First Name: {firstName && firstName} </div>
+          <div className = 'user'> Last Name: {lastName && lastName} </div>
+          <div className = 'user'> Email: {email && email} </div>
+          <div className = 'user'> Phone Number: {phoneNumber && phoneNumber} </div>
+          <div className = 'user'> Shipping Address: {shippingAddress && shippingAddress} </div>
+          <div className = 'user'> Billing Address: {billingAddress && billingAddress} </div>
+        </div>
       </div>
 
       <div>
-        <UserSidebar userId={userId}/>
+        <UserSidebar userId={props.auth.id}/>
       </div>
     </div>
   )
@@ -32,7 +32,8 @@ const UserSettings = props => {
 
 const mapState = state => {
   return {
-    userSettings: state.userSettings
+    userSettings: state.userSettings,
+    auth: state.auth
   };
 }
 
