@@ -16,7 +16,7 @@ const UserSidebar = props => {
           <Link to={`/users/${props.userId}/settings`}> Settings </Link>
         </section>
 
-        <div className="millhouse" />
+        <div className="scared-millhouse" />
       </sidebar>
     )
 }

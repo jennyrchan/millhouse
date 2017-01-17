@@ -37,7 +37,7 @@ export const Product = props => {
             <div className="col-xs-6">
               <img className="img-responsive" src={`/cereals/${product.id}.jpg`} />
             </div>
-            <div id="product" className="col-xs-6">
+            <div className="col-xs-6 background-text-box">
               <ul className="product-list">
                 <li><strong>{product.title + ' Cheerios'}</strong>    {pencil}</li>
                 <li>{product.summary} {pencil}</li>
