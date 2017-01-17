@@ -39,6 +39,15 @@ export const logout = () =>
       })
       .catch(() => dispatch(whoami()))
 
+export const signup = userData =>
+  dispatch =>
+    axios.post('/api/users', userData)
+      .then(() => {
+        dispatch(whoami());
+        browserHistory.push('/');
+      })
+      .catch(() => dispatch(whoami()))
+
 export const whoami = () =>
   dispatch =>
     axios.get('/api/auth/whoami')

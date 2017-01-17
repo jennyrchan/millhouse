@@ -1,17 +1,29 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux'
+import store from '../store';
 import axios from 'axios';
 
-class EditReview extends Component {
+import {dispatchNewReview} from '../reducers/productReviews';
+
+
+class NewReview extends Component {
 
   constructor(props) {
-    console.log(props);
     super(props);
+    const {
+      productId,
+      title,
+      body,
+      rating,
+    } = props;
+
     this.state = {
-      productId: props.routeParams.productId,
-      title: "",
-      body: "",
-      rating: 5,
-    };
+      productId,
+      title,
+      body,
+      rating,
+    }
+
     this.handleTitleChange = this.handleTitleChange.bind(this);
     this.handleBodyChange = this.handleBodyChange.bind(this);
     this.handleRatingChange = this.handleRatingChange.bind(this);
@@ -35,14 +47,19 @@ class EditReview extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const {title, body, rating} = this.state;
-    axios.post(`review`, {
+    const {
       title,
       body,
-      rating
-    })
-    .then(postedReview => res.send(postedReview))
-    .catch(error => console.error(error));
+      rating,
+      productId
+    } = this.state;
+    const review = {
+      title,
+      body,
+      rating,
+      productId
+    }
+    store.dispatch(dispatchNewReview(review));
   }
 
   render() {
@@ -70,7 +87,7 @@ class EditReview extends Component {
                   id="title"
                   aria-describedby="title"
                   value={title}
-                  onChange={this.handleTitleChange}
+                  onChange={handleTitleChange}
                 />
               </div>
             </div>
@@ -83,7 +100,7 @@ class EditReview extends Component {
                 rows="5"
                 name="body"
                 value={body}
-                onChange={this.handleBodyChange}
+                onChange={handleBodyChange}
               />
             </div>
             <div className="row">
@@ -93,31 +110,31 @@ class EditReview extends Component {
             </div>
             <div className="row">
               <label className="custom-control custom-radio">
-                <input id="1" name="1" type="radio" className="custom-control-input col-xs-1" />
+                <input id="1" name="1" type="radio" className="custom-control-input col-xs-1" onChange={handleRatingChange} />
                 <span className="custom-control-description col-xs-10">One out of five... There's a hole in my heart the shape of a cheerio.</span>
               </label>
             </div>
             <div className="row">
               <label className="custom-control custom-radio">
-                <input id="2" name="2" type="radio" className="custom-control-input col-xs-1" />
+                <input id="2" name="2" type="radio" className="custom-control-input col-xs-1" onChange={handleRatingChange} />
                 <span className="custom-control-description col-xs-10">Two out of five... Could still use more cheery, less O.</span>
               </label>
             </div>
             <div className="row">
               <label className="custom-control custom-radio">
-                <input id="3" name="3" type="radio" className="custom-control-input col-xs-1" />
+                <input id="3" name="3" type="radio" className="custom-control-input col-xs-1" onChange={handleRatingChange} />
                 <span className="custom-control-description col-xs-10">Three out of five... Better than your average grains-coerced-into-a-ring-shape brand!</span>
               </label>
             </div>
             <div className="row">
               <label className="custom-control custom-radio">
-                <input id="4" name="4" type="radio" className="custom-control-input col-xs-1" />
+                <input id="4" name="4" type="radio" className="custom-control-input col-xs-1" onChange={handleRatingChange} />
                 <span className="custom-control-description col-xs-10">Four out of five... This cereal is awesOme!</span>
               </label>
             </div>
             <div className="row">
               <label className="custom-control custom-radio">
-                <input id="5" name="5" type="radio" className="custom-control-input col-xs-1" />
+                <input id="5" onChange={handleRatingChange} name="5" type="radio" className="custom-control-input col-xs-1" />
                 <span className="custom-control-description col-xs-10">Five out of five... Perfect in every way. The very ideal of a breakfast food. We cry together as one, angels descend, the end has arrived.</span>
               </label>
             </div>
@@ -131,4 +148,24 @@ class EditReview extends Component {
   }
 }
 
-export default EditReview
+/* --------------- Container -------------- */
+
+const mapState = state => {
+  const {
+    productId,
+    title,
+    body,
+    rating,
+  } = state;
+
+  return {
+    productId,
+    title,
+    body,
+    rating,
+  }
+}
+
+const mapDispatch = null;
+
+export default connect(mapState, mapDispatch)(NewReview)

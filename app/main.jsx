@@ -8,13 +8,14 @@ import axios from 'axios';
 
 import store from './store'
 import Navbar from './components/Navbar'
+import Signup from './components/Signup';
 import Products from './components/Products'
 import Product from './components/Product'
 import UserOrders from './components/UserOrders';
 import UserSettings from './components/UserSettings';
 import UserReviews from './components/UserReviews';
 import EditProduct from './components/EditProduct';
-import EditReview from './components/EditReview';
+import NewReview from './components/NewReview';
 
 import Stripe from './components/Stripe';
 
@@ -26,7 +27,6 @@ import { receiveUser } from './reducers/userSettings';
 // import { receiveReviews } from './reducers/reviews';
 import { receiveUserReviews } from './reducers/userReviews';
 import { receiveUserOrders } from './reducers/userOrders';
-import { editReview } from './reducers/productReviews';
 
 const onAppEnter = () => {
   // fetchCart();
@@ -87,9 +87,10 @@ render(
         <Route path="/users/:userId/orders" component={UserOrders} onEnter={onUserOrdersEnter} />
         <Route path="/users/:userId/reviews" component={UserReviews} onEnter={onUserReviewsEnter} />
         <Route path="/users/:userId/settings" component={UserSettings} onEnter={onUserSettingsEnter} />
-        <Route path="/products/:productId/review" component={EditReview} />
+        <Route path="/products/:productId/review" component={NewReview} />
         <Route path="/products/:productId/editproduct" component = {EditProduct} />
         <Route path="/checkout" component={Stripe} />
+        <Route path="/signup" component={Signup} />
       </Route>
     </Router>
   </Provider>,
