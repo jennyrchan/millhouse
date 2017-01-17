@@ -28,6 +28,7 @@ class Navbar extends Component {
         <div className="col-xs-5">
           <Link to={'/'}><h1 id="title">MILLHOUSE</h1></Link>
           <h4><b>Your source for all Cheerios cravings</b></h4>
+          <a href="https://github.com/jennyrchan/millhouse"><button type="button" className="btn btn-primary btn-xs">View GitHub source code</button></a>
         </div>
         <div className="col-xs-6 border-dashed">
           <div className="row">

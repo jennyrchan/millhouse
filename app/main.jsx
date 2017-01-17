@@ -39,7 +39,7 @@ const onAppEnter = () => {
 const onProductEnter = route => Promise.all([
   axios.get(`/api/products/${+route.params.productId}`),
   axios.get(`/api/products/${+route.params.productId}/reviews`)])
-    .then(responses=> responses.map(response=>response.data))
+    .then(responses => responses.map(response => response.data))
     .then(([product, reviews]) => {
       store.dispatch(receiveProduct(product));
       store.dispatch(receiveProductReviews(reviews));
@@ -50,7 +50,7 @@ const onUserSettingsEnter = route =>
   axios.get(`/api/users/${+route.params.userId}`)
   .then(user => user.data)
   .then(user => store.dispatch(receiveUser(user)))
-  .catch(err => console.log('UserSettings Error', err));
+  .catch(err => console.log('User Settings Error', err));
 
 const onUserReviewsEnter = route =>
   axios.get(`/api/users/${+route.params.userId}/reviews`)

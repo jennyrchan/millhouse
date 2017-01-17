@@ -6,7 +6,6 @@ const api = module.exports = require('express').Router();
 const HttpError = require ('./HttpError');
 
 api
-  .get('/heartbeat', (req, res) => res.send({ok: true,}))
   .use('/auth', require('./auth'))
   .use('/users', require('./users'))
   .use('/products', require('./products'))
