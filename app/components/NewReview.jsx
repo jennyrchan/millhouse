@@ -3,14 +3,14 @@ import {connect} from 'react-redux'
 import store from '../store';
 import axios from 'axios';
 
-import {dispatchEditedReview} from '../reducers/productReviews';
+import {dispatchNewReview} from '../reducers/productReviews';
 
-class EditReview extends Component {
+
+class NewReview extends Component {
 
   constructor(props) {
     super(props);
     const {
-      reviewId,
       productId,
       title,
       body,
@@ -18,7 +18,6 @@ class EditReview extends Component {
     } = props;
 
     this.state = {
-      reviewId,
       productId,
       title,
       body,
@@ -52,17 +51,15 @@ class EditReview extends Component {
       title,
       body,
       rating,
-      reviewId,
       productId
     } = this.state;
     const review = {
       title,
       body,
       rating,
-      reviewId,
       productId
     }
-    store.dispatch(dispatchEditedReview(review));
+    store.dispatch(dispatchNewReview(review));
   }
 
   render() {
@@ -153,9 +150,8 @@ class EditReview extends Component {
 
 /* --------------- Container -------------- */
 
-mapState = state => {
+const mapState = state => {
   const {
-    reviewId,
     productId,
     title,
     body,
@@ -163,7 +159,6 @@ mapState = state => {
   } = state;
 
   return {
-    reviewId,
     productId,
     title,
     body,
@@ -171,4 +166,6 @@ mapState = state => {
   }
 }
 
-export default connect(mapState, mapDispatch)(EditReview)
+const mapDispatch = null;
+
+export default connect(mapState, mapDispatch)(NewReview)

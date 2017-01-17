@@ -1,4 +1,4 @@
-/* ------------   ACTION CREATOR     ------------------ */
+/* ------------   ACTION CREATORS     ------------------ */
 
 const RECEIVE_REVIEWS = 'RECEIVE_REVIEWS';
 const EDIT_REVIEW = 'EDIT_REVIEW';
@@ -7,7 +7,7 @@ export const receiveProductReviews = reviews => ({
   type: RECEIVE_REVIEWS, reviews
 });
 
-export const editReview = review => ({
+export const newReview = review => ({
   type: EDIT_REVIEW, review
 });
 
@@ -41,10 +41,10 @@ export default reducer;
 
 /*  ---------- Dispatchers ---------- */
 
-export const dispatchEditedReview = (review) =>
+export const dispatchNewReview = (review) =>
   dispatch => {
-     dispatch(editReview(review))
-     axios.put(`api/reviews/${review.id}`, review)
+     dispatch(newReview(review))
+     axios.post(`api/reviews/`, review)
      .catch(error => console.error(error));
   }
 
