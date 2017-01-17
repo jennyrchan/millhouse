@@ -11,7 +11,7 @@ module.exports = require('express').Router()
     Product.findAll()
     .then(products => res.json(products))
     .catch(next))
-  .post('/', (req, res, next) => // forbidden('only admins can create products') could go in the middle argument
+  .post('/', (req, res, next) =>
     Product.create(req.body)
     .then(product => res.status(201).json(product))
     .catch(next))
@@ -19,11 +19,11 @@ module.exports = require('express').Router()
     Product.findById(req.params.productId)
     .then(product => res.json(product))
     .catch(next))
-  .delete('/:productId', (req, res, next) => //forbidden('only admins can delete products') could go as a middle argument
+  .delete('/:productId', (req, res, next) =>
     Product.destroy({ where: { id: req.params.productId }})
     .then(() => res.status(204).send('Deleted product!!'))
     .catch(next))
-  .put('/:productId', (req, res, next) => //forbidden('only admins can create products') could go as a middle argument
+  .put('/:productId', (req, res, next) =>
     Product.update(req.body, {
       where: { id: req.params.productId },
       returning: true
@@ -35,7 +35,10 @@ module.exports = require('express').Router()
   .get('/:productId/reviews', (req, res, next) =>
     Review.findAll({ where: { product_id: req.params.productId }})
     .then(reviews => res.json(reviews))
-    .catch(next));
-
-// TODOS
-// Only admins can post, edit, and delete products
+    .catch(next))
+  .post('/:productId/review', mustBeLoggedIn, (req, res, next) => {
+    req.body.product_id = req.params.productId;
+    Review.create(req.body)
+    .then(review => res.status(201).json(review))
+    .catch(next);
+  });

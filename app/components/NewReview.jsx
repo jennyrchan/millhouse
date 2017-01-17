@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux'
 import store from '../store';
-import axios from 'axios';
 
 import {dispatchNewReview} from '../reducers/productReviews';
 
@@ -10,18 +9,24 @@ class NewReview extends Component {
 
   constructor(props) {
     super(props);
+
+
+
     const {
-      productId,
       title,
       body,
       rating,
     } = props;
 
+
+
+    const {productId} = props.routeParams;
+
     this.state = {
-      productId,
       title,
       body,
       rating,
+      productId
     }
 
     this.handleTitleChange = this.handleTitleChange.bind(this);
@@ -86,7 +91,7 @@ class NewReview extends Component {
                   className="form-control"
                   id="title"
                   aria-describedby="title"
-                  value={title}
+                  value={title || ""}
                   onChange={handleTitleChange}
                 />
               </div>
@@ -99,7 +104,7 @@ class NewReview extends Component {
                 className="form-control col-xs-9"
                 rows="5"
                 name="body"
-                value={body}
+                value={body || ""}
                 onChange={handleBodyChange}
               />
             </div>
