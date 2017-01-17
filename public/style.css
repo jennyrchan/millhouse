@@ -152,3 +152,10 @@ shoppingCart section a {
 body {
   background-image: url("background.jpg");
 }
+
+.modal-container {
+  position: relative;
+}
+.modal-container .modal, .modal-container .modal-backdrop {
+  position: absolute;
+}
