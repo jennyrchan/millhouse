@@ -7,9 +7,7 @@ const UserOrders = props => {
   let pencil = <button type="button" className="btn btn-default btn-xs"><span className="glyphicon glyphicon-pencil"></span> </button>
 
   const {orders} = props;
-  let id, newDate,total;
-  if(orders.length)  id = orders[0][0].orders[0].user_id;
-
+  let id, newDate, total;
 
   return (
     <div className = 'col-xs-9'>
@@ -38,7 +36,7 @@ const UserOrders = props => {
             )
           })
         }
-      <UserSidebar userId={id}/>
+      <UserSidebar userId={props.auth.id}/>
     </div>
   )
 }
@@ -47,7 +45,8 @@ const UserOrders = props => {
 
 const mapState = state => {
   return {
-    orders : state.userOrders
+    orders : state.userOrders,
+    auth: state.auth
   };
 }
 

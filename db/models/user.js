@@ -15,7 +15,8 @@ const User = db.define('users', {
     },
     userType: {
         type: Sequelize.ENUM('guest', 'user', 'admin'),
-        allowNull: false
+        allowNull: false,
+        defaultValue: 'user'
     },
     email: {
         type: Sequelize.STRING,
@@ -25,14 +26,8 @@ const User = db.define('users', {
         }
     },
     phoneNumber: Sequelize.STRING,
-    shippingAddress: {
-      type: Sequelize.STRING,
-      allowNull: false
-    },
-    billingAddress: {
-      type: Sequelize.STRING,
-      allowNull: false
-    },
+    shippingAddress: Sequelize.STRING,
+    billingAddress: Sequelize.STRING,
 
     // We support oauth, so users may or may not have passwords. Huh???
     password_digest: Sequelize.STRING,

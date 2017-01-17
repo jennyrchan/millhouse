@@ -8,6 +8,7 @@ import axios from 'axios';
 
 import store from './store'
 import Navbar from './components/Navbar'
+import Signup from './components/Signup';
 import Products from './components/Products'
 import Product from './components/Product'
 import UserOrders from './components/UserOrders';
@@ -87,6 +88,7 @@ render(
         <Route path="/users/:userId/settings" component={UserSettings} onEnter={onUserSettingsEnter} />
         <Route path="/products/:productId/review" component={EditReview} />
         <Route path="/products/:productId/editproduct" component = {EditProduct} />
+        <Route path="/signup" component={Signup} />
       </Route>
     </Router>
   </Provider>,
