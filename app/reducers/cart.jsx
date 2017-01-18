@@ -1,20 +1,17 @@
 import axios from 'axios';
 
-/* -----------------    ACTIONS     ------------------ */
+/* ------------   ACTION CREATORS     ------------------ */
 
 const RECEIVE_CART = 'RECEIVE_CART';
 const ADD_TO_CART = 'ADD_TO_CART';
 const CHECKOUT = 'CHECKOUT';
-
-
-/* ------------   ACTION CREATORS     ------------------ */
 
 export const receiveCart = cart => ({ type: RECEIVE_CART, cart });
 export const addToCart = product => ({ type: ADD_TO_CART, product });
 export const checkoutReq = cart => ({ type: CHECKOUT, cart });
 
 
-/* ------------       REDUCER     ------------------ */
+/* ------------       REDUCERS     ------------------ */
 
 export default function reducer (state = null, action) {
   switch (action.type) {

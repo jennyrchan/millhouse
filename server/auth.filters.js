@@ -32,34 +32,4 @@ const forbidden = message => (req, res, next) => {
   }
 };
 
-// const assertAdmin = message => (req, res, next) => {
-//   if (!req.user) {
-//     next(new HttpError(401, 'User not found'));
-//   } else if (req.user.userType === 'admin') {
-//     next();
-//   } else {
-//     next(new HttpError(403, message));
-//   }
-// };
-//
-// const assertUser = function (req, res, next) {
-//   if (!req.user) {
-//     next(new HttpError(401));
-//   } else if (req.user.userType === 'user') {
-//     next();
-//   } else {
-//     next(new HttpError(403));
-//   }
-// };
-//
-// const assertGuest = function (req, res, next) {
-//   if (!req.user) {
-//     next(new HttpError(401));
-//   } else if (req.user.userType === 'guest') {
-//     next();
-//   } else {
-//     next(new HttpError(403));
-//   }
-// };
-
-module.exports = {mustBeLoggedIn, selfOnly, forbidden};
+module.exports = { mustBeLoggedIn, selfOnly, forbidden };

@@ -1,11 +1,12 @@
+/* ------------   ACTION CREATOR     ------------------ */
+
 const RECEIVE_USERREVIEWS = 'RECEIVE_USERREVIEWS';
 
 export const receiveUserReviews = reviews => ({
-  type: RECEIVE_USERREVIEWS,
-  reviews
+  type: RECEIVE_USERREVIEWS, reviews
 });
 
-/* ------------  Reducer ---------------------- */
+/* ------------       REDUCER     ------------------ */
 
 const reducer = (state = {}, action) => {
 

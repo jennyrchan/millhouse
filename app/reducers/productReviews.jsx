@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {browserHistory} from 'react-router';
+import { browserHistory } from 'react-router';
 
 /* ------------   ACTION CREATORS     ------------------ */
 
@@ -14,7 +14,7 @@ export const newReview = review => ({
   type: NEW_REVIEW, review
 });
 
-/* ------------       REDUCER     ------------------ */
+/* ------------       REDUCERS     ------------------ */
 
 const reducer = (state = [], action) => {
 
@@ -38,8 +38,7 @@ const reducer = (state = [], action) => {
 
 export default reducer;
 
-
-/*  ---------- Dispatchers ---------- */
+/* ------------       DISPATCHERS     ------------------ */
 
 export const dispatchNewReview = (review) => dispatch => {
   console.log(review);

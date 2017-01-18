@@ -27,7 +27,7 @@ const UserReviews = props => {
           }
       </div>
       <div>
-        <UserSidebar userId={props.auth.id}/>
+        <UserSidebar userId={props.user.id}/>
       </div>
     </div>
   )
@@ -38,7 +38,7 @@ const UserReviews = props => {
 const mapState = state => {
   return {
     reviews: state.userReviews,
-    auth: state.auth
+    user: state.auth
   };
 }
 

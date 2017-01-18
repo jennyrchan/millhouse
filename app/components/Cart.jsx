@@ -55,8 +55,7 @@ class Cart extends Component {
     return (
       <shoppingCart id="shopping-cart">
         <h1>Shopping Cart</h1>
-        {
-          !products
+        {!products
           ? (<section><h4>{cartEmpty}</h4></section>)
           : (
             products.map(product => {
@@ -127,37 +126,3 @@ const mapState = ({ cart }) => ({ cart });
 const mapDispatch = null;
 
 export default connect(mapState, mapDispatch)(Cart);
-
-// <div className="col-xs-1">
-//   { product.quantity >= 2
-//     ? (<button type="button" className="btn btn-default btn-xs"><span className="glyphicon glyphicon-minus"></span> </button>)
-//
-//     : (<button type="button" className="btn btn-default btn-xs"><span className="glyphicon glyphicon-remove"></span> </button>)
-//   }
-//   <p>{product.quantity}</p>
-//   <button type="button" className="btn btn-default btn-xs"><span className="glyphicon glyphicon-plus"></span> </button>
-// </div>
-// <div className="col-xs-6">
-//   <span>{product.name}</span>
-// </div>
-// <div className="col-xs-3">
-//   <img src={product.image} />
-// </div>
-// <div className="col-xs-2">
-//   <span>{product.price}</span>
-// </div>
-// <section id="total">
-//   <div className="row">
-//     <div className="col-xs-10">
-//       <h4>Total:</h4>
-//     </div>
-//     <div className="col-xs-2">
-//       {
-//         products.reduce((subtotal, product) => {
-//           const productTotal = product.quantity * product.price;
-//           return subtotal + productTotal;
-//         }, 0)
-//       }
-//     </div>
-//   </div>
-// </section>

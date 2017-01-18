@@ -75,7 +75,6 @@ render(
         <Route path="/users/:userId/orders" component={UserOrders} onEnter={onUserOrdersEnter} />
         <Route path="/users/:userId/reviews" component={UserReviews} onEnter={onUserReviewsEnter} />
         <Route path="/users/:userId/settings" component={UserSettings} onEnter={onUserSettingsEnter} />
-
         <Route path="/products/:productId/editproduct" component = {EditProduct} />
         <Route path="/signup" component={Signup} />
       </Route>

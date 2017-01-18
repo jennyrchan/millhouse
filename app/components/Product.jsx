@@ -8,9 +8,7 @@ import { Link } from 'react-router';
 
 export const Product = props => {
 
-    const product = props.product;
-
-    const reviews = props.reviews;
+    const { product, reviews, user } = props;
 
     let avgRating;
 
@@ -29,8 +27,6 @@ export const Product = props => {
     }
 
     let pencil = <button type="button" className="btn btn-default btn-xs pull-right" id="productPencil"><span className="glyphicon glyphicon-pencil"></span></button>
-
-    const user = props.auth
 
     return (
       <div>
@@ -67,7 +63,7 @@ export const Product = props => {
             <div className="col-xs-12">
               <div>
                 {user
-                  ? <Link to={`/products/${product.id}/review`}><h1>Add Your Own Review!</h1></Link>
+                  ? (<Link to={`/products/${product.id}/review`}><h1>Add Your Own Review!</h1></Link>)
                   : null
                 }
               </div>
@@ -95,7 +91,7 @@ const mapState = state => {
   return {
     product: state.product,
     reviews: state.reviews,
-    auth: state.auth
+    user: state.auth
   };
 };
 

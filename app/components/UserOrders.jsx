@@ -38,7 +38,7 @@ const UserOrders = props => {
             })
           }
         </div>
-      <UserSidebar userId={props.auth.id} />
+      <UserSidebar userId={props.user.id} />
     </div>
   )
 }
@@ -48,7 +48,7 @@ const UserOrders = props => {
 const mapState = state => {
   return {
     orders: state.userOrders,
-    auth: state.auth
+    user: state.auth
   };
 }
 

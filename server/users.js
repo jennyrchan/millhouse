@@ -4,9 +4,7 @@ const db = require('APP/db');
 const User = db.model('users');
 const Orders = db.model('orders');
 const Promise = require('bluebird');
-
-
-const {selfOnly, forbidden} = require('./auth.filters');
+const { selfOnly, forbidden } = require('./auth.filters');
 
 module.exports = require('express').Router()
 	.get('/', forbidden('list all users.'), (req, res, next) =>

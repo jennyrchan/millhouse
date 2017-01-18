@@ -5,7 +5,7 @@ import UserSidebar from './UserSidebar';
 const UserSettings = props => {
   let pencil = <button type="button" className="btn btn-default btn-xs pull-right" id="userSettingsPencil"><span className="glyphicon glyphicon-pencil"></span> </button>
 
-  const {firstName, lastName, email, phoneNumber, shippingAddress, billingAddress} = props.userSettings;
+  const { firstName, lastName, email, phoneNumber, shippingAddress, billingAddress } = props.userSettings;
 
   return (
     <div>
@@ -21,7 +21,7 @@ const UserSettings = props => {
         </div>
       </div>
       <div>
-        <UserSidebar userId={props.auth.id}/>
+        <UserSidebar userId={props.user.id}/>
       </div>
     </div>
   )
@@ -32,7 +32,7 @@ const UserSettings = props => {
 const mapState = state => {
   return {
     userSettings: state.userSettings,
-    auth: state.auth
+    user: state.auth
   };
 }
 
