@@ -40,7 +40,6 @@ export default reducer;
 /*  ---------- Dispatchers ---------- */
 
 export const dispatchNewReview = (review) => dispatch => {
-  console.log(review);
   dispatch(newReview(review))
   const {productId} = review;
   axios.post(`/api/products/${productId}/review`, review)

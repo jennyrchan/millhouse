@@ -46,6 +46,7 @@ export const Product = props => {
                 <li>${product.price / 100} {pencil} {product.inventory < 100
                   ? `Hurry Up And Buy!!!!! Only ${product.inventory} left in stock!`
                   : 'In Stock'}   {pencil} <a href="#" className="btn btn-success">Add to Cart <span className="glyphicon glyphicon-shopping-cart"></span></a></li>
+              </ul>
                 <div className="nutrition-heading">
                   <div>
                     <h3 className="nutrition" >Nutritional Information {pencil}</h3>
@@ -59,7 +60,7 @@ export const Product = props => {
                 </div>
             </div>
           </div>
-         
+
           <div className="row">
             <div className="col-xs-12">
               <div>
