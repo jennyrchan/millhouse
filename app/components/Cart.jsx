@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Modal, Button } from 'react-bootstrap';
+import {deleteFromCart, increaseQuantity, decreaseQuantity} from '../reducers/cart';
+import CartItem from './CartItem';
 
 /* -----------------    COMPONENT     ------------------ */
 
@@ -49,28 +51,22 @@ class Cart extends Component {
       totalPrice = products.reduce((subtotal, product) => {
         const productTotal = product.orderProducts.quantity * product.price;
         return subtotal + productTotal;
-      }, 0);
+      }, 0).toFixed(2);
     }
 
     return (
       <shoppingCart id="shopping-cart">
         <h1>Shopping Cart</h1>
-        {!products
-          ? (<section><h4>{cartEmpty}</h4></section>)
-          : (
-            products.map(product => {
-              return (
-                <section key={product.id}>
-                  <button type="button" className="btn btn-default btn-xs"><span className="glyphicon glyphicon-minus"></span></button>
-
-                  <strong> {product.orderProducts.quantity} </strong>
-
-                  <button type="button" className="btn btn-default btn-xs"><span className="glyphicon glyphicon-plus"></span></button>
-
-                  {`${product.title} Cheerios — $${product.price / 100}`}
-                </section>
-              );
-            })
+        {
+          !products ? (
+            <section><h4>{cartEmpty}</h4></section>
+          ) : (
+            products.map(product => (
+              <CartItem
+                key={product.id}
+                product={product}
+                userId={cart.user_id} quantity={product.orderProducts.quantity} />
+            ))
           )
         }
         <section><h4>Tax — meh</h4></section>
@@ -78,20 +74,10 @@ class Cart extends Component {
 
           <Modal show={this.state.show} onHide={this.close}>
             <Modal.Header>
-              <h1>Modal heading</h1>
+              <h1>Checkout</h1>
             </Modal.Header>
             <Modal.Body>
-              <form action="/your-server-side-code" method="POST">
-                <script
-                  src="https://checkout.stripe.com/checkout.js" className="stripe-button"
-                  data-key="pk_test_6pRNASCoBOKtIshFeQd4XMUh"
-                  data-amount="999"
-                  data-name="Stripe.com"
-                  data-description="Widget"
-                  data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
-                  data-locale="auto"
-                  data-zip-code="true">
-                </script>
+              <form>
                 <label>Credit Card</label>
                 <input placeholder="Credit Card"
                   autoComplete="cc-number"
@@ -104,6 +90,7 @@ class Cart extends Component {
                   type="text"
                   value={this.state.cardCVC}
                   onChange={this.handleCCSecurityChange} />
+                <input type="submit" value="submit" />
               </form>
             </Modal.Body>
             <Modal.Footer>

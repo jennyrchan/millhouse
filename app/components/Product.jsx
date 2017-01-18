@@ -1,21 +1,38 @@
-import React from 'react';
+import React, {Component} from 'react';
 import Review from './Review';
 import Cart from './Cart';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
+
+import {addToCart} from '../reducers/cart';
+
 /* -----------------    COMPONENT     ------------------ */
 
-export const Product = props => {
+export class Product extends Component {
+  constructor(props) {
+    super(props);
+    this.clickAddToCart = this.clickAddToCart.bind(this);
+  }
 
-    const { product, reviews, user } = props;
+  clickAddToCart(evt) {
+    const product = Object.assign({}, this.props.product);
+    product.orderProducts = {
+      priceAtPurchase: product.price,
+      quantity: 1
+    };
+    return this.props.chooseProduct(this.props.user.id, product);
+  }
+
+  render () {
+    const { product, reviews, user } = this.props;
 
     let avgRating;
 
     if (reviews.length) {
       avgRating = reviews.reduce((accumulator, currentElement) => {
-          return accumulator + currentElement.rating
-      }, 0) / reviews.length
+          return accumulator + currentElement.rating;
+      }, 0) / reviews.length;
     }
 
     let arr = [];
@@ -26,7 +43,7 @@ export const Product = props => {
       arr.push(<img src={'/halfCheerio.jpg'} key="half" />);
     }
 
-    let pencil = <button type="button" className="btn btn-default btn-xs pull-right" id="productPencil"><span className="glyphicon glyphicon-pencil"></span></button>
+    const pencil = <button type="button" className="btn btn-default btn-xs pull-right" id="productPencil"><span className="glyphicon glyphicon-pencil"></span></button>;
 
     return (
       <div>
@@ -45,7 +62,7 @@ export const Product = props => {
                       ? `Hurry Up And Buy!!!!! Only ${product.inventory} left in stock!`
                       : 'In Stock'
                     } {pencil}
-                  <a href="#" className="btn btn-success">Add to Cart <span className="glyphicon glyphicon-shopping-cart"></span></a>
+                  <button className="btn btn-success" onClick={this.clickAddToCart}>Add to Cart <span className="glyphicon glyphicon-shopping-cart"></span></button>
                 </li>
                 <div className="nutrition-heading">
                   <div>
@@ -86,7 +103,8 @@ export const Product = props => {
         </div>
       </div>
     );
-};
+  }
+}
 
 /* -----------------    CONTAINER     ------------------ */
 
@@ -98,6 +116,13 @@ const mapState = state => {
   };
 };
 
-const mapDispatch = null;
+const mapDispatch = dispatch => {
+  return {
+    chooseProduct: (id, productId) => {
+      dispatch(addToCart(id, productId));
+    }
+  }
+}
+
 
 export default connect(mapState, mapDispatch)(Product);
