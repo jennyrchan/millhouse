@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {deleteFromCart, increaseQuantity, decreaseQuantity} from '../reducers/cart';
 
-class CartItem extends Component() {
+class CartItem extends Component {
   constructor (props) {
     super(props);
     this.clickRemoveFromCart = this.clickRemoveFromCart.bind(this);
@@ -30,22 +30,23 @@ class CartItem extends Component() {
 
   render () {
     const product = this.props.product;
+    const quantity = product.orderProducts.quantity;
 
     return (
-      <section key={product.id}>
+      <section>
         <button
           type="button"
           onClick={this.clickRemoveFromCart}
           className="btn btn-default btn-xs">
             <span className="glyphicon glyphicon-remove" />
         </button>
-
-        <button
-          type="button"
-          onClick={this.clickRmvQuantity}
-          className="btn btn-default btn-xs">
-            <span className="glyphicon glyphicon-minus" />
-        </button>
+        { quantity > 1 ?
+          <button
+            type="button"
+            onClick={this.clickRmvQuantity}
+            className="btn btn-default btn-xs">
+              <span className="glyphicon glyphicon-minus" />
+          </button> : null}
 
         <strong> {product.orderProducts.quantity} </strong>
 
@@ -64,20 +65,18 @@ class CartItem extends Component() {
 
 /* -----------------    CONTAINER     ------------------ */
 
-const mapState = (state, ownProps) => {
-  console.log('OWN PROPS: ', ownProps);
-};
+const mapState = (state, {product, userId}) => ({ product, userId })
 
 const mapDispatch = dispatch => {
   return {
     deleteFromCart: (userId, productId) => {
       dispatch(deleteFromCart(userId, productId));
     },
-    increaseQuantity: (productId) => {
-      dispatch(increaseQuantity(productId));
+    increaseQuantity: (userId, productId) => {
+      dispatch(increaseQuantity(userId, productId));
     },
-    decreaseQuantity: (productId) => {
-      dispatch(decreaseQuantity(productId));
+    decreaseQuantity: (userId, productId) => {
+      dispatch(decreaseQuantity(userId, productId));
     }
   };
 };

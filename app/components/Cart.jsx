@@ -51,7 +51,7 @@ class Cart extends Component {
       totalPrice = products.reduce((subtotal, product) => {
         const productTotal = product.orderProducts.quantity * product.price;
         return subtotal + productTotal;
-      }, 0);
+      }, 0).toFixed(2);
     }
 
     return (
@@ -62,7 +62,7 @@ class Cart extends Component {
             <section><h4>{cartEmpty}</h4></section>
           ) : (
             products.map(product => (
-              <CartItem product={product} userId={cart.user_id} />
+              <CartItem key={product.id} product={product} userId={cart.user_id} />
             ))
           )
         }

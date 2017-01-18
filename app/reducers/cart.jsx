@@ -14,10 +14,10 @@ const CHECKOUT = 'CHECKOUT';
 
 export const receiveCart = cart => ({ type: RECEIVE_CART, cart });
 export const addProduct = product => ({ type: ADD_PRODUCT, product });
-export const rmvProduct = product => ({ type: REMOVE_PRODUCT, product });
-export const checkoutReq = cart => ({ type: CHECKOUT, cart });
-export const buyMore = product => ({ type: BUY_MORE, product });
-export const buyLess = product => ({ type: BUY_LESS, product });
+export const rmvProduct = productId => ({ type: REMOVE_PRODUCT, productId });
+export const buyMore = productId => ({ type: BUY_MORE, productId });
+export const buyLess = productId => ({ type: BUY_LESS, productId });
+export const checkout = cart => ({ type: CHECKOUT, cart });
 
 /* ------------       REDUCER     ------------------ */
 
@@ -34,29 +34,28 @@ export default function reducer (state = {}, action) {
       break;
 
     case REMOVE_PRODUCT:
-      newCart.products.filter(product => {
-        return product.id !== action.product.id;
+      newCart.products = state.products.filter(product => {
+        return product.id !== action.productId;
       });
       break;
 
     case BUY_MORE:
-      newCart.products = newCart.map(product => {
-        if (product.id === action.product.id) {
-          product.orderProducts.quantity++;
-        }
+      newCart.products = state.products.map(product => {
+        if (product.id === action.productId) product.orderProducts.quantity++;
+        return product;
       });
       break;
 
     case BUY_LESS:
-      newCart.products = newCart.map(product => {
-        if (product.id === action.product.id) {
-          product.orderProducts.quantity--;
-        }
+      newCart.products = state.products.map(product => {
+        if (product.id === action.productId) product.orderProducts.quantity--;
+        return product;
       });
       break;
 
-    // case CHECKOUT:
-    //   return null;
+    case CHECKOUT:
+      fetchCart(newCart.user_id);
+      return null;
 
     default:
       return state;
@@ -68,57 +67,44 @@ export default function reducer (state = {}, action) {
 /* ------------       DISPATCHERS     ------------------ */
 
 // Finds or creates the user's cart
-export const fetchCart = (id) =>
+export const fetchCart = (userId) =>
   dispatch =>
-    axios.get(`/api/orders/cart/${id}`)
+    axios.get(`/api/orders/cart/${userId}`)
       .then(res => res.data[0])
       .then(cart => dispatch(receiveCart(cart)))
       .catch(err => console.error('Fetching shopping cart unsuccesful', err));
 
-export const addToCart = (id, product) => {
+export const addToCart = (userId, product) => {
     return dispatch => {
     dispatch(addProduct(product));
-    axios.put(`/api/orders/cart/${id}/product/${product.id}`, {
+    axios.put(`/api/orders/cart/${userId}/product/${product.id}`, {
       priceAtPurchase: product.orderProducts.priceAtPurchase,
       quantity: product.orderProducts.quantity
       })
       .catch(err => console.error('Add to cart unsuccesful', err));
-
   };
 };
 
-
-export const deleteFromCart = (id, product) =>
-  dispatch => {
-    dispatch(rmvProduct(product));
-    axios.delete(`/api/orders/cart/${id}/product/${product.id}`)
+export const deleteFromCart = (userId, productId) => {
+  return dispatch => {
+    dispatch(rmvProduct(productId));
+    axios.delete(`/api/orders/cart/${userId}/product/${productId}`)
     .catch(err => console.error('Delete from cart unsuccesful', err));
   };
+};
 
-export const increaseQuantity = (id, product) =>
-  dispatch => {
-    dispatch(buyMore(product));
-    axios.put(`/api/orders/cart${id}/product/${product.id}/plus`)
-      .catch(err => console.error('Quantity not altered', err));
+export const increaseQuantity = (userId, productId) => {
+  return dispatch => {
+    dispatch(buyMore(productId));
+    axios.put(`/api/orders/cart${userId}/product/${productId}/plus`)
+    .catch(err => console.error('Quantity not altered', err));
   };
+};
 
-export const decreaseQuantity = (id, product) =>
-  dispatch => {
-    dispatch(buyLess(product));
-    axios.put(`/api/orders/cart${id}/product/${product.id}/minus`)
-      .catch(err => console.error('Quantity not altered', err));
+export const decreaseQuantity = (userId, productId) => {
+  return dispatch => {
+    dispatch(buyLess(productId));
+    axios.put(`/api/orders/cart${userId}/product/${productId}/minus`)
+    .catch(err => console.error('Quantity not altered', err));
   };
-
-// export const editQuantity = (id, orderItem, quantity) =>
-//   dispatch =>
-//     axios.put(`/api/orders/cart/${id}/products/${productId}`)
-
-// export const saveToCart = (id, orderItem) =>
-//   dispatch =>
-//     axios.put(`/api/orders/${id}/${orderItem.order_id}`, {
-//         order_id: orderItem.order_id,
-//         product_id: orderItem.product.id,
-//         priceAtPurchase: orderItem.product.price,
-//         quantity: orderItem.quantity
-//       })
-//       .catch(err => console.error('Adding to shopping cart unsuccesful', err));
+}
