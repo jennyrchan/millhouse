@@ -1,9 +1,6 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux'
+import React, { Component } from 'react';
 import store from '../store';
-import axios from 'axios';
-
-import {dispatchNewProduct} from '../reducers/product';
+import { dispatchNewProduct } from '../reducers/product';
 
 class NewProduct extends Component {
 
@@ -11,8 +8,8 @@ class NewProduct extends Component {
     super(props);
     this.state = {
       product: {
-        title: "",
-        summary: "",
+        title: '',
+        summary: '',
         price: 0,
         inventory: 0,
         calories: 0,
@@ -34,184 +31,163 @@ class NewProduct extends Component {
 
   handleTitleChange(event) {
     const title = event.target.value;
-    this.setState({title});
+    this.setState({ title });
   }
 
   handleSummaryChange(event) {
     const summary = event.target.value;
-    this.setState({summary});
+    this.setState({ summary });
   }
 
   handlePriceChange(event) {
     const price = +event.target.value;
-    this.setState({price});
+    this.setState({ price });
   }
 
    handleInventoryChange(event) {
     const inventory = +event.target.value;
-    this.setState({inventory});
+    this.setState({ inventory });
   }
 
    handleCaloriesChange(event) {
     const calories = +event.target.value;
-    this.setState({calories});
+    this.setState({ calories });
   }
 
    handleSugarChange(event) {
     const sugar = +event.target.value;
-    this.setState({sugar});
+    this.setState({ sugar });
   }
 
    handleFiberChange(event) {
     const fiber = +event.target.value;
-    this.setState({fiber});
+    this.setState({ fiber });
   }
 
    handleProteinChange(event) {
     const protein = +event.target.value;
-    this.setState({protein});
+    this.setState({ protein });
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    const {
-      title,
-      summary,
-      price,
-      inventory,
-      calories,
-      sugar,
-      fiber,
-      protein
-    } = this.state;
-    const product = {
-      title,
-      summary,
-      price,
-      inventory,
-      calories,
-      sugar,
-      fiber,
-      protein
-    }
-
+    const { title, summary, price, inventory, calories, sugar, fiber, protein } = this.state;
+    const product = { title, summary, price, inventory, calories, sugar, fiber, protein }
     store.dispatch(dispatchNewProduct(product))
   }
 
   render() {
-    const {
-      title,
-      summary,
-      price,
-      inventory,
-      calories,
-      sugar,
-      fiber,
-      protein
-    } = this.state;
+    const { title, summary, price, inventory, calories, sugar, fiber, protein } = this.state;
+    const { handleTitleChange, handleSummaryChange, handlePriceChange, handleInventoryChange, handleCaloriesChange, handleSugarChange, handleFiberChange, handleProteinChange, handleSubmit } = this;
 
     return (
-      <div className="row">
-        <form onSubmit={this.handleSubmit}>
-          <div className="row">
-            <label htmlFor="title" className="col-xs-1">Title</label>
-            <div className="input-group col-xs-11">
-              <input
-                type="text"
-                className="form-control"
-                id="title"
-                aria-describedby="title"
-                value={title}
-                onChange={this.handleTitleChange}
-              />
+      <div className="container-fluid">
+        <form onSubmit={handleSubmit}>
+          <div className="container-fluid">
+            <div className="row">
+              <h4 className="col-xs-1"><b>Title:</b></h4>
+              <div className="input-group col-xs-11">
+                <input
+                  type="text"
+                  className="form-control"
+                  id="title"
+                  placeholder="What exciting new Cheerios are we selling now?"
+                  aria-describedby="title"
+                  value={title}
+                  onChange={handleTitleChange}
+                />
+              </div>
             </div>
-          </div>
-          <div className="row">
-            <label className="col-xs-3">
-              Summary:
-            </label>
-            <textarea
-              className="form-control col-xs-9"
-              rows="5"
-              name="summary"
-              value={summary}
-              onChange={this.handleSummaryChange}
-            />
-          </div>
-          <div className="row input-group">
-            <div className="col-xs-6">
-              <label htmlFor="price">Price (in cents!)</label>
-              <input
-                type="text"
-                className="form-control"
-                id="price"
-                aria-describedby="price"
-                value={price}
-                onChange={this.handlePriceChange}
-               />
+            <div className="row">
+              <h4 className="col-xs-1"><b>Summary:</b></h4>
+              <div className="input-group col-xs-11">
+                <textarea
+                  className="form-control"
+                  rows="5"
+                  name="summary"
+                  placeholder="Describe me!"
+                  value={summary}
+                  onChange={handleSummaryChange}
+                />
+              </div>
             </div>
-            <div className="col-xs-6">
-              <label htmlFor="inventory">Inventory</label>
-              <input
-                type="text"
-                className="form-control"
-                id="inventory"
-                aria-describedby="inventory"
-                value={inventory}
-                onChange={this.handleInventoryChange}
-               />
+            <div className="row input-group">
+              <div className="col-xs-6">
+                <h4><b>Price: (in cents)</b></h4>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="price"
+                  placeholder="e.g., 499 = $4.99"
+                  aria-describedby="price"
+                  value={price}
+                  onChange={handlePriceChange}
+                 />
+              </div>
+              <div className="col-xs-6">
+                <h4><b>Inventory:</b></h4>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="inventory"
+                  aria-describedby="inventory"
+                  value={inventory}
+                  onChange={handleInventoryChange}
+                 />
+              </div>
             </div>
-          </div>
-          <div className="row input-group">
-            <div className="col-xs-6">
-              <label htmlFor="calories">Calories</label>
-              <input
-                type="text"
-                className="form-control"
-                id="calories"
-                aria-describedby="calories"
-                value={calories}
-                onChange={this.handleCaloriesChange}
-               />
+            <div className="row input-group">
+              <div className="col-xs-6">
+                <h4><b>Calories:</b></h4>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="calories"
+                  aria-describedby="calories"
+                  value={calories}
+                  onChange={handleCaloriesChange}
+                 />
+              </div>
+              <div className="col-xs-6">
+                <h4><b>Sugar:</b></h4>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="sugar"
+                  aria-describedby="sugar"
+                  value={sugar}
+                  onChange={handleSugarChange}
+                 />
+              </div>
             </div>
-            <div className="col-xs-6">
-              <label htmlFor="sugar">Sugar</label>
-              <input
-                type="text"
-                className="form-control"
-                id="sugar"
-                aria-describedby="sugar"
-                value={sugar}
-                onChange={this.handleSugarChange}
-               />
+            <div className="row input-group">
+              <div className="col-xs-6">
+                <h4><b>Fiber:</b></h4>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="fiber"
+                  aria-describedby="fiber"
+                  value={fiber}
+                  onChange={handleFiberChange}
+                 />
+              </div>
+              <div className="col-xs-6">
+                <h4><b>Protein:</b></h4>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="protein"
+                  aria-describedby="protein"
+                  value={protein}
+                  onChange={handleProteinChange}
+                 />
+              </div>
             </div>
-          </div>
-          <div className="row input-group">
-            <div className="col-xs-6">
-              <label htmlFor="fiber">Fiber</label>
-              <input
-                type="text"
-                className="form-control"
-                id="fiber"
-                aria-describedby="fiber"
-                value={fiber}
-                onChange={this.handleFiberChange}
-               />
+            <div className="row input-group">
+              <br />
+              <button type="submit" className="btn btn-primary col-xs-12 col-xs-offset-1">Add New Product</button>
             </div>
-            <div className="col-xs-6">
-              <label htmlFor="protein">Protein</label>
-              <input
-                type="text"
-                className="form-control"
-                id="protein"
-                aria-describedby="protein"
-                value={protein}
-                onChange={this.handleProteinChange}
-               />
-            </div>
-          </div>
-          <div className="row input-group">
-            <button type="submit" className="btn btn-primary col-xs-12 col-xs-offset-1">Add New Product</button>
           </div>
         </form>
       </div>
@@ -220,26 +196,3 @@ class NewProduct extends Component {
 }
 
 export default NewProduct;
-
-
-
-
-
-
-/*
-
-axios.put(`/api/products/${this.state.productId}`, {
-      title,
-      summary,
-      price,
-      inventory,
-      calories,
-      sugar,
-      fiber,
-      protein
-    })
-    .then(response => response.data)
-    .then(updatedProduct => console.log(updatedProduct))
-    .catch(error => console.error(error));
-
-    */

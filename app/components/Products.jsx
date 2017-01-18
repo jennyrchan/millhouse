@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import ProductMini from './ProductMini';
 
@@ -6,11 +7,18 @@ import ProductMini from './ProductMini';
 
 export const Products = props => {
 
-  const products = props.products;
+  const { products, user } = props;
 
   return (
-    <div>
+    <div className="container-fluid">
       <h1>Products</h1>
+      <div className="pull-right">
+        {
+          user && user.userType === 'admin'
+          ? (<Link to={'/newproduct'}><button type="button" className="btn btn-primary"><span className="glyphicon glyphicon-plus"></span> Add New Product</button></Link>)
+          : null
+        }
+        </div>
         <div className="row">
           {
             products && products.map(product => (
@@ -26,7 +34,12 @@ export const Products = props => {
 
 /* -----------------    CONTAINER     ------------------ */
 
-const mapState = ({ products }) => ({ products: products });
+const mapState = state => {
+  return {
+    products: state.products,
+    user: state.auth
+  }
+}
 
 const mapDispatch = null;
 

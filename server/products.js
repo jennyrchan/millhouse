@@ -11,7 +11,7 @@ module.exports = require('express').Router()
     .then(products => res.json(products))
     .catch(next))
 
-  .post('/', (req, res, next) =>
+  .post('/', forbidden('add products'), (req, res, next) =>
     Product.create(req.body)
     .then(product => res.status(201).json(product))
     .catch(next))

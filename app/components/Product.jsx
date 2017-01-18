@@ -39,9 +39,12 @@ export const Product = props => {
               <ul className="product-list">
                 <li><strong>{product.title + ' Cheerios'}</strong>     <Link to={`/products/${product.id}/editproduct`} />{pencil}</li>
                 <li>{product.summary} {pencil}</li>
-                <li>${(product.price / 100).toFixed(2)} {pencil} {product.inventory < 100
-                  ? `Hurry Up And Buy!!!!! Only ${product.inventory} left in stock!`
-                  : 'In Stock'}   {pencil}
+                <li>${(product.price / 100).toFixed(2)} {pencil}
+                    {
+                      product.inventory < 100
+                      ? `Hurry Up And Buy!!!!! Only ${product.inventory} left in stock!`
+                      : 'In Stock'
+                    } {pencil}
                   <a href="#" className="btn btn-success">Add to Cart <span className="glyphicon glyphicon-shopping-cart"></span></a>
                 </li>
                 <div className="nutrition-heading">
