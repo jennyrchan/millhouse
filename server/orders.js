@@ -63,7 +63,7 @@ module.exports = require('express').Router()
   })
 
   // Increase or decrease quantity of a product in the shopping cart
-  .post('/cart/:id/product/:productId/:math', (req, res, next) => {
+  .put('/cart/:id/product/:productId/:math', (req, res, next) => {
     Order.find({
       where: {user_id: req.params.id, status: 'pending' },
       include: [
@@ -71,11 +71,25 @@ module.exports = require('express').Router()
           where: { id: req.params.productId }}]
       })
       .then(order => {
-        if (req.params.math === 'plus') order.products[0].orderProducts.quantity++;
-        if (req.params.math === 'minus') order.products[0].orderProducts.quantity--;
-        return order.update(order);
+        return OrderProduct.find({
+          where: {
+            product_id: req.params.productId,
+            order_id: order.id }
+          })
       })
-      .then((order) => res.status(202).json(order))
+      .then(orderProduct => {
+        console.log(orderProduct);
+        let quantity = orderProduct.quantity
+        if (req.params.math === 'plus') {
+          console.log('INCREASING');
+          quantity++
+        } else if (req.params.math === 'minus') {
+          console.log('DECREASING!');
+          quantity--
+        }
+        return orderProduct.update({ quantity })
+      })
+      .then(() => res.sendStatus(202))
       .catch(next);
   })
 

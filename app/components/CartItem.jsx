@@ -30,7 +30,7 @@ class CartItem extends Component {
 
   render () {
     const product = this.props.product;
-    const quantity = product.orderProducts.quantity;
+    const quantity = this.props.quantity;
 
     return (
       <section>
@@ -48,7 +48,7 @@ class CartItem extends Component {
               <span className="glyphicon glyphicon-minus" />
           </button> : null}
 
-        <strong> {product.orderProducts.quantity} </strong>
+        <strong> {quantity} </strong>
 
         <button
           type="button"
@@ -65,7 +65,7 @@ class CartItem extends Component {
 
 /* -----------------    CONTAINER     ------------------ */
 
-const mapState = (state, {product, userId}) => ({ product, userId })
+const mapState = (state, {product, userId, quantity}) => ({ product, userId, quantity })
 
 const mapDispatch = dispatch => {
   return {

@@ -62,7 +62,10 @@ class Cart extends Component {
             <section><h4>{cartEmpty}</h4></section>
           ) : (
             products.map(product => (
-              <CartItem key={product.id} product={product} userId={cart.user_id} />
+              <CartItem
+                key={product.id}
+                product={product}
+                userId={cart.user_id} quantity={product.orderProducts.quantity} />
             ))
           )
         }

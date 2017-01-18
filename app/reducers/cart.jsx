@@ -96,7 +96,7 @@ export const deleteFromCart = (userId, productId) => {
 export const increaseQuantity = (userId, productId) => {
   return dispatch => {
     dispatch(buyMore(productId));
-    axios.put(`/api/orders/cart${userId}/product/${productId}/plus`)
+    axios.put(`/api/orders/cart/${userId}/product/${productId}/plus`)
     .catch(err => console.error('Quantity not altered', err));
   };
 };
@@ -104,7 +104,7 @@ export const increaseQuantity = (userId, productId) => {
 export const decreaseQuantity = (userId, productId) => {
   return dispatch => {
     dispatch(buyLess(productId));
-    axios.put(`/api/orders/cart${userId}/product/${productId}/minus`)
+    axios.put(`/api/orders/cart/${userId}/product/${productId}/minus`)
     .catch(err => console.error('Quantity not altered', err));
   };
 }
