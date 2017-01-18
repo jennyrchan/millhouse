@@ -14,7 +14,7 @@ import Product from './components/Product';
 import UserOrders from './components/UserOrders';
 import UserSettings from './components/UserSettings';
 import UserReviews from './components/UserReviews';
-import EditProduct from './components/EditProduct';
+import NewProduct from './components/NewProduct';
 import NewReview from './components/NewReview';
 
 // import Stripe from './components/Stripe';
@@ -72,10 +72,10 @@ render(
         <Route path="/products" component={Products} />
         <Route path="/products/:productId" onEnter={onProductEnter} component={Product} />
         <Route path="/products/:productId/review" component={NewReview} />
+        <Route path="/newproduct" component={NewProduct} />
         <Route path="/users/:userId/orders" component={UserOrders} onEnter={onUserOrdersEnter} />
         <Route path="/users/:userId/reviews" component={UserReviews} onEnter={onUserReviewsEnter} />
         <Route path="/users/:userId/settings" component={UserSettings} onEnter={onUserSettingsEnter} />
-        <Route path="/products/:productId/editproduct" component = {EditProduct} />
         <Route path="/signup" component={Signup} />
       </Route>
     </Router>
