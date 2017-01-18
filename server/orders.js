@@ -4,8 +4,7 @@ const db = require('APP/db');
 const Order = db.model('orders');
 const Product = db.model('products');
 const OrderProduct = db.model('orderProducts');
-
-const {forbidden, selfOnly} = require('./auth.filters');
+const { forbidden, selfOnly } = require('./auth.filters');
 
 module.exports = require('express').Router()
   .get('/', forbidden('list all orders'), (req, res, next) =>

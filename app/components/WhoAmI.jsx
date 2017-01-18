@@ -13,8 +13,8 @@ export const WhoAmI = ({ user, logout }) => (
 
 /* -----------------    CONTAINER     ------------------ */
 
-import {logout} from 'APP/app/reducers/auth'
-import {connect} from 'react-redux'
+import { logout } from 'APP/app/reducers/auth'
+import { connect } from 'react-redux'
 
 export default connect (
   ({ auth }) => ({ user: auth }),

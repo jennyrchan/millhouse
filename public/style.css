@@ -78,9 +78,11 @@ sidebar section a {
 
 shoppingCart {
   position: fixed;
+  right: 15px;
+  top: 63px;
   padding: 0 !important;
   background: white;
-  height: 80vh;
+  height: 640px;
   overflow-y: auto;
   border-style: solid;
 }
@@ -153,3 +155,9 @@ body {
   background-image: url("background.jpg");
 }
 
+.modal-container {
+  position: relative;
+}
+.modal-container .modal, .modal-container .modal-backdrop {
+  position: absolute;
+}

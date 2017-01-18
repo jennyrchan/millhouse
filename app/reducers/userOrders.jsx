@@ -1,10 +1,12 @@
+/* ------------   ACTION CREATOR     ------------------ */
+
 const RECEIVE_USERORDERS = 'RECEIVE_USERORDERS';
 
 export const receiveUserOrders = orders => ({
   type: RECEIVE_USERORDERS, orders
 });
 
-/* ------------  Reducer ----------------------- */
+/* ------------       REDUCER     ------------------ */
 
 const reducer = (state = {}, action) => {
   let newState = Object.assign({}, state);

@@ -1,44 +1,44 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import UserSidebar from './UserSidebar';
 import ProductMini from './ProductMini';
 
 const UserOrders = props => {
-  let pencil = <button type="button" className="btn btn-default btn-xs"><span className="glyphicon glyphicon-pencil"></span> </button>
+  let pencil = <button type="button" className="btn btn-default btn-xs"><span className="glyphicon glyphicon-pencil"></span></button>
 
-  const {orders} = props;
-  let id, newDate, total;
+  const { orders } = props;
+  let newDate, total;
 
   return (
-    <div className = 'col-xs-9'>
-      <h1 id = 'userTitle'> Past Orders </h1>
+    <div className="col-xs-9">
+      <h1 id="userTitle">Past Orders</h1>
         <div className="background-text-box">
           {
-            orders.length && orders.map((order,id) => {
+            orders.length && orders.map((order, id) => {
               let date = new Date(order[0].created_at).toString().split(' ');
-              newDate = date[1] + " " + date[2] + ", " + date[3];
+              newDate = date[1] + ' ' + date[2] + ', ' + date[3];
               total = 0;
               return (
-                <div key={id} className= "row" >
-                  <h2> {newDate} </h2>
+                <div key={id} className="row">
+                  <h2 style={{textAlign: 'center'}}><b>{newDate}</b></h2>
                   {
                     order.map(product => {
                       total += product.orderProducts.priceAtPurchase * product.orderProducts.quantity;
                       return (
-                        <div className="col-xs-4" key={product.id} >
+                        <div className="col-xs-4" key={product.id}>
                           <ProductMini product={product} price={product.orderProducts.priceAtPurchase} />
-                          <h4>Quantity: {product.orderProducts.quantity} </h4>
+                          <h4>Quantity: {product.orderProducts.quantity}</h4>
                         </div>
                       )
                     })
                   }
-                  <h3>{total/100}</h3>
+                  <h3><b>Order Total: ${(total / 100).toFixed(2)}</b></h3>
                 </div>
               )
             })
           }
         </div>
-      <UserSidebar userId={props.auth.id}/>
+      <UserSidebar userId={props.user.id} />
     </div>
   )
 }
@@ -47,20 +47,11 @@ const UserOrders = props => {
 
 const mapState = state => {
   return {
-    orders : state.userOrders,
-    auth: state.auth
+    orders: state.userOrders,
+    user: state.auth
   };
 }
 
-const mapDispatch = dispatch => {
-  return {};
-}
+const mapDispatch = null;
 
 export default connect(mapState, mapDispatch)(UserOrders);
-
-                // <div id = 'userOrderProducts'>
-                //   <h1> {newDate} </h1>
-                //   <img src={`/cereals/${order.id}.jpg`} id='userOrderImage' />
-                //   <h4> ${order.price} </h4>
-                //   <h4> Order status: {order.status} {pencil} </h4>
-                // </div>

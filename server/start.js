@@ -41,6 +41,11 @@ module.exports = app
   // Serve our api
   .use('/api', require('./api'))
 
+  // Redirect to Github repo
+  .get('/github', (req, res, next) => {
+    res.redirect('https://github.com/jennyrchan/millhouse')
+  })
+
   // Send index.html for anything else.
   .get('/*', (_, res) => res.sendFile(resolve(__dirname, '..', 'public', 'index.html')))
 

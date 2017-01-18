@@ -1,25 +1,24 @@
 'use strict';
 
 import React from 'react';
-import {Router, Route, IndexRedirect, browserHistory, Redirect} from 'react-router';
-import {render} from 'react-dom';
-import {connect, Provider} from 'react-redux';
+import { Router, Route, IndexRedirect, browserHistory } from 'react-router';
+import { render } from 'react-dom';
+import { Provider } from 'react-redux';
 import axios from 'axios';
-
 import store from './store';
-import Navbar from './components/Navbar';
+
+import Auth from './components/Auth';
 import Signup from './components/Signup';
-import Products from './components/Products';
+import Products from './components/Products'
 import Product from './components/Product';
 import UserOrders from './components/UserOrders';
 import UserSettings from './components/UserSettings';
 import UserReviews from './components/UserReviews';
-import EditProduct from './components/EditProduct';
+import NewProduct from './components/NewProduct';
 import NewReview from './components/NewReview';
 
-import Stripe from './components/Stripe';
+// import Stripe from './components/Stripe';
 
-// import { fetchCart } from './reducers/cart';
 import { receiveProduct } from './reducers/product';
 import { receiveProducts } from './reducers/products';
 import { receiveProductReviews } from './reducers/productReviews';
@@ -40,28 +39,18 @@ const onAppEnter = () => {
 const onProductEnter = route => Promise.all([
   axios.get(`/api/products/${+route.params.productId}`),
   axios.get(`/api/products/${+route.params.productId}/reviews`)])
-    .then(responses=> responses.map(response=>response.data))
+    .then(responses => responses.map(response => response.data))
     .then(([product, reviews]) => {
       store.dispatch(receiveProduct(product));
       store.dispatch(receiveProductReviews(reviews));
     })
     .catch(err => console.log('Fetching product and reviews unsuccessful', err));
 
-const AuthContainer = connect(
-  ({ auth }) => ({ user: auth })
-)(
-  ({ user, children }) =>
-    <div>
-      <Navbar />
-      {children}
-    </div>
-)
-
 const onUserSettingsEnter = route =>
   axios.get(`/api/users/${+route.params.userId}`)
   .then(user => user.data)
   .then(user => store.dispatch(receiveUser(user)))
-  .catch(err => console.log('UserSettings Error', err));
+  .catch(err => console.log('User Settings Error', err));
 
 const onUserReviewsEnter = route =>
   axios.get(`/api/users/${+route.params.userId}/reviews`)
@@ -75,20 +64,18 @@ const onUserOrdersEnter = route =>
   .then(orders => store.dispatch(receiveUserOrders(orders)))
   .catch(err => console.log('User Orders Error', err));
 
-
 render(
   <Provider store={store}>
     <Router history={browserHistory}>
-      <Route path="/" component={AuthContainer} onEnter={onAppEnter}>
+      <Route path="/" component={Auth} onEnter={onAppEnter}>
         <IndexRedirect to="/products" />
         <Route path="/products" component={Products} />
         <Route path="/products/:productId" onEnter={onProductEnter} component={Product} />
+        <Route path="/products/:productId/review" component={NewReview} />
+        <Route path="/newproduct" component={NewProduct} />
         <Route path="/users/:userId/orders" component={UserOrders} onEnter={onUserOrdersEnter} />
         <Route path="/users/:userId/reviews" component={UserReviews} onEnter={onUserReviewsEnter} />
         <Route path="/users/:userId/settings" component={UserSettings} onEnter={onUserSettingsEnter} />
-        <Route path="/products/:productId/review" component={NewReview} />
-        <Route path="/products/:productId/editproduct" component = {EditProduct} />
-        <Route path="/checkout" component={Stripe} />
         <Route path="/signup" component={Signup} />
       </Route>
     </Router>

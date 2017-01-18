@@ -22,27 +22,27 @@ class Cart extends Component {
   }
 
   open() {
-    this.setState({show: true});
+    this.setState({ show: true });
   }
 
   close() {
-    this.setState({show: false});
+    this.setState({ show: false });
   }
 
   handleCCNumChange(evt) {
-    if (evt.target.value.length <= 16 && ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'] === 'number') {
-        this.setState({cardNumber: evt.target.value});
+    if (evt.target.value.length <= 16 || typeof +evt.target.value === 'number') {
+        this.setState({ cardNumber: evt.target.value });
     }
   }
 
   handleCCSecurityChange (evt) {
     if (evt.target.value.length <= 4) {
-      this.setState({cardCVC: evt.target.value});
+      this.setState({ cardCVC: evt.target.value });
     }
   }
 
   render () {
-    const cart = this.props.cart || {products: null};
+    const cart = this.props.cart || { products: null };
     const products = cart.products;
     const cartEmpty = 'Why not buy some Cheerios?';
     let totalPrice = 0;
@@ -113,37 +113,3 @@ const mapState = ({ cart }) => ({ cart });
 const mapDispatch = null;
 
 export default connect(mapState, mapDispatch)(Cart);
-
-// <div className="col-xs-1">
-//   { product.quantity >= 2
-//     ? (<button type="button" className="btn btn-default btn-xs"><span className="glyphicon glyphicon-minus"></span> </button>)
-//
-//     : (<button type="button" className="btn btn-default btn-xs"><span className="glyphicon glyphicon-remove"></span> </button>)
-//   }
-//   <p>{product.quantity}</p>
-//   <button type="button" className="btn btn-default btn-xs"><span className="glyphicon glyphicon-plus"></span> </button>
-// </div>
-// <div className="col-xs-6">
-//   <span>{product.name}</span>
-// </div>
-// <div className="col-xs-3">
-//   <img src={product.image} />
-// </div>
-// <div className="col-xs-2">
-//   <span>{product.price}</span>
-// </div>
-// <section id="total">
-//   <div className="row">
-//     <div className="col-xs-10">
-//       <h4>Total:</h4>
-//     </div>
-//     <div className="col-xs-2">
-//       {
-//         products.reduce((subtotal, product) => {
-//           const productTotal = product.quantity * product.price;
-//           return subtotal + productTotal;
-//         }, 0)
-//       }
-//     </div>
-//   </div>
-// </section>

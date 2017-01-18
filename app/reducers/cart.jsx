@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-/* -----------------    ACTIONS     ------------------ */
+/* ------------   ACTION CREATORS     ------------------ */
 
 const RECEIVE_CART = 'RECEIVE_CART';
 const ADD_PRODUCT = 'ADD_PRODUCT';
@@ -9,9 +9,6 @@ const BUY_MORE = 'BUY_MORE';
 const BUY_LESS = 'BUY_LESS';
 const CHECKOUT = 'CHECKOUT';
 
-
-/* ------------   ACTION CREATORS     ------------------ */
-
 export const receiveCart = cart => ({ type: RECEIVE_CART, cart });
 export const addProduct = product => ({ type: ADD_PRODUCT, product });
 export const rmvProduct = productId => ({ type: REMOVE_PRODUCT, productId });
@@ -19,7 +16,7 @@ export const buyMore = productId => ({ type: BUY_MORE, productId });
 export const buyLess = productId => ({ type: BUY_LESS, productId });
 export const checkout = cart => ({ type: CHECKOUT, cart });
 
-/* ------------       REDUCER     ------------------ */
+/* ------------       REDUCERS     ------------------ */
 
 export default function reducer (state = {}, action) {
   const newCart = Object.assign({}, state);

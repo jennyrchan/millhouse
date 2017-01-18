@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import axios from 'axios';
 
 class EditProduct extends Component {
@@ -7,8 +7,8 @@ class EditProduct extends Component {
     super(props);
     this.state = {
       productId: props.routeParams.productId,
-      title: "",
-      summary: "",
+      title: '',
+      summary: '',
       price: 0,
       inventory: 0,
       calories: 0,
@@ -29,42 +29,42 @@ class EditProduct extends Component {
 
   handleTitleChange(event) {
     const title = event.target.value;
-    this.setState({title});
+    this.setState({ title });
   }
 
   handleSummaryChange(event) {
     const summary = event.target.value;
-    this.setState({summary});
+    this.setState({ summary });
   }
 
   handlePriceChange(event) {
     const price = +event.target.value;
-    this.setState({price});
+    this.setState({ price });
   }
 
    handleInventoryChange(event) {
     const inventory = +event.target.value;
-    this.setState({inventory});
+    this.setState({ inventory });
   }
 
    handleCaloriesChange(event) {
     const calories = +event.target.value;
-    this.setState({calories});
+    this.setState({ calories });
   }
 
    handleSugarChange(event) {
     const sugar = +event.target.value;
-    this.setState({sugar});
+    this.setState({ sugar });
   }
 
    handleFiberChange(event) {
     const fiber = +event.target.value;
-    this.setState({fiber});
+    this.setState({ fiber });
   }
 
    handleProteinChange(event) {
     const protein = +event.target.value;
-    this.setState({protein});
+    this.setState({ protein });
   }
 
 // I need an action creator for handleSubmit to dispatch to.
@@ -84,6 +84,7 @@ class EditProduct extends Component {
       fiber,
       protein
     } = this.state;
+
     axios.put(`/api/products/${this.state.productId}`, {
       title,
       summary,
@@ -94,9 +95,9 @@ class EditProduct extends Component {
       fiber,
       protein
     })
-    .then(response => response.data)
-    .then(updatedProduct => console.log(updatedProduct))
-    .catch(error => console.error(error));
+      .then(response => response.data)
+      .then(updatedProduct => console.log(updatedProduct))
+      .catch(error => console.error(error));
   }
 
   componentDidMount() {

@@ -2,8 +2,7 @@
 
 const db = require('APP/db');
 const Review = db.model('reviews');
-
-const {mustBeLoggedIn, forbidden, selfOnly} = require('./auth.filters');
+const { mustBeLoggedIn, forbidden, selfOnly } = require('./auth.filters');
 
 module.exports = require('express').Router()
   .get('/', forbidden('list all reviews'), (req, res, next) =>

@@ -1,16 +1,12 @@
-// Action Creators ====================
-
+/* ------------   ACTION CREATOR     ------------------ */
 
 const RECEIVE_USER = 'RECEIVE_USER';
 
-export const receiveUser = user => (
-  {
-    type: RECEIVE_USER,
-    user
-  }
-);
+export const receiveUser = user => ({
+  type: RECEIVE_USER, user
+});
 
-// ===========   Reducer =========================
+/* ------------       REDUCER     ------------------ */
 
 const reducer = (state = {}, action) => {
   const newState = Object.assign({},state);
