@@ -12,16 +12,16 @@ import {addToCart} from '../reducers/cart';
 export class Product extends Component {
   constructor(props) {
     super(props);
-    this.handleClick = this.handleClick.bind(this);
+    this.clickAddToCart = this.clickAddToCart.bind(this);
   }
 
-  handleClick(evt) {
+  clickAddToCart(evt) {
     const product = Object.assign({}, this.props.product);
     product.orderProducts = {
       priceAtPurchase: product.price,
       quantity: 1
     };
-    return this.props.chooseProduct(this.props.user.id, product)
+    return this.props.chooseProduct(this.props.user.id, product);
   }
 
   render () {
@@ -61,7 +61,7 @@ export class Product extends Component {
                 <li>{product.summary} {pencil}</li>
                 <li>${product.price / 100} {pencil} {product.inventory < 100
                   ? `Hurry Up And Buy!!!!! Only ${product.inventory} left in stock!`
-                  : 'In Stock'}   {pencil} <button className="btn btn-success" onClick={this.handleClick}>Add to Cart <span className="glyphicon glyphicon-shopping-cart"></span></button></li>
+                  : 'In Stock'}   {pencil} <button className="btn btn-success" onClick={this.clickAddToCart}>Add to Cart <span className="glyphicon glyphicon-shopping-cart"></span></button></li>
                 <div className="nutrition-heading">
                   <div>
                     <h3 className="nutrition" >Nutritional Information {pencil}</h3>
@@ -109,7 +109,7 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     chooseProduct: (id, productId) => {
-      dispatch(addToCart(id,productId));
+      dispatch(addToCart(id, productId));
     }
   }
 }

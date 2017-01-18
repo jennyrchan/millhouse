@@ -6,11 +6,11 @@ import {render} from 'react-dom';
 import {connect, Provider} from 'react-redux';
 import axios from 'axios';
 
-import store from './store'
-import Navbar from './components/Navbar'
+import store from './store';
+import Navbar from './components/Navbar';
 import Signup from './components/Signup';
-import Products from './components/Products'
-import Product from './components/Product'
+import Products from './components/Products';
+import Product from './components/Product';
 import UserOrders from './components/UserOrders';
 import UserSettings from './components/UserSettings';
 import UserReviews from './components/UserReviews';
@@ -19,7 +19,7 @@ import NewReview from './components/NewReview';
 
 import Stripe from './components/Stripe';
 
-import { fetchCart } from './reducers/cart';
+// import { fetchCart } from './reducers/cart';
 import { receiveProduct } from './reducers/product';
 import { receiveProducts } from './reducers/products';
 import { receiveProductReviews } from './reducers/productReviews';
@@ -29,7 +29,6 @@ import { receiveUserReviews } from './reducers/userReviews';
 import { receiveUserOrders } from './reducers/userOrders';
 
 const onAppEnter = () => {
-  // fetchCart();
   axios.get('/api/products')
     .then(response => {
       const products = response.data;
