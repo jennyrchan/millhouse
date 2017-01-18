@@ -1,5 +1,7 @@
 import axios from 'axios';
 import { browserHistory } from 'react-router';
+import { fetchCart } from './cart';
+import store from '../store';
 
 /* ------------   ACTION CREATOR     ------------------ */
 
@@ -52,4 +54,11 @@ export const whoami = () =>
   dispatch =>
     axios.get('/api/auth/whoami')
       .then(user => dispatch(authenticated(user.data)))
+      .then(action => {
+        if (action.user) {
+          dispatch(fetchCart(action.user.id));
+        } else {
+          dispatch(fetchCart(null));
+        }
+      })
       .catch(failed => dispatch(authenticated(null)))

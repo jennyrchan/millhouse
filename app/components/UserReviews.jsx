@@ -12,7 +12,7 @@ const UserReviews = props => {
   reviews.length && reviews.map((review, id) => {
     arr[id] = [];
     for (let i = 0; i < review.rating; i++) {
-      arr[id].push(<img src={`/cheerio.jpg`} key={i} />);
+      arr[id].push(<img src={`/cheerio.png`} key={i} />);
     }
   })
 

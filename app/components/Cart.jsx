@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Modal, Button } from 'react-bootstrap';
+import CartItem from './CartItem';
 
 /* -----------------    COMPONENT     ------------------ */
 
@@ -49,7 +50,7 @@ class Cart extends Component {
       totalPrice = products.reduce((subtotal, product) => {
         const productTotal = product.orderProducts.quantity * product.price;
         return subtotal + productTotal;
-      }, 0);
+      }, 0).toFixed(2);
     }
 
     return (
@@ -58,19 +59,9 @@ class Cart extends Component {
         {!products
           ? (<section><h4>{cartEmpty}</h4></section>)
           : (
-            products.map(product => {
-              return (
-                <section key={product.id}>
-                  <button type="button" className="btn btn-default btn-xs"><span className="glyphicon glyphicon-minus"></span></button>
-
-                  <strong> {product.orderProducts.quantity} </strong>
-
-                  <button type="button" className="btn btn-default btn-xs"><span className="glyphicon glyphicon-plus"></span></button>
-
-                  {`${product.title} Cheerios — $${product.price / 100}`}
-                </section>
-              );
-            })
+            products.map(product => (
+              <CartItem key={product.id} product={product} userId={cart.user_id} quantity={product.orderProducts.quantity}/>
+            ))
           )
         }
         <section><h4>Tax — meh</h4></section>

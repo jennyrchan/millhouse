@@ -1,10 +1,11 @@
 import axios from 'axios';
-import {browserHistory} from 'react-router';
+import { browserHistory } from 'react-router';
 
-/* ------------   ACTION CREATOR     ------------------ */
+/* ------------   ACTION CREATORS     ------------------ */
 
 const RECEIVE_PRODUCT = 'RECEIVE_PRODUCT';
 const NEW_PRODUCT = 'NEW_PRODUCT';
+const EDIT_PRODUCT = 'EDIT_PRODUCT';
 
 export const receiveProduct = product => ({
   type: RECEIVE_PRODUCT, product
@@ -17,7 +18,14 @@ export const newProduct = product => {
   }
 }
 
-/* ------------       REDUCER     ------------------ */
+export const editProduct = product => {
+  return {
+    type: EDIT_PRODUCT,
+    product
+  }
+}
+
+/* ------------       REDUCERS     ------------------ */
 
 const reducer = (state = {}, action) => {
 
@@ -39,7 +47,31 @@ const reducer = (state = {}, action) => {
         break;
 
     case NEW_PRODUCT:
-      newState.product = action.product;
+      newState.id =  action.product.id;
+      newState.category = action.product.category;
+      newState.title = action.product.title;
+      newState.image = action.product.image;
+      newState.summary = action.product.summary;
+      newState.price = action.product.price;
+      newState.inventory = action.product.inventory;
+      newState.calories = action.product.calories;
+      newState.sugar = action.product.sugar;
+      newState.fiber = action.product.fiber;
+      newState.protein = action.product.protein;
+      break;
+
+     case EDIT_PRODUCT:
+      newState.id =  action.product.id;
+      newState.category = action.product.category;
+      newState.title = action.product.title;
+      newState.image = action.product.image;
+      newState.summary = action.product.summary;
+      newState.price = action.product.price;
+      newState.inventory = action.product.inventory;
+      newState.calories = action.product.calories;
+      newState.sugar = action.product.sugar;
+      newState.fiber = action.product.fiber;
+      newState.protein = action.product.protein;
       break;
 
     default:
@@ -51,9 +83,19 @@ const reducer = (state = {}, action) => {
 
 export default reducer;
 
-export const dispatchNewProduct = (product) => dispatch => {
+/* ------------       DISPATCHERS     ------------------ */
+
+export const dispatchNewProduct = product => dispatch => {
   dispatch(newProduct(product))
   axios.post(`/api/products`, product)
   .then(() => browserHistory.push(`/products/`))
+  .catch(error => console.error(error));
+}
+
+export const dispatchEditProduct = product => dispatch => {
+  const {id} = product;
+  dispatch(editProduct(product));
+  axios.put(`/api/products/${id}`, product)
+  .then(() => browserHistory.push(`/products/${id}`))
   .catch(error => console.error(error));
 }

@@ -12,7 +12,7 @@ export const Products = props => {
   return (
     <div className="container-fluid">
       <h1>Products</h1>
-      <div className="pull-right">
+      <div >
         {
           user && user.userType === 'admin'
           ? (<Link to={'/newproduct'}><button type="button" className="btn btn-primary"><span className="glyphicon glyphicon-plus"></span> Add New Product</button></Link>)

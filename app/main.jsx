@@ -15,9 +15,8 @@ import UserOrders from './components/UserOrders';
 import UserSettings from './components/UserSettings';
 import UserReviews from './components/UserReviews';
 import NewProduct from './components/NewProduct';
+import EditProduct from './components/EditProduct';
 import NewReview from './components/NewReview';
-
-// import Stripe from './components/Stripe';
 
 import { receiveProduct } from './reducers/product';
 import { receiveProducts } from './reducers/products';
@@ -72,6 +71,7 @@ render(
         <Route path="/products" component={Products} />
         <Route path="/products/:productId" onEnter={onProductEnter} component={Product} />
         <Route path="/products/:productId/review" component={NewReview} />
+        <Route path="/products/:productId/editproduct" component={EditProduct} />
         <Route path="/newproduct" component={NewProduct} />
         <Route path="/users/:userId/orders" component={UserOrders} onEnter={onUserOrdersEnter} />
         <Route path="/users/:userId/reviews" component={UserReviews} onEnter={onUserReviewsEnter} />

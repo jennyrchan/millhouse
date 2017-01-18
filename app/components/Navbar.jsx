@@ -10,11 +10,6 @@ import { fetchCart } from '../reducers/cart';
 class Navbar extends Component {
   constructor(props) {
     super(props);
-    this.clickHandler = this.clickHandler.bind(this);
-  }
-
-  clickHandler() {
-    this.props.fetchCart(this.props.user.id);
   }
 
   render () {
@@ -32,7 +27,6 @@ class Navbar extends Component {
         </div>
         <div className="col-xs-6 border-dashed">
           <div className="row">
-            <button id="shopping-cart" type="button" className="btn btn-success pull-right" onClick={this.clickHandler} ><span className="glyphicon glyphicon-shopping-cart"></span> Broken</button>
             {user ? <WhoAmI /> : <Login />}
           </div>
         </div>
