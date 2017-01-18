@@ -69,20 +69,10 @@ class Cart extends Component {
 
           <Modal show={this.state.show} onHide={this.close}>
             <Modal.Header>
-              <h1>Modal heading</h1>
+              <h1>Checkout</h1>
             </Modal.Header>
             <Modal.Body>
-              <form action="/your-server-side-code" method="POST">
-                <script
-                  src="https://checkout.stripe.com/checkout.js" className="stripe-button"
-                  data-key="pk_test_6pRNASCoBOKtIshFeQd4XMUh"
-                  data-amount="999"
-                  data-name="Stripe.com"
-                  data-description="Widget"
-                  data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
-                  data-locale="auto"
-                  data-zip-code="true">
-                </script>
+              <form>
                 <label>Credit Card</label>
                 <input placeholder="Credit Card"
                   autoComplete="cc-number"
@@ -95,6 +85,7 @@ class Cart extends Component {
                   type="text"
                   value={this.state.cardCVC}
                   onChange={this.handleCCSecurityChange} />
+                <input type="submit" value="submit" />
               </form>
             </Modal.Body>
             <Modal.Footer>

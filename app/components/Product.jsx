@@ -5,13 +5,36 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { addToCart } from '../reducers/cart';
 
+
+import {addToCart} from '../reducers/cart';
+
 /* -----------------    COMPONENT     ------------------ */
 
 export class Product extends Component {
 
-    constructor(props) {
-      super(props)
-      this.clickAddToCart = this.clickAddToCart.bind(this);
+  constructor(props) {
+    super(props);
+    this.clickAddToCart = this.clickAddToCart.bind(this);
+  }
+
+  clickAddToCart(evt) {
+    const product = Object.assign({}, this.props.product);
+    product.orderProducts = {
+      priceAtPurchase: product.price,
+      quantity: 1
+    };
+    return this.props.chooseProduct(this.props.user.id, product);
+  }
+
+  render () {
+    const { product, reviews, user } = this.props;
+
+    let avgRating;
+
+    if (reviews.length) {
+      avgRating = reviews.reduce((accumulator, currentElement) => {
+          return accumulator + currentElement.rating;
+      }, 0) / reviews.length;
     }
 
     clickAddToCart(evt) {

@@ -51,6 +51,7 @@
     "react-rating-system": "^1.0.7",
     "react-redux": "^4.4.5",
     "react-router": "^3.0.0",
+    "react-script-loader": "0.0.1",
     "redux": "^3.6.0",
     "redux-logger": "^2.7.0",
     "redux-thunk": "^2.1.0",
