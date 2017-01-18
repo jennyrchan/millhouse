@@ -12,6 +12,15 @@ h2, h3, h4 {
   font-family: helvetica;
 }
 
+.img-thumbnail {
+  background-color: rgba(255, 255, 255, 0);
+  border-style: none;
+}
+
+#title {
+  text-align: left;
+}
+
 #navbar {
   text-align: center;
   background-color: #968d7f;

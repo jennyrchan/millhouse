@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { browserHistory } from 'react-router';
-import {fetchCart} from './cart';
+import { fetchCart } from './cart';
 import store from '../store';
 
 /* ------------   ACTION CREATOR     ------------------ */

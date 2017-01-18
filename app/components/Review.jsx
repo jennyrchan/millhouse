@@ -4,7 +4,7 @@ function Review (props) {
 
   let arr = [];
   for (let i = 0; i < props.rating; i++) {
-    arr.push(<img className="img-circle" src={`/cheerio.jpg`} key={i} />);
+    arr.push(<img className="img-circle" src={`/cheerio.png`} key={i} />);
   }
 
   return (

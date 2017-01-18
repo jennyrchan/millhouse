@@ -108,3 +108,4 @@ module.exports = require('express').Router()
     Order.destroy({ where: { id: req.params.orderId }})
     .then(() => res.sendStatus(204))
     .catch(next))
+

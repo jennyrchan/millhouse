@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import store from '../store';
-
 import { dispatchNewReview } from '../reducers/productReviews';
+import Rating from 'react-rating-system'
 
 /* -----------------    COMPONENT     ------------------ */
 
@@ -38,8 +38,7 @@ class NewReview extends Component {
   }
 
   handleRatingChange(event) {
-    const rating = +event.target.id;
-    this.setState({ rating });
+    this.setState({ rating: event });
   }
 
   handleSubmit(event) {
@@ -88,36 +87,14 @@ class NewReview extends Component {
             <div className="row">
               <h4 className="col-xs-1"><b>Rating:</b></h4>
               <div className="col-xs-11">
-                <div className="row">
-                  <label className="custom-control custom-radio">
-                    <input id="1" name="1" type="radio" className="custom-control-input col-xs-1" onChange={handleRatingChange} />
-                    <span className="custom-control-description col-xs-8">One out of five... There's a hole in my heart the shape of a cheerio.</span>
-                  </label>
-                </div>
-                <div className="row">
-                  <label className="custom-control custom-radio">
-                    <input id="2" name="2" type="radio" className="custom-control-input col-xs-1" onChange={handleRatingChange} />
-                    <span className="custom-control-description col-xs-8">Two out of five... Could still use more cheery, less O.</span>
-                  </label>
-                </div>
-                <div className="row">
-                  <label className="custom-control custom-radio">
-                    <input id="3" name="3" type="radio" className="custom-control-input col-xs-1" onChange={handleRatingChange} />
-                    <span className="custom-control-description col-xs-8">Three out of five... Better than your average grains-coerced-into-a-ring-shape brand!</span>
-                  </label>
-                </div>
-                <div className="row">
-                  <label className="custom-control custom-radio">
-                    <input id="4" name="4" type="radio" className="custom-control-input col-xs-1" onChange={handleRatingChange} />
-                    <span className="custom-control-description col-xs-8">Four out of five... This cereal is awesOme!</span>
-                  </label>
-                </div>
-                <div className="row">
-                  <label className="custom-control custom-radio">
-                    <input id="5" onChange={handleRatingChange} name="5" type="radio" className="custom-control-input col-xs-1" />
-                    <span className="custom-control-description col-xs-8">Five out of five... Perfect in every way. The very ideal of a breakfast food. We cry together as one, angels descend, the end has arrived.</span>
-                  </label>
-                </div>
+                <Rating
+                  image="/cheerio.png"
+                  fillBG="#428bca"
+                  editable={true}
+                  lockRating={true}
+                  callback={handleRatingChange}
+                  containerStyle={{ maxWidth: '500px' }}
+                />
               </div>
             </div>
             <div className="row input-group">

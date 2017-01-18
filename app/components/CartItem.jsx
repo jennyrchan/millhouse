@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {deleteFromCart, increaseQuantity, decreaseQuantity} from '../reducers/cart';
+import { deleteFromCart, increaseQuantity, decreaseQuantity } from '../reducers/cart';
 
 class CartItem extends Component {
   constructor (props) {

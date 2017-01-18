@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Modal, Button } from 'react-bootstrap';
-import {deleteFromCart, increaseQuantity, decreaseQuantity} from '../reducers/cart';
 import CartItem from './CartItem';
 
 /* -----------------    COMPONENT     ------------------ */
@@ -57,15 +56,11 @@ class Cart extends Component {
     return (
       <shoppingCart id="shopping-cart">
         <h1>Shopping Cart</h1>
-        {
-          !products ? (
-            <section><h4>{cartEmpty}</h4></section>
-          ) : (
+        {!products
+          ? (<section><h4>{cartEmpty}</h4></section>)
+          : (
             products.map(product => (
-              <CartItem
-                key={product.id}
-                product={product}
-                userId={cart.user_id} quantity={product.orderProducts.quantity} />
+              <CartItem key={product.id} product={product} userId={cart.user_id} quantity={product.orderProducts.quantity}/>
             ))
           )
         }

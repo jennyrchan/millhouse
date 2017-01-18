@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import store from '../store';
+import { dispatchEditProduct } from '../reducers/product'
 
 class EditProduct extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      productId: props.routeParams.productId,
+    this.state = ({
+      id: props.routeParams.productId,
       title: '',
       summary: '',
       price: 0,
@@ -15,7 +17,8 @@ class EditProduct extends Component {
       sugar: 0,
       fiber: 0,
       protein: 0,
-    };
+    });
+
     this.handleTitleChange = this.handleTitleChange.bind(this);
     this.handleSummaryChange = this.handleSummaryChange.bind(this);
     this.handlePriceChange = this.handlePriceChange.bind(this);
@@ -29,52 +32,48 @@ class EditProduct extends Component {
 
   handleTitleChange(event) {
     const title = event.target.value;
-    this.setState({ title });
+    this.setState({title});
   }
 
   handleSummaryChange(event) {
     const summary = event.target.value;
-    this.setState({ summary });
+    this.setState({summary});
   }
 
   handlePriceChange(event) {
     const price = +event.target.value;
-    this.setState({ price });
+    this.setState({price});
   }
 
    handleInventoryChange(event) {
     const inventory = +event.target.value;
-    this.setState({ inventory });
+    this.setState({inventory});
   }
 
    handleCaloriesChange(event) {
     const calories = +event.target.value;
-    this.setState({ calories });
+    this.setState({calories});
   }
 
    handleSugarChange(event) {
     const sugar = +event.target.value;
-    this.setState({ sugar });
+    this.setState({sugar});
   }
 
    handleFiberChange(event) {
     const fiber = +event.target.value;
-    this.setState({ fiber });
+    this.setState({fiber});
   }
 
    handleProteinChange(event) {
     const protein = +event.target.value;
-    this.setState({ protein });
+    this.setState({protein});
   }
-
-// I need an action creator for handleSubmit to dispatch to.
-// I need a reducer for the edit to pop off to.
-// That action creator needs to be asynch.
-// The reducer will tell it (somehow) where to go.
 
   handleSubmit(event) {
     event.preventDefault();
     const {
+      id,
       title,
       summary,
       price,
@@ -82,10 +81,10 @@ class EditProduct extends Component {
       calories,
       sugar,
       fiber,
-      protein
+      protein,
     } = this.state;
-
-    axios.put(`/api/products/${this.state.productId}`, {
+    const product = {
+      id,
       title,
       summary,
       price,
@@ -93,36 +92,40 @@ class EditProduct extends Component {
       calories,
       sugar,
       fiber,
-      protein
-    })
-      .then(response => response.data)
-      .then(updatedProduct => console.log(updatedProduct))
-      .catch(error => console.error(error));
+      protein,
+    }
+
+    store.dispatch(dispatchEditProduct(product));
+
   }
 
   componentDidMount() {
-    axios.get(`/api/products/${this.state.productId}`)
+    const {id} = this.state;
+    axios.get(`/api/products/${id}`)
       .then(response => response.data)
-      .then(product => this.setState(product));
+      .then(product => {
+        this.setState({
+          title: product.title,
+          summary: product.summary,
+          price: product.price,
+          inventory: product.inventory,
+          calories: product.calories,
+          sugar: product.sugar,
+          fiber: product.fiber,
+          protein: product.protein,
+        })
+      });
   }
 
   render() {
-    const {
-      title,
-      summary,
-      price,
-      inventory,
-      calories,
-      sugar,
-      fiber,
-      protein
-    } = this.state;
+    const { title, summary, price, inventory, calories, sugar, fiber, protein } = this.state;
+    const { handleTitleChange, handleSummaryChange, handlePriceChange, handleInventoryChange, handleCaloriesChange, handleSugarChange, handleFiberChange, handleProteinChange, handleSubmit } = this;
 
     return (
-      <div className="row">
-        <form onSubmit={this.handleSubmit}>
-          <div className="row">
-            <label htmlFor="title" className="col-xs-1">Title</label>
+      <div className="container-fluid">
+        <form onSubmit={handleSubmit}>
+          <div className="container-fluid">
+            <h4 className="col-xs-1"><b>Title:</b></h4>
             <div className="input-group col-xs-11">
               <input
                 type="text"
@@ -130,96 +133,96 @@ class EditProduct extends Component {
                 id="title"
                 aria-describedby="title"
                 value={title}
-                onChange={this.handleTitleChange}
+                onChange={handleTitleChange}
               />
             </div>
           </div>
           <div className="row">
-            <label className="col-xs-3">
-              Summary:
-            </label>
-            <textarea
-              className="form-control col-xs-9"
-              rows="5"
-              name="summary"
-              value={summary}
-              onChange={this.handleSummaryChange}
-            />
+            <h4 className="col-xs-1"><b>Summary:</b></h4>
+            <div className="input-group col-xs-11">
+              <textarea
+                className="form-control col-xs-9"
+                rows="5"
+                name="summary"
+                value={summary}
+                onChange={handleSummaryChange}
+              />
+            </div>
           </div>
           <div className="row input-group">
             <div className="col-xs-6">
-              <label htmlFor="price">Price (in cents!)</label>
+              <h4><b>Price: (in cents)</b></h4>
               <input
                 type="text"
                 className="form-control"
                 id="price"
                 aria-describedby="price"
                 value={price}
-                onChange={this.handlePriceChange}
+                onChange={handlePriceChange}
                />
             </div>
             <div className="col-xs-6">
-              <label htmlFor="inventory">Inventory</label>
+              <h4><b>Inventory:</b></h4>
               <input
                 type="text"
                 className="form-control"
                 id="inventory"
                 aria-describedby="inventory"
                 value={inventory}
-                onChange={this.handleInventoryChange}
+                onChange={handleInventoryChange}
                />
             </div>
           </div>
           <div className="row input-group">
             <div className="col-xs-6">
-              <label htmlFor="calories">Calories</label>
+              <h4><b>Calories:</b></h4>
               <input
                 type="text"
                 className="form-control"
                 id="calories"
                 aria-describedby="calories"
                 value={calories}
-                onChange={this.handleCaloriesChange}
+                onChange={handleCaloriesChange}
                />
             </div>
             <div className="col-xs-6">
-              <label htmlFor="sugar">Sugar</label>
+              <h4><b>Sugar:</b></h4>
               <input
                 type="text"
                 className="form-control"
                 id="sugar"
                 aria-describedby="sugar"
                 value={sugar}
-                onChange={this.handleSugarChange}
+                onChange={handleSugarChange}
                />
             </div>
           </div>
           <div className="row input-group">
             <div className="col-xs-6">
-              <label htmlFor="fiber">Fiber</label>
+              <h4><b>Fiber:</b></h4>
               <input
                 type="text"
                 className="form-control"
                 id="fiber"
                 aria-describedby="fiber"
                 value={fiber}
-                onChange={this.handleFiberChange}
+                onChange={handleFiberChange}
                />
             </div>
             <div className="col-xs-6">
-              <label htmlFor="protein">Protein</label>
+              <h4><b>Protein:</b></h4>
               <input
                 type="text"
                 className="form-control"
                 id="protein"
                 aria-describedby="protein"
                 value={protein}
-                onChange={this.handleProteinChange}
+                onChange={handleProteinChange}
                />
             </div>
           </div>
           <div className="row input-group">
-            <button type="submit" className="btn btn-primary col-xs-12 col-xs-offset-1">Submit Your Edits</button>
+            <button type="submit" className="btn btn-primary col-xs-12 col-xs-offset-1">Save Changes</button>
           </div>
         </form>
       </div>
