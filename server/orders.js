@@ -28,7 +28,6 @@ module.exports = require('express').Router()
 
   // Add new product to the shopping cart
   .put('/cart/:id/product/:productId', (req, res, next) => {
-    console.log(req.body);
     Order.find({
       where: {user_id: req.params.id, status: 'pending' },
       include: [
@@ -43,7 +42,7 @@ module.exports = require('express').Router()
         };
         return OrderProduct.create(product);
       })
-      .then((product) => res.sendStatus(201))
+      .then(() => res.sendStatus(201))
       .catch(next);
   })
 
@@ -74,19 +73,13 @@ module.exports = require('express').Router()
           where: {
             product_id: req.params.productId,
             order_id: order.id }
-          })
+          });
       })
       .then(orderProduct => {
-        console.log(orderProduct);
-        let quantity = orderProduct.quantity
-        if (req.params.math === 'plus') {
-          console.log('INCREASING');
-          quantity++
-        } else if (req.params.math === 'minus') {
-          console.log('DECREASING!');
-          quantity--
-        }
-        return orderProduct.update({ quantity })
+        let quantity = orderProduct.quantity;
+        if (req.params.math === 'plus') quantity++;
+        else if (req.params.math === 'minus') quantity--;
+        return orderProduct.update({ quantity });
       })
       .then(() => res.sendStatus(202))
       .catch(next);
@@ -96,8 +89,8 @@ module.exports = require('express').Router()
   .put('/cart/:id/checkout', selfOnly('check yoursself out ;)'), (req, res, next) => {
     Order.findById(req.body.orderId)
       .then(cart => cart.update(req.body))
-      .then(order => res.sendStatus(200))
-      .catch(next)
+      .then(() => res.sendStatus(200))
+      .catch(next);
   })
 
   .get('/:orderId', (req, res, next) =>
