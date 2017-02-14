@@ -1,5 +1,6 @@
 'use strict'
 
+require('newrelic')
 const express = require('express')
 const bodyParser = require('body-parser')
 const {resolve} = require('path')
