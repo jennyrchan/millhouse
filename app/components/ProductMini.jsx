@@ -10,7 +10,7 @@ function ProductMini (props) {
     <div className="row">
       <Link className="thumbnail" to={`/products/${product.id}`}>
         <div className="col-xs-6">
-          <img src={`/cereals/${product.id}.png`} />
+          <img src={`/cereals/${product.id}.png`} className="img-thumbnail" />
         </div>
         <div className="col-xs-6">
           <h3>{ product.title }</h3>
